@@ -4,6 +4,7 @@
 #include <iostream>
 #include <limits>
 
+// Определение идентификаторов для цен журнала и газеты
 #define MAGAZINE_PRICE 80.
 #define NEWSPAPER_PRICE 5.
 
@@ -16,37 +17,70 @@ int main()
     // Установка корректного вывода кириллицы в консоль Windows
     setlocale(LC_ALL, "Russian");
 
-    cout << "Здравсвтуйте. Выберите приобретаемый товар\n1 - журнал\n2 - газета" << endl;
-    int choice;
+    cout << "Здравсвтуйте.\nВыберите приобретаемый товар\n"
+            "1 - журнал\n2 - газета" << endl;
+    
+    int choice; // Переменная выбора товара
+    bool bIsOK; // Флаг проверки корректности операции покупки
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-A:
-    cin >> choice;
-
-    switch (choice)
+    do
     {
-    case 1:
-        cout << "Выбран журнал. Внесите деньги.\n";
-        float PaymentMagazine;
-        cin >> PaymentMagazine;
-        if (PaymentMagazine < MAGAZINE_PRICE) { cout << "Не достаточная сумма" << endl; }
-        else if (PaymentMagazine == MAGAZINE_PRICE) { cout << "Вы купили журнал" << endl; }
-        else { cout << "Вы купили журнал. Ваша сдача " << PaymentMagazine - MAGAZINE_PRICE << endl; }
-        break;
-    case 2:
-        cout << "Выбрана газета. Внесите деньги.";
-        float PaymentNewspaper;
-        cin >> PaymentNewspaper;
-        if (PaymentNewspaper < NEWSPAPER_PRICE) { cout << "Не достаточная сумма" << endl; }
-        else if (PaymentNewspaper == NEWSPAPER_PRICE) { cout << "Вы купили газету" << endl; }
-        else { cout << "Вы купили газету. Ваша сдача " << PaymentNewspaper - NEWSPAPER_PRICE << endl; }
-        break;
-    default:
-        cout << "Неверный выбор!\n";
-        goto A;
-        //break;
-    }
-
+        bIsOK = false;
+        cin >> choice; // Ввод выбора товара
+        switch (choice)
+        {
+        case 1: // Случай 1 - журнал
+            cout << "Выбран журнал. Внесите деньги.\n";
+            float PaymentMagazine;
+            do {
+                cin >> PaymentMagazine; // "Внесение" оплаты
+                // Внесённая сумма меньше цены
+                if (PaymentMagazine < MAGAZINE_PRICE) {
+                    cout << "Не достаточная сумма. Доплатите." << endl;
+                    bIsOK = false; // Покупка не удалась
+                }
+                // Внесённая сумма равна цене
+                else if (PaymentMagazine == MAGAZINE_PRICE) {
+                    cout << "Вы купили журнал" << endl;
+                    bIsOK = true; // Покупка ОК
+                }
+                // Внесённая сумма больше цены
+                else {
+                    cout << "Вы купили журнал. Ваша сдача "
+                         // Рассчитываем сдачу
+                         << PaymentMagazine - MAGAZINE_PRICE << endl;
+                    bIsOK = true; // Покупка ОК
+                }
+            } while (!bIsOK); // Проверка корректности покупки
+            break;
+        case 2: // Случай 2 - газета
+            cout << "Выбрана газета. Внесите деньги. ";
+            float PaymentNewspaper;
+            do {
+                cin >> PaymentNewspaper; // "Внесение" оплаты
+                // Внесённая сумма меньше цены
+                if (PaymentNewspaper < NEWSPAPER_PRICE) {
+                    cout << "Не достаточная сумма. Доплатите." << endl;
+                    bIsOK = false; // Покупка не удалась
+                }
+                // Внесённая сумма равна цене
+                else if (PaymentNewspaper == NEWSPAPER_PRICE) {
+                    cout << "Вы купили газету" << endl;
+                    bIsOK = true; // Покупка ОК
+                }
+                // Внесённая сумма больше цены
+                else {
+                    cout << "Вы купили газету. Ваша сдача "
+                            << PaymentNewspaper - NEWSPAPER_PRICE << endl;
+                    bIsOK = true; // Покупка ОК
+                }
+            } while (!bIsOK); // Проверка корректности покупки
+            break;
+        default: // Случаи неверного выбора товара
+            cout << "Неверный выбор!\n";
+            bIsOK = false; // Покупка не удалась
+        }
+    } while (!bIsOK); // Проверка корректности покупки
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
