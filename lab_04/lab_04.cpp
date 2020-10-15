@@ -22,6 +22,7 @@ int main()
     
     int choice; // Переменная выбора товара
     bool bIsOK; // Флаг проверки корректности операции покупки
+    float payment; // Переменная для хранения оплаты
 
     do
     {
@@ -31,16 +32,15 @@ int main()
         {
         case 1: // Случай 1 - журнал
             cout << "Выбран журнал. Внесите деньги.\n";
-            float PaymentMagazine;
             do {
-                cin >> PaymentMagazine; // "Внесение" оплаты
+                cin >> payment; // "Внесение" оплаты
                 // Внесённая сумма меньше цены
-                if (PaymentMagazine < MAGAZINE_PRICE) {
+                if (payment < MAGAZINE_PRICE) {
                     cout << "Не достаточная сумма. Доплатите." << endl;
                     bIsOK = false; // Покупка не удалась
                 }
                 // Внесённая сумма равна цене
-                else if (PaymentMagazine == MAGAZINE_PRICE) {
+                else if (payment == MAGAZINE_PRICE) {
                     cout << "Вы купили журнал" << endl;
                     bIsOK = true; // Покупка ОК
                 }
@@ -48,30 +48,29 @@ int main()
                 else {
                     cout << "Вы купили журнал. Ваша сдача "
                          // Рассчитываем сдачу
-                         << PaymentMagazine - MAGAZINE_PRICE << endl;
+                         << payment - MAGAZINE_PRICE << endl;
                     bIsOK = true; // Покупка ОК
                 }
             } while (!bIsOK); // Проверка корректности покупки
             break;
         case 2: // Случай 2 - газета
             cout << "Выбрана газета. Внесите деньги. ";
-            float PaymentNewspaper;
             do {
-                cin >> PaymentNewspaper; // "Внесение" оплаты
+                cin >> payment; // "Внесение" оплаты
                 // Внесённая сумма меньше цены
-                if (PaymentNewspaper < NEWSPAPER_PRICE) {
+                if (payment < NEWSPAPER_PRICE) {
                     cout << "Не достаточная сумма. Доплатите." << endl;
                     bIsOK = false; // Покупка не удалась
                 }
                 // Внесённая сумма равна цене
-                else if (PaymentNewspaper == NEWSPAPER_PRICE) {
+                else if (payment == NEWSPAPER_PRICE) {
                     cout << "Вы купили газету" << endl;
                     bIsOK = true; // Покупка ОК
                 }
                 // Внесённая сумма больше цены
                 else {
                     cout << "Вы купили газету. Ваша сдача "
-                            << PaymentNewspaper - NEWSPAPER_PRICE << endl;
+                            << payment - NEWSPAPER_PRICE << endl;
                     bIsOK = true; // Покупка ОК
                 }
             } while (!bIsOK); // Проверка корректности покупки

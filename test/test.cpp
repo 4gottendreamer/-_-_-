@@ -100,6 +100,15 @@ int main()
     printf("%s\n", string);
     printf("%d\n", count);
     printf("%f\n", fp);
+
+    if (<condition>)
+    {
+        <statement1>;
+    }
+    else
+    {
+        <statement2>;
+    }
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
