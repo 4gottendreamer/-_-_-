@@ -1,11 +1,49 @@
 ﻿// lab_05.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
+// Вариант №6.
+// Даны натуральное число n, действительные числа а1,..., an.
+// Вычислить обратную величину произведения тех членов
+// последовательности a1,..., an, для которых выполняется условие i + 1 < a_i < i!
+//
 
 #include <iostream>
 
+using namespace std;
+
+double factorial_recursive(long int _N)
+{
+    if (_N)
+    {
+        //cout << _N * factorial_recursive(_N - 1) << endl;
+        return _N * factorial_recursive(_N - 1);
+    }
+    else return 1;
+}
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    setlocale(LC_ALL, "Russian");
+
+    int N;
+    double* a;
+
+    cout << "Введите N: ";
+    cin >> N;
+
+    a = new double[N];
+    for (int i = 0; i < N; i++)
+    {
+        a[i] = rand() % 13;
+        cout << i + 1 << '\t' << a[i] << endl;
+    }
+
+    for (int i = 0; i < N; i++)
+    {
+        if (i + 1 < a[i] and a[i] < factorial_recursive(i))
+        {
+            cout << i + 1 << " < " << a[i] << " < " << factorial_recursive(i) << endl;
+        }
+    }
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
