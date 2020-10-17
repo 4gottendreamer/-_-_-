@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
@@ -21,17 +22,18 @@ long long factorial_recursive(long int _N)
 
 long long factorial(long int _N)
 {
-    long long F = 1;
+    long long fact = 1;
     for (int i = 1; i <= _N; i++)
     {
-        F *= i;
+        fact *= i;
     }
-    return F;
+    return fact;
 }
 
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "Russian"); // Установка корректного вывода 
+    srand(time(NULL)); // Установка генератора случайных чисел
 
     int N;
     double* a;
@@ -50,18 +52,18 @@ int main()
     {
         if (i + 1 < a[i] and a[i] < factorial_recursive(i))
         {
-            cout << i + 1 << " < " << a[i] << " < " << factorial_recursive(i) << endl;
+            cout << i + 1 << " < " << 1./a[i] << " < " << factorial_recursive(i) << endl;
         }
     }
-
-    // ТЕСТЫ. УДАЛИТЬ В КОНЦЕ
+    
+/*    // ТЕСТЫ. УДАЛИТЬ В КОНЦЕ
     cout << endl;
     cout << endl;
 
     for (int i = 0; i < N; i++)
     {
         cout << i << '\t' << factorial(i) << "\n\t" << factorial_recursive(i) << endl;
-    }
+    }*/
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
