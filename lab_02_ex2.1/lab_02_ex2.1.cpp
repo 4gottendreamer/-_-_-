@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <conio.h>
 
 using namespace std;
 
@@ -16,6 +17,8 @@ int main()
 
     cout << "Rectangle perimeter is " << 2 * (a + b) << endl;
     cout << "Rectangle area is " << a * b << endl;
+
+    _getch();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

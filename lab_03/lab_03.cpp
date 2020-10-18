@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <conio.h>
 #include <cmath> // Подключение библиотеки с математическими функциями
 
 using namespace std;
@@ -33,6 +34,8 @@ int main()
 
     cout << "y(x, z, t) = | x^3 - 10 | * (arctg(z + 0.2) + e^(-(x / 2 + 3)))" << endl;
     cout << "y(" << x << ", " << z << ", " << t << ") = " << y << endl;
+
+    _getch();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

@@ -8,9 +8,13 @@
 
 #include <iostream>
 #include <ctime>
+#include <cmath>
+#include <string>
 
 using namespace std;
 
+// Возвращает факториал числа _N
+// Рекурсивный алгорим
 long long factorial_recursive(long int _N)
 {
     if (_N)
@@ -20,6 +24,8 @@ long long factorial_recursive(long int _N)
     else return 1;
 }
 
+// Возвращает факториал числа _N
+// Итерационный алгорим
 long long factorial(long int _N)
 {
     long long fact = 1;
@@ -32,7 +38,7 @@ long long factorial(long int _N)
 
 int main()
 {
-    setlocale(LC_ALL, "Russian"); // Установка корректного вывода 
+    setlocale(LC_ALL, "Russian"); // Установка корректного вывода кириллицы
     srand(time(NULL)); // Установка генератора случайных чисел
 
     int N;
@@ -40,30 +46,31 @@ int main()
 
     cout << "Введите N: ";
     cin >> N;
-
+    
+    cout.precision(8);
+    
     a = new double[N];
     for (int i = 0; i < N; i++)
     {
-        a[i] = rand() % 13;
+        a[i] = rand() % 100 / (i % rand()? i % rand() : i + 1 );
+        //a[i] = rand() % (int)((pow(-1., i) + i) ? (pow(-1., i) + i) : 10);
         cout << i + 1 << '\t' << a[i] << endl;
     }
+
+    cout << endl << "i + 1 < a_i < i!" << endl;
 
     for (int i = 0; i < N; i++)
     {
         if (i + 1 < a[i] and a[i] < factorial_recursive(i))
         {
-            cout << i + 1 << " < " << 1./a[i] << " < " << factorial_recursive(i) << endl;
+            cout << i + 1 << "\t< " << 1./a[i] << "\t< " << factorial_recursive(i) << endl;
+            //cout << i + 1 << "\t< " << 1. / a[i] << "\t< " << factorial_recursive(i) << endl;
         }
     }
     
-/*    // ТЕСТЫ. УДАЛИТЬ В КОНЦЕ
-    cout << endl;
-    cout << endl;
-
-    for (int i = 0; i < N; i++)
-    {
-        cout << i << '\t' << factorial(i) << "\n\t" << factorial_recursive(i) << endl;
-    }*/
+    // Игнорирование символа '\n' в потоке ввода
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get(); // Ожидание нажатия Enter
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
