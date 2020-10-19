@@ -6,22 +6,13 @@
 // последовательности a1,..., an, для которых выполняется условие i + 1 < a_i < i!
 //
 
+#define _USE_MATH_DEFINES
+#define DIVISOR 100
 #include <iostream>
 #include <ctime>
 #include <cmath>
 
 using namespace std;
-
-// Возвращает факториал числа _N
-// Рекурсивный алгорим
-long long factorial_recursive(long int _N)
-{
-    if (_N)
-    {
-        return _N * factorial_recursive(_N - 1);
-    }
-    else return 1;
-}
 
 // Возвращает факториал числа _N
 // Итерационный алгорим
@@ -35,6 +26,17 @@ long long factorial(long int _N)
     return fact;
 }
 
+// Возвращает факториал числа _N
+// Рекурсивный алгорим
+long long factorial_recursive(long int _N)
+{
+    if (_N)
+    {
+        return _N * factorial_recursive(_N - 1);
+    }
+    else return 1;
+}
+
 int main()
 {
     setlocale(LC_ALL, "Russian"); // Установка корректного вывода кириллицы
@@ -42,34 +44,45 @@ int main()
 
     int N;
     double* a;
+    double random;
 
-    cout << "Введите N: ";
+    cout << "Введите количество элементов массива:" << endl;
     cin >> N;
+    a = new double[N]; // Выделение память под массив
     
-    cout.precision(8);
+    cout.precision(15);
     
-    a = new double[N];
+    // Заполнение массива псевослучайной последовательностю чисел
     for (int i = 0; i < N; i++)
     {
-        a[i] = rand() % 100 / (i % rand()? i % rand() : i + 1 );
-        //a[i] = rand() % (int)((pow(-1., i) + i) ? (pow(-1., i) + i) : 10);
-        cout << i + 1 << '\t' << a[i] << endl;
+        random = pow(-1, i) * M_PI;
+        a[i] = (rand() % DIVISOR) / random;
+        printf("%2d\t%1.8lf\t%1.8lf\n",i + 1, a[i], random);
     }
 
     cout << endl << "i + 1 < a_i < i!" << endl;
+    bool IsAnyFits = 0;
 
+    // Проверка условий задачи
     for (int i = 0; i < N; i++)
     {
-        if (i + 1 < a[i] and a[i] < factorial_recursive(i))
+        __int64 F = factorial_recursive(i + 1);
+        if (i + 2 < a[i] and a[i] < F)
         {
-            cout << i + 1 << "\t< " << 1./a[i] << "\t< " << factorial_recursive(i) << endl;
-            //cout << i + 1 << "\t< " << 1. / a[i] << "\t< " << factorial_recursive(i) << endl;
+            IsAnyFits = true;
+            printf("%2d\t< %.8lf\t< %lld\n", i + 1, 1. / a[i], F);
         }
     }
     
+    for (int i = 0; i < N; i++)
+        cout << i << '\t' << factorial_recursive(i) << "\t\t" << factorial(i) << endl;
+
+    if (!IsAnyFits)
+        cout << "Нет чисел, удовлетворяющих условию" << endl;
+
     // Игнорирование символа '\n' в потоке ввода
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cin.get(); // Ожидание нажатия Enter
+    //cin.get(); // Ожидание нажатия Enter
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
