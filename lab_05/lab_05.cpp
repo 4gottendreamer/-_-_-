@@ -7,7 +7,7 @@
 //
 
 #define _USE_MATH_DEFINES
-#define DIVISOR 100
+#define DIVISOR 1000
 #include <iostream>
 #include <ctime>
 #include <cmath>
@@ -47,6 +47,7 @@ int main()
     double random;
 
     cout << "Введите количество элементов массива:" << endl;
+    // !!! ---> При N > 20 значение факториала вызывает переполнение __int64 <--- !!!
     cin >> N;
     a = new double[N]; // Выделение память под массив
     
@@ -75,7 +76,7 @@ int main()
     }
     
     for (int i = 0; i < N; i++)
-        cout << i << '\t' << factorial_recursive(i) << "\t\t" << factorial(i) << endl;
+        cout << i + 1 << '\t' << factorial_recursive(i + 1) << "\t\t" << factorial(i + 1) << endl;
 
     if (!IsAnyFits)
         cout << "Нет чисел, удовлетворяющих условию" << endl;
