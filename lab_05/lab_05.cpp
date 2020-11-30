@@ -46,14 +46,15 @@ int main()
     double* a;
     double random;
 
-    cout << "Введите количество элементов массива:" << endl;
-    // !!! ---> При N > 20 значение факториала вызывает переполнение __int64 <--- !!!
+    cout << "Введите количество элементов массива:\n" <<
+        "Внимание! При N > 20 значение факториала вызывает переполнение __int64" << endl;
+    // !!! При N > 20 значение факториала вызывает переполнение __int64 !!!
     cin >> N;
-    a = new double[N]; // Выделение память под массив
+    a = new double[N]; // Выделение памяти под массив
     
-    cout.precision(15);
+    cout.precision(15); // Вывод количества знаков после запятой (точки) в консоль
     
-    // Заполнение массива псевослучайной последовательностю чисел
+    // Заполнение массива псевдослучайной последовательностю чисел
     for (int i = 0; i < N; i++)
     {
         random = pow(-1, i) * M_PI;
@@ -62,7 +63,7 @@ int main()
     }
 
     cout << endl << "i + 1 < a_i < i!" << endl;
-    bool IsAnyFits = 0;
+    bool IsAnyFits = 0; // Флаг 
 
     // Проверка условий задачи
     for (int i = 0; i < N; i++)
@@ -74,15 +75,17 @@ int main()
             printf("%2d\t< %.8lf\t< %lld\n", i + 1, 1. / a[i], F);
         }
     }
-    
+    /*
     for (int i = 0; i < N; i++)
-        cout << i + 1 << '\t' << factorial_recursive(i + 1) << "\t\t" << factorial(i + 1) << endl;
+        cout << i + 1 << '\t' << factorial_recursive(i + 1) << "\t\t"
+        << factorial(i + 1) << endl;*/
 
     if (!IsAnyFits)
         cout << "Нет чисел, удовлетворяющих условию" << endl;
 
     // Игнорирование символа '\n' в потоке ввода
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Нажмите Enter";
     cin.get(); // Ожидание нажатия Enter
 }
 
