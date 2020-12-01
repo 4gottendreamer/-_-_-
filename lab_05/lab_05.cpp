@@ -98,6 +98,8 @@ int main()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Нажмите Enter";
     cin.get(); // Ожидание нажатия Enter
+
+    return 0;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
