@@ -2,12 +2,13 @@
 //
 // Вариант №6.
 // Даны натуральное число n, действительные числа а1,..., an.
-// Вычислить обратную величину произведения тех членов
-// последовательности a1,..., an, для которых выполняется условие i + 1 < a_i < i!
+// Вычислить обратную величину произведения тех членов последовательности a1,..., an,
+// для которых выполняется условие i + 1 < a_i < i!
 //
 
-#define _USE_MATH_DEFINES
-#define DIVISOR 1000
+#define _USE_MATH_DEFINES   // Директива использования встроенных математических констант
+#define DIVISOR 1000        // Макрос подстановки токена
+                            // (для настройки генератора псевдослучаных чисел)
 #include <iostream>
 #include <ctime>
 #include <cmath>
@@ -16,9 +17,10 @@ using namespace std;
 
 // Возвращает факториал числа _N
 // Итерационный алгорим
-long long factorial(long int _N)
+// !!! При N > 20 значение факториала вызывает переполнение unsigned __int64 !!!
+unsigned long long factorial(long int _N)
 {
-    long long fact = 1;
+    unsigned long long fact = 1;
     for (int i = 1; i <= _N; i++)
     {
         fact *= i;
@@ -28,7 +30,8 @@ long long factorial(long int _N)
 
 // Возвращает факториал числа _N
 // Рекурсивный алгорим
-long long factorial_recursive(long int _N)
+// !!! При N > 20 значение факториала вызывает переполнение unsigned __int64 !!!
+unsigned long long factorial_recursive(unsigned long int _N)
 {
     if (_N)
     {
@@ -47,41 +50,49 @@ int main()
     double random;
 
     cout << "Введите количество элементов массива:\n" <<
-        "Внимание! При N > 20 значение факториала вызывает переполнение __int64" << endl;
-    // !!! При N > 20 значение факториала вызывает переполнение __int64 !!!
+        "Внимание! При значениях больше 20 вычисление факториала вызывает "
+        "переполнение типа unsigned __int64." << endl;
+
     cin >> N;
     a = new double[N]; // Выделение памяти под массив
-    
-    cout.precision(15); // Вывод количества знаков после запятой (точки) в консоль
-    
+
     // Заполнение массива псевдослучайной последовательностю чисел
+    // и вывод значений элементов в консоль
+    cout << "Последовательность псевдослучаных чисел:" << endl;
     for (int i = 0; i < N; i++)
     {
         random = pow(-1, i) * M_PI;
         a[i] = (rand() % DIVISOR) / random;
-        printf("%2d\t%1.8lf\t%1.8lf\n",i + 1, a[i], random);
+        printf("%2d\t%16.8lf\n", i + 1, a[i]);
     }
 
-    cout << endl << "i + 1 < a_i < i!" << endl;
-    bool IsAnyFits = 0; // Флаг 
+    cout << endl << "\nПроверка условия\ni + 1 < a_i < i!" << endl;
+
+    bool IsAnyFits = 0; // Флаг проверки выполнения условия
 
     // Проверка условий задачи
     for (int i = 0; i < N; i++)
     {
-        __int64 F = factorial_recursive(i + 1);
+        unsigned __int64 F = factorial_recursive(i + 1);
         if (i + 2 < a[i] and a[i] < F)
         {
-            IsAnyFits = true;
-            printf("%2d\t< %.8lf\t< %lld\n", i + 1, 1. / a[i], F);
+            IsAnyFits = true; // Если условие выполняется хотя бы раз, "поднимаем" флаг
+            printf("%2d\t< %16.8lf\t< %21lld\n", i + 2, a[i], F);
+            printf("1/a_%2d =\t%10.8lf\n\n", i + 1, 1. / a[i]);
         }
     }
-    /*
-    for (int i = 0; i < N; i++)
-        cout << i + 1 << '\t' << factorial_recursive(i + 1) << "\t\t"
-        << factorial(i + 1) << endl;*/
 
+    delete []a; // Удаление выделенной под массив памяти
+
+    // Если условие не выполнилось ни разу, сообщить об этом
     if (!IsAnyFits)
         cout << "Нет чисел, удовлетворяющих условию" << endl;
+
+    /*
+    for (int i = 0; i < N; i++) {
+        unsigned __int64 F = factorial(i + 1);
+        printf("%2d\t< %40lld\n", i + 1, F);
+    }*/
 
     // Игнорирование символа '\n' в потоке ввода
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
