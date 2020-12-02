@@ -6,32 +6,22 @@
 #include <iostream>
 
 using namespace std;
-/*
-    Определение функции Main
-    Выводит на консоль строку Hello World!
-*/
+
 int main()
 {
     std::cout << "Hello World!\n";
     
-    int iINT = 1;
-    unsigned int uiINT = 1;
-    long int liINT = 1;
-    long long llINT = 1;
-    float fFLOAT = 1;
-    double dFLOAT = 1;
-    long double ldFLOAT = 1;
-    char cChar = 'a';
-    char32_t wcChar32 = 'A';
-    cout << "sizeof(iINT)\t\t" << sizeof(iINT) << endl;
-    cout << "sizeof(unsigned int)\t" << sizeof(uiINT) << endl;
-    cout << "sizeof(long int)\t" << sizeof(liINT) << endl;
-    cout << "sizeof(long long)\t" << sizeof(llINT) << endl;
-    cout << "sizeof(float)\t\t" << sizeof(fFLOAT) << endl;
-    cout << "sizeof(double)\t\t" << sizeof(dFLOAT) << endl;
-    cout << "sizeof(long double)\t" << sizeof(ldFLOAT) << endl;
-    cout << "sizeof(char)\t\t" << sizeof(cChar) << endl;
-    cout << "sizeof(char32_t)\t" << sizeof(wcChar32) << endl;
+    int iINT = 1;               cout << "sizeof(iINT)\t\t" << sizeof(iINT) << endl;
+
+    unsigned int uiINT = 1;     cout << "sizeof(unsigned int)\t" << sizeof(uiINT) << endl;
+    long int liINT = 1;         cout << "sizeof(long int)\t" << sizeof(liINT) << endl;
+    long long llINT = 1;        cout << "sizeof(long long)\t" << sizeof(llINT) << endl;
+    float fFLOAT = 1;           cout << "sizeof(float)\t\t" << sizeof(fFLOAT) << endl;
+    double dFLOAT = 1;          cout << "sizeof(double)\t\t" << sizeof(dFLOAT) << endl;
+    long double ldFLOAT = 1;    cout << "sizeof(long double)\t" << sizeof(ldFLOAT) << endl;
+    char cChar = 'a';           cout << "sizeof(char)\t\t" << sizeof(cChar) << endl;
+    char32_t wcChar32 = 'A';    cout << "sizeof(char32_t)\t" << sizeof(wcChar32) << endl;
+    float* Arr;                cout << "sizeof(double*)\t" << sizeof(Arr) << endl;
 
     int X = 1;
     cout << X << endl;
@@ -88,7 +78,7 @@ int main()
     C = Y++; // C = Y; Y = Y + 1;
     cout << "C = Y++ : " << C << endl;
 
-    scanf_s("%d", &C);
+    //scanf_s("%d", &C);
     //printf("%d", C);
 
     char    ch = 'h',
@@ -101,15 +91,6 @@ int main()
     printf("%s\n", string);
     printf("%d\n", count);
     printf("%f\n", fp);
-
-    if (<condition>)
-    {
-        <statement1>;
-    }
-    else
-    {
-        <statement2>;
-    }
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

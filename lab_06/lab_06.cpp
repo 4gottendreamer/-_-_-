@@ -6,14 +6,96 @@
 //
 
 #include <iostream>
+#define DIVISOR 10000000
 
 using namespace std;
 
+// Возвращает количество цифр числа _A
+int DigitsNumber(__int64 _A)
+{
+    if (_A == 0) return 1;
+
+    int count = 0;
+    while (_A)
+    {
+        count++;
+        _A /= 10;
+    }
+
+    return count;
+}
+
+// Возвращает знак вещественного _X
+// -1 при _X < 0
+// 0 при _X == 0
+// 1 при _X > 0
+int fsignum(double _X)
+{
+    return (_X > 0) ? 1 : ((_X < 0) ? -1 : 0);
+}
+
+// Возращает
+// -1 при _X < 0;
+// 0 при _X == 0
+// 1 при _X > 0
+template <typename T>
+int signum(T _X) {
+    return (T(0) < _X) - (_X < T(0));
+}
+
+//template <typename T> inline constexpr
+//int signum(T x, std::false_type is_signed) {
+//    return T(0) < x;
+//}
+
+//template <typename T> inline constexpr
+//int signum(T x, std::true_type is_signed) {
+//    return (T(0) < x) - (x < T(0));
+//}
+
+//template <typename T> inline constexpr
+//int signum(T x) {
+//    return signum(x, std::is_signed<T>());
+//}
+
 int main()
 {
+    setlocale(LC_ALL, "Russian"); // Установка корректного вывода кириллицы
+    srand(time(NULL)); // Установка генератора случайных чисел
+
     int N;
-    double* a;
+    __int64 *a;
+
+    cout << "Введите количество элементов массива: ";
+    cin >> N;
     
+    a = new __int64[N]; // Выделение памяти под массив
+
+    cout << "Последовательность псевдослучаных чисел:" << endl;
+
+    int MaxDigitsIndex,         // Индекс элемента массива с наибольшем
+        MaxDigitsNumber = 0;    // Максимальное число цифр элемента массива
+
+    // Заполнение массива псевдослучайной последовательностю чисел
+    // и вывод значений элементов в консоль
+    for (int i = 0; i < N; i++)
+    {
+        int RandomizeMe = rand();
+        //a[i] = (rand() % DIVISOR) * signum(sin(RandomizeMe)) * sin(RandomizeMe);
+        a[i] = RandomizeMe % DIVISOR * sin(RandomizeMe); cout << sin(RandomizeMe) << '\n';
+        printf("a[%2d] = %8lld\tЦифр: %d\n", i, a[i], DigitsNumber(a[i]));
+        if (MaxDigitsNumber <= DigitsNumber(a[i])) { // Если текущее максимальное число цифр
+                                                     // меньше числа цифр текущего элемента массива,
+            MaxDigitsNumber = DigitsNumber(a[i]);    // то присваиваем переменным
+            MaxDigitsIndex = i;                      // текущие значения
+        }
+    }
+
+    cout << "Максимальный индекс (по спецификации C/C++) " << MaxDigitsIndex << endl;
+    cout << "Элемент массива a[" << MaxDigitsIndex << "] = " << a[MaxDigitsIndex] << endl;
+
+    delete[]a;
+    cin.get();cin.get();
     return 0;
 }
 
