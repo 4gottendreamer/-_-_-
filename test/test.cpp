@@ -9,6 +9,12 @@ using namespace std;
 
 int main()
 {
+
+    int a = 1,
+        b = 2;
+    double x = (double)a / b;
+    cout << x;
+ #if 0
     std::cout << "Hello World!\n";
     
     int iINT = 1;               cout << "sizeof(iINT)\t\t" << sizeof(iINT) << endl;
@@ -91,6 +97,7 @@ int main()
     printf("%s\n", string);
     printf("%d\n", count);
     printf("%f\n", fp);
+#endif
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

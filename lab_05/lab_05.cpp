@@ -68,7 +68,7 @@ int main()
 
     cout << endl << "\nПроверка условия\ni + 1 < a_i < i!" << endl;
 
-    bool IsAnyFits = 0; // Флаг проверки выполнения условия
+    bool bDoesAnyFit = 0; // Флаг проверки выполнения условия
 
     // Проверка условий задачи
     for (int i = 0; i < N; i++)
@@ -76,7 +76,7 @@ int main()
         unsigned __int64 F = factorial_recursive(i + 1);
         if (i + 2 < a[i] and a[i] < F)
         {
-            IsAnyFits = true; // Если условие выполняется хотя бы раз, "поднимаем" флаг
+            bDoesAnyFit = true; // Если условие выполняется хотя бы раз, "поднимаем" флаг
             printf("%2d\t< %16.8lf\t< %21lld\n", i + 2, a[i], F);
             printf("1/a_%2d =\t%10.8lf\n\n", i + 1, 1. / a[i]);
         }
@@ -85,7 +85,7 @@ int main()
     delete[]a; // Удаление выделенной под массив памяти
 
     // Если условие не выполнилось ни разу, сообщить об этом
-    if (!IsAnyFits)
+    if (!bDoesAnyFit)
         cout << "Нет чисел, удовлетворяющих условию" << endl;
 
     /*
@@ -97,9 +97,7 @@ int main()
     // Игнорирование символа '\n' в потоке ввода
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Нажмите Enter";
-    cin.get(); // Ожидание нажатия Enter
-
-    return 0;
+    cin.get();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

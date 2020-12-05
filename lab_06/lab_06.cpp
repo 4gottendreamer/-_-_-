@@ -8,7 +8,6 @@
 #include <iostream>
 #define DIVISOR 10000000
 
-using namespace std;
 
 // Возвращает количество цифр числа _A
 int DigitsNumber(__int64 _A)
@@ -35,7 +34,7 @@ int fsignum(double _X)
 }
 
 // Возращает
-// -1 при _X < 0;
+// -1 при _X < 0
 // 0 при _X == 0
 // 1 при _X > 0
 template <typename T>
@@ -60,6 +59,8 @@ int signum(T _X) {
 
 int main()
 {
+    using namespace std;
+
     setlocale(LC_ALL, "Russian"); // Установка корректного вывода кириллицы
     srand(time(NULL)); // Установка генератора случайных чисел
 
@@ -85,7 +86,8 @@ int main()
         a[i] = RandomizeMe % DIVISOR * sin(RandomizeMe); cout << sin(RandomizeMe) << '\n';
         printf("a[%2d] = %8lld\tЦифр: %d\n", i, a[i], DigitsNumber(a[i]));
         if (MaxDigitsNumber <= DigitsNumber(a[i])) { // Если текущее максимальное число цифр
-                                                     // меньше числа цифр текущего элемента массива,
+                                                     // меньше числа цифр
+                                                     // текущего элемента массива,
             MaxDigitsNumber = DigitsNumber(a[i]);    // то присваиваем переменным
             MaxDigitsIndex = i;                      // текущие значения
         }
@@ -93,10 +95,10 @@ int main()
 
     cout << "Максимальный индекс (по спецификации C/C++) " << MaxDigitsIndex << endl;
     cout << "Элемент массива a[" << MaxDigitsIndex << "] = " << a[MaxDigitsIndex] << endl;
-
     delete[]a;
-    cin.get();cin.get();
-    return 0;
+
+    cout << "Нажмите Enter";
+    cin.get(); cin.get();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
