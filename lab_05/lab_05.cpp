@@ -16,7 +16,7 @@
 using namespace std;
 
 // Возвращает факториал числа _N
-// Итерационный алгорим
+// Итерационный алгоритм
 // !!! При N > 20 значение факториала вызывает переполнение unsigned __int64 !!!
 unsigned long long factorial(long int _N)
 {
@@ -29,7 +29,7 @@ unsigned long long factorial(long int _N)
 }
 
 // Возвращает факториал числа _N
-// Рекурсивный алгорим
+// Рекурсивный алгоритм
 // !!! При N > 20 значение факториала вызывает переполнение unsigned __int64 !!!
 unsigned long long factorial_recursive(unsigned long int _N)
 {
@@ -56,9 +56,9 @@ int main()
     cin >> N;
     a = new double[N]; // Выделение памяти под массив
 
-    // Заполнение массива псевдослучайной последовательностю чисел
+    // Заполнение массива последовательностю псевдослучайных чисел
     // и вывод значений элементов в консоль
-    cout << "Последовательность псевдослучаных чисел:" << endl;
+    cout << "Последовательность псевдослучайных чисел:" << endl;
     for (int i = 0; i < N; i++)
     {
         random = pow(-1, i) * M_PI;
@@ -66,40 +66,39 @@ int main()
         printf("%2d\t%16.8lf\n", i + 1, a[i]);
     }
 
-    cout << endl << "\nПроверка условия\ni + 1 < a_i < i!" << endl;
+    cout << endl << "\nПроверка условия\ni + 1\t<\ta_i\t\t<\t\ti!\n" << endl;
 
-    bool IsAnyFits = 0; // Флаг проверки выполнения условия
-
+    bool bDoesAnyFit = 0; // Флаг проверки выполнения условия
+    double reciprocal = 1;
     // Проверка условий задачи
     for (int i = 0; i < N; i++)
     {
         unsigned __int64 F = factorial_recursive(i + 1);
         if (i + 2 < a[i] and a[i] < F)
         {
-            IsAnyFits = true; // Если условие выполняется хотя бы раз, "поднимаем" флаг
+            bDoesAnyFit = true; // Если выполняется хотя бы раз, "поднимаем" флаг
             printf("%2d\t< %16.8lf\t< %21lld\n", i + 2, a[i], F);
-            printf("1/a_%2d =\t%10.8lf\n\n", i + 1, 1. / a[i]);
+            //printf("1/a_%2d =\t%10.8lf\n\n", i + 1, 1. / a[i]);
+            reciprocal /= a[i];
         }
+    }
+
+    // Если условие не выполнилось ни разу, сообщить об этом
+    if (bDoesAnyFit) {
+        cout.precision(15);
+        cout << "Обратное значение произведений элементов, удовлетворяющих условию:\n"
+             << reciprocal << endl;
+    }
+    else {
+        cout << "Нет чисел, удовлетворяющих условию" << endl;
     }
 
     delete[]a; // Удаление выделенной под массив памяти
 
-    // Если условие не выполнилось ни разу, сообщить об этом
-    if (!IsAnyFits)
-        cout << "Нет чисел, удовлетворяющих условию" << endl;
-
-    /*
-    for (int i = 0; i < N; i++) {
-        unsigned __int64 F = factorial(i + 1);
-        printf("%2d\t< %40lld\n", i + 1, F);
-    }*/
-
     // Игнорирование символа '\n' в потоке ввода
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Нажмите Enter";
-    cin.get(); // Ожидание нажатия Enter
-
-    return 0;
+    cin.get();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
