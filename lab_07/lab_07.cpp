@@ -73,7 +73,7 @@ int main()
     cin >> M >> N;
 
     ColumnIndices = new int[N] {0};
-    
+
 #if 0 // Test output
     for (int i = 0; i < N; i++) {
         cout << ColumnIndices[i] << " * ";
