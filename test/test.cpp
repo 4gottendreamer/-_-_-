@@ -6,25 +6,15 @@
 #include <iostream>
 #include <ctime>
 
-// Сортировка вставками
-template <class T>
-void InsertSort(T* A, const int n)
+// Swaps _A[_i_from] with _A[_j_to] elements
+template <typename T>
+void swap(T* _A, int _N, int _i_from, int _j_to)
 {
-    T tmp;
-    int j;
-
-    for (int i = 1; i < n; i++) {
-        tmp = A[i];
-        j = i;
-        
-        while (j > 0 and tmp < A[j - 1]) {
-            A[j] = A[j - 1];
-            j--;
-        }
-        
-        A[j] = Temp;
-    }
+    T tmp = _A[_i_from];
+    _A[_i_from] = _A[_j_to];
+    _A[_j_to] = tmp;
 }
+
 
 // Возвращает знак вещественного _X
 // -1 при _X < 0
@@ -54,17 +44,17 @@ int signum(T x, std::true_type is_signed) {
     return (T(0) < x) - (x < T(0));
 }
 
-using namespace std;
 
 int main()
 {
     setlocale(LC_ALL, "Russian"); // Установка корректного вывода кириллицы
     srand(time(NULL)); // Установка генератора случайных чисел
- 
+
+#if 0
     // с помощью константы
     const int N = 10;
     int A[N];
-    
+
     // динамически в C++
     int M;
     std::cin >> M;
@@ -74,15 +64,123 @@ int main()
 
     // динамически в C
     int* C = NULL;
-    C = (int*)malloc(M*sizeof(int));
+    C = (int*)malloc(M * sizeof(int));
     /*...*/
     free(C);
 
     // явное задание размера
     int D[10];
-    
+
     // задание размера типом, приводящимуся к целочисленному положительному
     int E['t'];
+#endif // 0
+
+#if 0
+    // ЛАБОРАТОРНАЯ 7. Вопрос 2 //
+    // ДВУМЕРНЫЕ МАССИВЫ. Объявление (declaring) //
+
+    // с помощью констант
+    const int K = 20, L = 10;
+    int A[K][L];
+
+    // динамически в C++
+    int M, N;
+    std::cin >> M >> N;
+    int** B = new int* [M];
+    for (int i = 0; i < M; i++) {
+        B[i] = new int[N];
+    }
+    /*...*/
+    for (int i = 0; i < M; i++) {
+        delete B[i];
+    }
+    delete[]B;
+
+    // динамически в C
+    int** C = NULL;
+    C = (int**)malloc(M * sizeof(int));
+    for (int i = 0; i < N; i++) {
+        C[i] = (int*)malloc(N * sizeof(int));
+    }
+    /*...*/
+    for (int i = 0; i < M; i++) {
+        free(C[i]);
+    }
+    free(C);
+
+    // явное задание размера
+    int D[20][10];
+
+    // задание размера типом, приводящимуся к целочисленному положительному
+    int E['M']['N'];
+#endif // 0
+
+#if 1
+    // ЛАБОРАТОРНАЯ 7. Вопрос 4 //
+    // 1. Поиск произведения отрицательных элементов каждого столбца //
+    const int M = 5, N = 3;
+    int A[M][N];
+    int negatives[N]; // Массив с постолбовыми произведениями
+    std::fill_n(negatives, N, 1); // Заполнение массива единицами
+    
+    for (int i = 0; i < N; i++) {
+        std::cout << negatives[i] << '\t';
+    }
+    std::cout << std::endl;
+
+    // Заполнение массива
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            A[i][j] = rand() % 10 - 5;
+            std::cout << A[i][j] << '\t';
+        }
+        std::cout << std::endl;
+    }
+    
+    // Проверка условия
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            if (A[i][j] < 0) {
+                negatives[j] *= A[i][j];
+            }
+        }
+    }
+    // Вывод результатов
+    for (int i = 0; i < N; i++) {
+        std::cout << negatives[i] << '\t';
+    }
+    std::cout << std::endl;
+
+    // Вариант, когда не нужно хранить данные о произведениях
+    // Проверка условия с выводом на экран
+    for (int j = 0; j < N; j++) { // Внешний цикл делает обход по строкам
+        int product = 1;
+        for (int i = 0; i < M; i++) { // Втутренний цикл делает обход по столбцам
+            if (A[i][j] < 0) {
+               product *= A[i][j];
+            }
+        }
+        std::cout << product << '\t';
+    }
+
+#endif // 0
+
+#if 0
+    // ЛАБОРАТОРНАЯ 7. Вопрос 4 //
+    // 2. Вычисление суммы положительных элементов каждой строки //
+    const int M = 20, N = 10;
+    int A[M][N];
+    int product = 1;
+    /* Ввод элементов массива */
+    for (int i = 0; i < M; i++) {
+        for (int i = 0; i < N; i++) {
+            ;
+        }
+    }
+#endif // 0
+
+#if 0
+
 
     for (int i = 0; i < N; i++) {
         A[i] = rand() % 10;
@@ -143,6 +241,7 @@ int main()
             LastMinIndex = i;
         }
     }
+#endif // 0
 
 #if 0
     // Алгоритм сортировки массива
@@ -252,6 +351,7 @@ int main()
     printf("%f\n", fp);
 #endif
 }
+
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"

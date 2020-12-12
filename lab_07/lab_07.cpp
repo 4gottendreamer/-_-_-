@@ -81,7 +81,6 @@ int main()
     cout << endl;
 #endif // 1 //
 
-
     a = new int* [M];
     for (int i = 0; i < M; i++) {
         a[i] = new int[N];
