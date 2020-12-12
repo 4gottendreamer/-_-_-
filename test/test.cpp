@@ -6,6 +6,25 @@
 #include <iostream>
 #include <ctime>
 
+// Сортировка вставками
+template <class T>
+void InsertSort(T* A, const int n)
+{
+    T tmp;
+    int j;
+
+    for (int i = 1; i < n; i++) {
+        tmp = A[i];
+        j = i;
+        
+        while (j > 0 and tmp < A[j - 1]) {
+            A[j] = A[j - 1];
+            j--;
+        }
+        
+        A[j] = Temp;
+    }
+}
 
 // Возвращает знак вещественного _X
 // -1 при _X < 0
