@@ -7,7 +7,7 @@
 #include <ctime>
 
 // Сортировка вставками
-template <class T>
+template <typename T>
 void InsertSort(T* A, const int n)
 {
     T tmp;
@@ -24,6 +24,15 @@ void InsertSort(T* A, const int n)
         
         A[j] = Temp;
     }
+}
+
+// Swaps _A[_i_from] with _A[_j_to] elements
+template <typename T>
+void swap(T* _A, int _N, int _i_from, int _j_to)
+{
+    T tmp = _A[_i_from];
+    _A[_i_from] = _A[_i_to];
+    _A[_i_to] = tmp;
 }
 
 // Возвращает знак вещественного _X
