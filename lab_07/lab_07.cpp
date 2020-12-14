@@ -11,7 +11,7 @@
 #define RESIDUE 10 // Макро-переменная для изменения модуля остатков от деления в коде
 
 // Поиск индекса первого максимального элемента в массиве _Array[_M]
-int MaxElementIndexFirst(int* _Array, int _M)
+int MaxElementIndexFirst(const int* _Array, const int _M)
 {
     int MaxIndex = 0;
     for (int i = 0; i < _M; i++) {
@@ -23,7 +23,7 @@ int MaxElementIndexFirst(int* _Array, int _M)
 }
 
 // Поиск индекса последнего максимального элемента в массиве _Array[_M]
-int MaxElementIndexLast(int* _Array, int _M)
+int MaxElementIndexLast(const int* _Array, const int _M)
 {
     int MaxIndex = 0;
     for (int i = 0; i < _M; i++) {
@@ -46,7 +46,7 @@ void BackwardsSwapColumn(int** _Array, int _M, int _N, int _SwapColumn)
     }
 }
 
-// Выводит массив в виде прямоугольной матрицы из M строк, N столбцов
+// Выводит массив в виде прямоугольной матрицы из _M строк, _N столбцов
 void PrintMatrix(int** _Array, int _M, int _N)
 {
     for (int i = 0; i < _M; i++) {
@@ -100,7 +100,7 @@ int main()
     PrintMatrix(a, M, N);
     cout << endl << endl;
 
-#if 1 // Test output
+#if 0 // Test output
     cout << "Количество нулей по столбцам" << endl;
     for (int i = 0; i < N; i++) {
         cout << i << "    ";
