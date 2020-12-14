@@ -2,6 +2,7 @@
 //
 
 #pragma warning ( disable : 4996 )
+#pragma warning ( disable : 6368 )
 
 #include <iostream>
 #include <ctime>
@@ -75,8 +76,8 @@ int main()
     int E['t'];
 #endif // 0
 
-#if 0
-    // ЛАБОРАТОРНАЯ 7. Вопрос 2 //
+#if 0 // ЛАБОРАТОРНАЯ 7. Вопрос 2 //
+    
     // ДВУМЕРНЫЕ МАССИВЫ. Объявление (declaring) //
 
     // с помощью констант
@@ -115,9 +116,10 @@ int main()
     int E['M']['N'];
 #endif // 0
 
-#if 1
-    // ЛАБОРАТОРНАЯ 7. Вопрос 4 //
+#if 0 // ЛАБОРАТОРНАЯ 7. Вопрос 4 //
+    
     // 1. Поиск произведения отрицательных элементов каждого столбца //
+
     const int M = 5, N = 3;
     int A[M][N];
     int negatives[N]; // Массив с постолбовыми произведениями
@@ -126,58 +128,192 @@ int main()
     for (int i = 0; i < N; i++) {
         std::cout << negatives[i] << '\t';
     }
-    std::cout << std::endl;
+    std::cout << "\n\n";
 
     // Заполнение массива
     for (int i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            A[i][j] = rand() % 10 - 5;
+            A[i][j] = rand() % 10 - 5; // Примерно половина отрицательных
             std::cout << A[i][j] << '\t';
         }
         std::cout << std::endl;
     }
-    
-    // Проверка условия
-    for (int i = 0; i < M; i++) {
-        for (int j = 0; j < N; j++) {
-            if (A[i][j] < 0) {
-                negatives[j] *= A[i][j];
-            }
-        }
-    }
-    // Вывод результатов
-    for (int i = 0; i < N; i++) {
-        std::cout << negatives[i] << '\t';
-    }
     std::cout << std::endl;
 
-    // Вариант, когда не нужно хранить данные о произведениях
     // Проверка условия с выводом на экран
     for (int j = 0; j < N; j++) { // Внешний цикл делает обход по строкам
         int product = 1;
-        for (int i = 0; i < M; i++) { // Втутренний цикл делает обход по столбцам
+        bool ThereIsNegative = false;
+        for (int i = 0; i < M; i++) { // Внутренний цикл делает обход по столбцам
             if (A[i][j] < 0) {
                product *= A[i][j];
+               negatives[j] *= A[i][j]; // Если данные понадобятся в дальнейшем
+               ThereIsNegative = true;
             }
         }
-        std::cout << product << '\t';
-    }
-
-#endif // 0
-
-#if 0
-    // ЛАБОРАТОРНАЯ 7. Вопрос 4 //
-    // 2. Вычисление суммы положительных элементов каждой строки //
-    const int M = 20, N = 10;
-    int A[M][N];
-    int product = 1;
-    /* Ввод элементов массива */
-    for (int i = 0; i < M; i++) {
-        for (int i = 0; i < N; i++) {
-            ;
+        // Если нет отрицательных, выводится прочерк
+        if (!ThereIsNegative) {
+            std::cout << "-\t";
+            negatives[j] *= 0; // Заполнение элемента массива нулём,
+                               // если не было отрицательных
         }
+        // Иначе выводим значение
+        else
+            std::cout << product << '\t';
+
+        }
+    std::cout << std::endl;
+
+    // Вывод результатов
+    for (int i = 0; i < N; i++) {
+        if (negatives[i] != 0) {
+            std::cout << negatives[i] << '\t';
+        }
+        else
+            std::cout << "-\t";
     }
 #endif // 0
+
+#if 0 // ЛАБОРАТОРНАЯ 7. Вопрос 4 //
+    
+    // 2. Вычисление суммы положительных элементов каждой строки //
+    const int M = 5, N = 3;
+    int A[M][N];
+    int positives[M] = { 0 }; // Массив с построчными суммами
+                            // (на случай, если нужно запоминать результат)
+    std::fill_n(positives, M, NULL);
+
+    // Ввод элементов массива
+    for (int i = 0; i < M; i++) {
+        int sum = 0;
+        bool ThereIsPositive = false;
+        for (int j = 0; j < N; j++) {
+            A[i][j] = rand() % 10 - 5;
+            if (A[i][j] > 0) {
+                sum += A[i][j];
+                positives[i] += A[i][j];
+                ThereIsPositive = true;
+            }
+        }
+        // Вывод результата
+        if (ThereIsPositive) {
+            std::cout << sum << '\t';
+        }
+        // Если в строке не было положительных чисел, выводится прочерк
+        else
+            std::cout << "-\t";
+    }
+    std::cout << std::endl;
+
+    // Вывод результатов
+    // Если в строке не было положительных чисел, выводится прочерк
+    for (int i = 0; i < M; i++) {
+        if (positives[i] != NULL) {
+            std::cout << positives[i] << '\t';
+        }
+        else
+            std::cout << "-\t";
+    }
+    std::cout << std::endl;
+
+    // Вывод массива
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            std::cout << A[i][j] << '\t';
+        }
+        std::cout << std::endl;
+    }
+
+#endif // 0
+
+#if 1 // ЛАБОРАТОРНАЯ 7. Вопрос 5. Изменение индексов матрицы//
+
+    /*...*/
+    const int M = 5, N = 7;
+    int A[M][N];
+
+    // Заполнение массива числами, цифры десятичных разрядов которых
+    // соответствуют индексам по M (количеству строк),
+    // а единичных разрядов соответствуют индексам по N (количеству столбцов),
+    // при M < 10; N < 10 (для удобства отладки)
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            A[i][j] = 10 * (i + 1) + (j + 1);
+            std::cout << A[i][j] << "  ";
+        }
+        std::cout << std::endl;
+    }
+#if 1   // 1. На главной диагонали
+    std::cout << "Главная диагональ\n";
+    for (int i = 0; i < M and i < N; i++) {
+        std::cout << A[i][i] << "  ";
+    }
+    std::cout << std::endl;
+#endif
+ 
+
+#if 1   // 2. На побочной диагонали //
+    std::cout << "Побочная диагональ\n";
+    for (int i = 0; i < M and i < N; i++) {
+        std::cout << A[i][N - i - 1] << "  ";
+    }
+#endif
+    std::cout << std::endl;
+
+#if 0   // 3. Выше главной диагонали //
+    std::cout << "Выше главной диагонали\n";
+    for (int i = 0; i < M; i++) {
+        for (int j = i + 1; j > i and j < N; j++) {
+            std::cout << A[i][j] << "  ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+#endif
+
+#if 0   // 4. Ниже главной диагонали //
+    std::cout << "Ниже главной диагонали\n";
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < i and j < N; j++) {
+            std::cout << A[i][j] << "  ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+#endif 
+
+#if 1   // 5. Выше побочной диагонали //
+    std::cout << "Выше побочной диагонали\n";
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j < N - i - 1; j++) {
+            std::cout << A[i][j] << "  ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+#endif
+
+#if 1   // 6. Ниже побочной диагонали //
+    // Элементы индексируются от начала к концу
+    std::cout << "Ниже побочной диагонали\n";
+    for (int i = 0; i < M; i++) {
+        for (int j = (M > N ? M : N) - i; j < N; j++) {
+            std::cout << A[i][j] << "  ";
+        }
+        std::cout << std::endl;
+    }
+
+  /*  std::cout << "Ниже побочной диагонали\n";
+    for (int i = M - 1; i > 0; i--) {
+        for (int j = i-1; j < N; j++) {
+            std::cout << A[i][j] << "  ";
+        }
+        std::cout << std::endl;
+    }*/
+#endif
+    /*...*/
+
+#endif  // ЛАБОРАТОРНАЯ 7. Вопрос 5. Изменение индексов матрицы//
 
 #if 0
 
