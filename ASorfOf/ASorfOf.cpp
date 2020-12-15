@@ -17,17 +17,13 @@ template <typename T>
 void SortInsert(T* A, const int n)
 {
     T tmp;
-    int j;
-
-    for (int i = 1; i < n; i++) {
+    for (int i = 1, j; i < n; i++) {
         tmp = A[i];
         j = i;
-
         while (j > 0 and tmp < A[j - 1]) {
             A[j] = A[j - 1];
             j--;
         }
-
         A[j] = tmp;
     }
 }
