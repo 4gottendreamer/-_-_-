@@ -5,6 +5,16 @@
 
 #include <iostream>
 
+// Возвращает знак вещественного _X
+// -1 при _X < 0
+// 0 при _X == 0
+// 1 при _X > 0
+template <typename T>
+int signum(T& _X)
+{
+    return (_X > 0) ? 1 : ((_X < 0) ? -1 : 0);
+}
+
 // Меняет значения переменных _from и _to
 template <typename T>
 void swap(T& _from, T& _to)

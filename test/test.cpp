@@ -25,6 +25,23 @@ int AddMe(int a, int b)
 #endif // 0
 
 
+// Возвращает знак вещественного _X
+// -1 при _X < 0
+// 0 при _X == 0
+// 1 при _X > 0
+template <typename T>
+int signum(T& _X)
+{
+    return (_X > 0) ? 1 : ((_X < 0) ? -1 : 0);
+}
+
+// Меняет знак _X на противоположный
+template <typename T>
+void Inverse(T& _X)
+{
+    _X *= T(-1.);
+}
+
 // Swaps _A[_i_from] with _A[_j_to] elements
 template <typename T>
 void swap(T* _A, int _N, int _i_from, int _j_to)
@@ -52,6 +69,7 @@ int fsignum(double _X)
     return (_X > 0) ? 1 : ((_X < 0) ? -1 : 0);
 }
 
+#if 0
 // Возращает
 // -1 при _X < 0
 // 0 при _X == 0
@@ -70,6 +88,7 @@ template <typename T> inline constexpr
 int signum(T x, std::true_type is_signed) {
     return (T(0) < x) - (x < T(0));
 }
+#endif // 0
 
 template <typename T>
 void myOut(T* a = T(1))
@@ -84,7 +103,7 @@ int main()
 
     std::unique_ptr<int> uptrA;
 
-    int A = 5;
+    int A = -5;
     int B = 7;
     int* ptrA = &A;
     // В качестве параметров в функию передаются адреса переменных A и B
@@ -94,6 +113,11 @@ int main()
     swap(&A, &B); std::cout << "Swapping...\n";
     std::cout << "A = " << A << std::endl;
     std::cout << "B = " << B << std::endl;
+
+    B = signum(A);
+    std::cout << "B = signum(A)" << std::endl;
+    Inverse(B);
+    std::cout << "Inverse(B) = " << B << std::endl;
 
 
 #if 0   // ЛАБОРАТОРНАЯ 8. Вопрос 2. Синтаксис указателей //
