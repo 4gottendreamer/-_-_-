@@ -10,28 +10,34 @@
 
 #define RESIDUE 10 // Макроподстановка с переменной для изменения остатков от деления
 
+// Меняет значения переменных _from и _to
 template <typename T>
-void swap(T* _A, int _N, int _i_from, int _j_to)
+void swap(T& _from, T& _to)
 {
-    T tmp = _A[_i_from];
-    _A[_i_from] = _A[_j_to];
-    _A[_j_to] = tmp;
+    T tmp = _from;
+    _from = _to;
+    _to = tmp;
 }
 
-// Меняет местами столбцы с индексами _i_from и _j_to в матрице _a[_M][*]
+// Меняет значения элементов _A[_from] и _A[_to]
 template <typename T>
-void SwapColumns(T** _a, const int _M, int _i_from, int _j_to)
+void Swap2InRow(T*& _A, const int _j_from, const int _j_to)
+{
+    swap(*(_A + _j_from), *(_A + _j_to));
+}
+
+// Меняет местами столбцы с индексами _i_from и _j_to в матрице _A[_M][*]
+template <typename T>
+void SwapColumns(T**& _A, const int& _M, const int _j_from, const int _j_to)
 {
     for (int i = 0; i < _M; i++) {
-        T tmp = _a[i][_i_from];
-        _a[i][_i_from] = _a[i][_j_to];
-        _a[i][_j_to] = tmp;
+        swap(_A[i][_j_from], _A[i][_j_to]);
     }
 }
 
 // Сортировка вставками
 template <typename T>
-void SortInsert(T* _A, const int _N)
+void SortInsert_(T*& _A, const int& _N)
 {
     T tmp;
     for (int i = 1, j; i < _N; i++) {
@@ -45,11 +51,23 @@ void SortInsert(T* _A, const int _N)
     }
 }
 
+// Сортировка вставками
+template <typename T>
+void SortInsert(T*& _A, const int& _N)
+{
+    for (int i = 1; i < _N; i++) {
+        int j = i;
+        while (j > 0 and _A[j] < _A[j - 1]) {
+            swap(_A[j], _A[j-1]);
+            j--;
+        }
+    }
+}
+
 // Вывод матрицы на экран
 template <typename T>
 void PrintMatrix(T** _a, const int _M, const int _N)
 {
-    //std::cout.width(20);
     for (int i = 0; i < _M; i++) {
         for (int j = 0; j < _N; j++) {
             std::cout << _a[i][j] << '\t';
@@ -60,9 +78,10 @@ void PrintMatrix(T** _a, const int _M, const int _N)
 }
 
 // Возвращает сумму положительных элементов столбца матрицы
-int SumColumnPositive(int** _a, const int _M, int _jCol)
+template <typename T>
+T SumColumnPositive(T** _a, const int _M, int _jCol)
 {
-    int sum = 0;
+    T sum = 0;
     for (int i = 0; i < _M; i++) {
         if(_a[i][_jCol] > 0)
             sum+=_a[i][_jCol];
@@ -77,7 +96,6 @@ int main()
     int M, N;
     int** a;
     int** PatternSorted;
-    int** ArrCheck;
 
     std::cout << "Введите размерность матрицы:" << std::endl;
     std::cin >> M >> N;
@@ -86,9 +104,6 @@ int main()
     PatternSorted = new int* [2];
     PatternSorted[0] = new int[N];
     PatternSorted[1] = new int[N];
-    ArrCheck = new int* [2];
-    ArrCheck[0] = new int[N];
-    ArrCheck[1] = new int[N];
 
     // Выделение памяти под массив
     a = new int* [M];
@@ -110,8 +125,6 @@ int main()
     for (int j = 0; j < N; j++) {
         PatternSorted[0][j] = SumColumnPositive(a, M, j);
         PatternSorted[1][j] = PatternSorted[0][j];
-        /*ArrCheck[0][j] = SumColumnPositive(a, M, j);
-        ArrCheck[1][j] = ArrCheck[0][j];*/
     }
 
     std::cout << std::endl << "Суммы положительных элементов столбцов матрицы:\n\n";
@@ -121,8 +134,6 @@ int main()
     
     // Сортировка строки 0 массива PatternSorted порядке неубывания элементов
     SortInsert(PatternSorted[0], N);
-    //std::cout << std::endl << "\nОтсортированный массив Pattern\n";
-    //PrintMatrix(PatternSorted, 2, N);
     
     std::cout << std::endl << std::endl;
     
@@ -132,15 +143,9 @@ int main()
     for (int j0 = 0; j0 < N - 1; j0++) {
         for (int j1 = j0 + 1; j1 < N; j1++) {
             if (PatternSorted[0][j0] == PatternSorted[1][j1]) {
-
                 SwapColumns(a, M, j0, j1);  // Смена столбцов соответствующих индексов
                                             // в исходной матрице
-                swap(PatternSorted[1], N, j0, j1);
-                /*std::cout << j0 << '\t' << j1 << std::endl;
-                std::cout << PatternSorted[0][j0] << '\t' << PatternSorted[0][j1] << std::endl;
-                std::cout << PatternSorted[1][j0] << '\t' << PatternSorted[1][j1] << std::endl;
-                PrintMatrix(ArrCheck, 2, N);
-                PrintMatrix(PatternSorted, 2, N);*/
+                Swap2InRow(PatternSorted[1], j0, j1);
             }
         }
     }

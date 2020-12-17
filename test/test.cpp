@@ -24,7 +24,11 @@ int AddMe(int a, int b)
 }
 #endif // 0
 
-
+template <typename T>
+void myOut(T* a)
+{
+    std::cout << a[0] << std::endl;
+}
 // Swaps _A[_i_from] with _A[_j_to] elements
 template <typename T>
 void swap(T* _A, int _N, int _i_from, int _j_to)
@@ -69,6 +73,11 @@ int main()
     srand(time(NULL)); // Установка генератора случайных чисел
 
     std::unique_ptr<int> uptrA;
+
+    int A = 14;
+    int* ptrA = &A;
+
+    myOut(ptrA);
 
 #if 0   // ЛАБОРАТОРНАЯ 8. Вопрос 2. Синтаксис указателей //
     // Указатель symbol указывает на переменную типа char
