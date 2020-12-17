@@ -7,6 +7,24 @@
 #include <iostream>
 #include <ctime>
 
+#include <memory>
+
+#if 0
+
+<type > fuction_name(<type1> p1 = defaul_val1, ... <typeN> pN = defaul_valN)
+{
+    <type> R;
+    /* Основные команды */
+    return R;
+}
+
+int AddMe(int a, int b)
+{
+    return a + b;
+}
+#endif // 0
+
+
 // Swaps _A[_i_from] with _A[_j_to] elements
 template <typename T>
 void swap(T* _A, int _N, int _i_from, int _j_to)
@@ -49,6 +67,8 @@ int main()
 {
     setlocale(LC_ALL, "Russian"); // Установка корректного вывода кириллицы
     srand(time(NULL)); // Установка генератора случайных чисел
+
+    std::unique_ptr<int> uptrA;
 
 #if 0   // ЛАБОРАТОРНАЯ 8. Вопрос 2. Синтаксис указателей //
     // Указатель symbol указывает на переменную типа char
