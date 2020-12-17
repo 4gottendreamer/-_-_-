@@ -77,7 +77,11 @@ void swap(T* _A, int _N, int _i_from, int _j_to)
     _A[_j_to] = tmp;
 }
 
-
+/*
+* 
+* !!! ДОПИЛИТЬ !!!
+* 
+*/
 template <typename T>
 void SortBubble(T* _A, const int _N)
 {

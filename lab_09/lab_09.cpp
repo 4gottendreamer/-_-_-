@@ -150,6 +150,9 @@ int main()
     delete PatternSorted[1];
     delete[]a;
     delete[]PatternSorted;
+
+    std::cout << "Нажмите Enter";
+    std::cin.get(); std::cin.get();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
