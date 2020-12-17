@@ -20,13 +20,6 @@ void swap(T& _from, T& _to)
     _to = tmp;
 }
 
-// Меняет значения элементов _A[_from] и _A[_to]
-template <typename T>
-void Swap2InRow(T* const _A, const int _j_from, const int _j_to)
-{
-    swap(*(_A + _j_from), *(_A + _j_to));
-}
-
 // Меняет местами столбцы с индексами _i_from и _j_to в матрице _A[_M][*]
 template <typename T>
 void SwapColumns(T** const _A, const int _M, const int _j_from, const int _j_to)
@@ -112,7 +105,7 @@ int main()
         PatternSorted[1][j] = PatternSorted[0][j];
     }
 
-    std::cout << std::endl << "Суммы положительных элементов столбцов матрицы:\n\n";
+    std::cout << "Суммы положительных элементов столбцов матрицы:\n";
     for (int j = 0; j < N; j++) {
         std::cout << PatternSorted[0][j] << '\t';
     }
@@ -138,7 +131,7 @@ int main()
     std::cout << "\nОтсортированная матрица:\n";
     PrintMatrix(a, M, N);
 
-    std::cout << "\nКонтрольная проверка сумм:\n";
+    std::cout << "Контрольная проверка сумм:\n";
     for (int j = 0; j < N; j++) {
         PatternSorted[0][j] = SumColumnPositive(a, M, j);
         PatternSorted[1][j] = PatternSorted[0][j];
