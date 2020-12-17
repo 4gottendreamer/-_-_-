@@ -11,7 +11,7 @@
 
 #if 0
 
-<type > fuction_name(<type1> p1 = defaul_val1, ... <typeN> pN = defaul_valN)
+<type> fuction_name(<type1> p1 = defaul_val1, ... <typeN> pN = defaul_valN)
 {
     <type> R;
     /* Основные команды */
@@ -24,11 +24,7 @@ int AddMe(int a, int b)
 }
 #endif // 0
 
-template <typename T>
-void myOut(T* a)
-{
-    std::cout << a[0] << std::endl;
-}
+
 // Swaps _A[_i_from] with _A[_j_to] elements
 template <typename T>
 void swap(T* _A, int _N, int _i_from, int _j_to)
@@ -36,6 +32,15 @@ void swap(T* _A, int _N, int _i_from, int _j_to)
     T tmp = _A[_i_from];
     _A[_i_from] = _A[_j_to];
     _A[_j_to] = tmp;
+}
+
+// Меняет значения переменных _from и _to
+template <typename T>
+void swap(T* _from, T* _to)
+{
+    T tmp = *_from;
+    *_from = *_to;
+    *_to = tmp;
 }
 
 // Возвращает знак вещественного _X
@@ -66,6 +71,11 @@ int signum(T x, std::true_type is_signed) {
     return (T(0) < x) - (x < T(0));
 }
 
+template <typename T>
+void myOut(T* a = T(1))
+{
+    std::cout << a[0] << std::endl;
+}
 
 int main()
 {
@@ -74,10 +84,17 @@ int main()
 
     std::unique_ptr<int> uptrA;
 
-    int A = 14;
+    int A = 5;
+    int B = 7;
     int* ptrA = &A;
+    // В качестве параметров в функию передаются адреса переменных A и B
+    std::cout << "myOut(ptrA) = "; myOut(ptrA);  std::cout << std::endl;
+    std::cout << "A = " << A << std::endl;
+    std::cout << "B = " << B << std::endl;
+    swap(&A, &B); std::cout << "Swapping...\n";
+    std::cout << "A = " << A << std::endl;
+    std::cout << "B = " << B << std::endl;
 
-    myOut(ptrA);
 
 #if 0   // ЛАБОРАТОРНАЯ 8. Вопрос 2. Синтаксис указателей //
     // Указатель symbol указывает на переменную типа char

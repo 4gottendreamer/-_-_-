@@ -1,7 +1,72 @@
 ﻿// ASorfOf.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
+// Разные методы сортировки
+//
 
 #include <iostream>
+
+// Меняет значения переменных _from и _to
+template <typename T>
+void swap(T& _from, T& _to)
+{
+    T tmp = _from;
+    _from = _to;
+    _to = tmp;
+}
+
+// Меняет значения элементов _A[_from] и _A[_to]
+template <typename T>
+void Swap2InRow(T* _A, const int _j_from, const int _j_to)
+{
+    swap(*(_A + _j_from), *(_A + _j_to));
+}
+
+// Меняет местами столбцы с индексами _i_from и _j_to в матрице _A[_M][*]
+template <typename T>
+void SwapColumns(T** _A, const int _M, const int _j_from, const int _j_to)
+{
+    for (int i = 0; i < _M; i++) {
+        swap(_A[i][_j_from], _A[i][_j_to]);
+    }
+}
+
+// Сортировка вставками
+template <typename T>
+void SortInsert(T* _A, const int _N)
+{
+    for (int i = 1; i < _N; i++) {
+        int j = i;
+        while (j > 0 and _A[j] < _A[j - 1]) {
+            swap(_A[j], _A[j - 1]);
+            j--;
+        }
+    }
+}
+
+// Вывод матрицы на экран
+template <typename T>
+void PrintMatrix(T** _A, const int _M, const int _N)
+{
+    for (int i = 0; i < _M; i++) {
+        for (int j = 0; j < _N; j++) {
+            std::cout << _A[i][j] << '\t';
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+// Возвращает сумму положительных элементов столбца матрицы
+template <typename T>
+T SumColumnPositive(T** _a, const int _M, int _jCol)
+{
+    T sum = 0;
+    for (int i = 0; i < _M; i++) {
+        if (_a[i][_jCol] > 0)
+            sum += _a[i][_jCol];
+    }
+    return sum;
+}
 
 // Swaps _A[_i_from] with _A[_j_to] elements
 template <typename T>
@@ -12,34 +77,6 @@ void swap(T* _A, int _N, int _i_from, int _j_to)
     _A[_j_to] = tmp;
 }
 
-// Сортировка вставками
-template <typename T>
-void SortInsert(T* A, const int n)
-{
-    T tmp;
-    for (int i = 1, j; i < n; i++) {
-        tmp = A[i];
-        j = i;
-        while (j > 0 and tmp < A[j - 1]) {
-            A[j] = A[j - 1];
-            j--;
-        }
-        A[j] = tmp;
-    }
-}
-
-// Сортировка обменами (пузырьковая)
-// устойчивый алгоритм
-//FOR J = 0 TO N - 1 STEP 1
-//    F = 0
-//    MIN = J
-//    FOR I = J TO N - 1 - J STEP 1
-//        IF Y[I] > Y[I + 1] THEN SWAP Y[I], Y[I + 1]:F = 1
-//        IF Y[I] < Y[MIN] THEN MIN = I
-//    NEXT I
-//    IF F = 0 THEN EXIT FOR
-//    IF MIN<>J THEN SWAP Y[J], Y[MIN]
-//NEXT J
 
 template <typename T>
 void SortBubble(T* _A, const int _N)
@@ -63,6 +100,18 @@ void SortBubble(T* _A, const int _N)
         }*/
     }
 }
+// Сортировка обменами (пузырьковая)
+// устойчивый алгоритм
+//FOR J = 0 TO N - 1 STEP 1
+//    F = 0
+//    MIN = J
+//    FOR I = J TO N - 1 - J STEP 1
+//        IF Y[I] > Y[I + 1] THEN SWAP Y[I], Y[I + 1]:F = 1
+//        IF Y[I] < Y[MIN] THEN MIN = I
+//    NEXT I
+//    IF F = 0 THEN EXIT FOR
+//    IF MIN<>J THEN SWAP Y[J], Y[MIN]
+//NEXT J
 
 //for (int i = 0; i < size - 1; i++) {
 //    for (int j = 0; j < size - i - 1; j++) {

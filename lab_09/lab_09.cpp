@@ -5,6 +5,7 @@
 // в порядке неубывания сумм положительных элементов столбцов.
 // Нахождение суммы положительных элементов столбцов оформить как функцию.
 // Перестановку столбцов оформить как функцию
+//
 
 #include <iostream>
 
@@ -21,14 +22,14 @@ void swap(T& _from, T& _to)
 
 // Меняет значения элементов _A[_from] и _A[_to]
 template <typename T>
-void Swap2InRow(T*& _A, const int _j_from, const int _j_to)
+void Swap2InRow(T* const _A, const int _j_from, const int _j_to)
 {
     swap(*(_A + _j_from), *(_A + _j_to));
 }
 
 // Меняет местами столбцы с индексами _i_from и _j_to в матрице _A[_M][*]
 template <typename T>
-void SwapColumns(T**& _A, const int& _M, const int _j_from, const int _j_to)
+void SwapColumns(T** const _A, const int _M, const int _j_from, const int _j_to)
 {
     for (int i = 0; i < _M; i++) {
         swap(_A[i][_j_from], _A[i][_j_to]);
@@ -37,23 +38,7 @@ void SwapColumns(T**& _A, const int& _M, const int _j_from, const int _j_to)
 
 // Сортировка вставками
 template <typename T>
-void SortInsert_(T*& _A, const int& _N)
-{
-    T tmp;
-    for (int i = 1, j; i < _N; i++) {
-        tmp = _A[i];
-        j = i;
-        while (j > 0 and tmp < _A[j - 1]) {
-            _A[j] = _A[j - 1];
-            j--;
-        }
-        _A[j] = tmp;
-    }
-}
-
-// Сортировка вставками
-template <typename T>
-void SortInsert(T*& _A, const int& _N)
+void SortInsert(T* const _A, const int _N)
 {
     for (int i = 1; i < _N; i++) {
         int j = i;
@@ -66,11 +51,11 @@ void SortInsert(T*& _A, const int& _N)
 
 // Вывод матрицы на экран
 template <typename T>
-void PrintMatrix(T** _a, const int _M, const int _N)
+void PrintMatrix(T** const _A, const int _M, const int _N)
 {
     for (int i = 0; i < _M; i++) {
         for (int j = 0; j < _N; j++) {
-            std::cout << _a[i][j] << '\t';
+            std::cout << _A[i][j] << '\t';
         }
         std::cout << std::endl;
     }
@@ -79,12 +64,12 @@ void PrintMatrix(T** _a, const int _M, const int _N)
 
 // Возвращает сумму положительных элементов столбца матрицы
 template <typename T>
-T SumColumnPositive(T** _a, const int _M, int _jCol)
+T SumColumnPositive(T** const _A, const int _M, int _jCol)
 {
     T sum = 0;
     for (int i = 0; i < _M; i++) {
-        if(_a[i][_jCol] > 0)
-            sum+=_a[i][_jCol];
+        if(_A[i][_jCol] > 0)
+            sum+=_A[i][_jCol];
     }
     return sum;
 }
@@ -134,7 +119,6 @@ int main()
     
     // Сортировка строки 0 массива PatternSorted порядке неубывания элементов
     SortInsert(PatternSorted[0], N);
-    
     std::cout << std::endl << std::endl;
     
     // Поиск вхождений элементов строки 0 (отсортированной) в строку 1 (изначальную)
@@ -145,7 +129,8 @@ int main()
             if (PatternSorted[0][j0] == PatternSorted[1][j1]) {
                 SwapColumns(a, M, j0, j1);  // Смена столбцов соответствующих индексов
                                             // в исходной матрице
-                Swap2InRow(PatternSorted[1], j0, j1);
+                // Смена элементов второй строки
+                swap(PatternSorted[1][j0], PatternSorted[1][j1]);
             }
         }
     }
@@ -168,7 +153,6 @@ int main()
     for (int i = 0; i < M; i++) {
         delete a[i];
     }
- 
     delete PatternSorted[0];
     delete PatternSorted[1];
     delete[]a;
