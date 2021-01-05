@@ -6,7 +6,6 @@
 
 #include <iostream>
 #include <ctime>
-
 #include <memory>
 
 #if 0
@@ -98,7 +97,7 @@ void myOut(T* a = T(1))
 
 int main()
 {
-    setlocale(LC_ALL, "Russian"); // Установка корректного вывода кириллицы
+    setlocale(LC_ALL, "ru"); // Установка корректного вывода кириллицы
     srand(time(NULL)); // Установка генератора случайных чисел
 
     std::unique_ptr<int> uptrA;
@@ -119,6 +118,9 @@ int main()
     Inverse(B);
     std::cout << "Inverse(B) = " << B << std::endl;
 
+    for ( int i = 0; i <= 255; i++ ) {
+        std::cout << (char)i << '\t' << i << std::endl;
+    }
 
 #if 0   // ЛАБОРАТОРНАЯ 8. Вопрос 2. Синтаксис указателей //
     // Указатель symbol указывает на переменную типа char
