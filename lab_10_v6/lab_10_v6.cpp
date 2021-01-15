@@ -129,12 +129,12 @@ int main()
 	//считываем очередную стоку в рабочую строку
 	const char* Word = "";
 	std::cout << "strlen( Word )\t" << strlen( Word ) << std::endl;
-	/*while ( ( gets_s( cLine ) != NULL ) && ( i < MAX_LINES ) ) {
+	/* while ( ( gets_s( cLine ) != NULL ) && ( i < MAX_LINES ) ) {
 		size_t lineLenght = strlen( cLine );
 		cText[i] = new char[lineLenght + 1];
 		push_back( cText[i], 0, cLine, lineLenght );
 		std::cout << lineLenght << std::endl;
-	}*/
+	} */
 
 	while ( std::cin.getline( cLine, 80 ) and ( LinesNumber < MAX_LINES ) ) {
 		size_t lineLenght = strlen( cLine );
