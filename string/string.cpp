@@ -1,4 +1,4 @@
-#include "strings.h"
+#include "string.h"
 using namespace str;
 
 string::string()
@@ -110,7 +110,7 @@ string string::operator+( const string& _String )
 	string newString;
 	size_t thisLength = this->length;
 	size_t stringLength = _String.length;
-	newString.length = (int)thisLength + (int)stringLength;
+	newString.length = thisLength + stringLength;
 	newString.str = new char[thisLength + stringLength + 1];
 	int i = 0;
 	for ( ; i < thisLength; i++ ) {
@@ -140,8 +140,8 @@ string string::operator+( const char* _ChArr )
 {
 	string newString;
 	size_t thisLength = this->length;
-	size_t stringLength = (size_t)( str::lenghthof( _ChArr ) );
-	newString.length = (int)thisLength + (int)stringLength;
+	size_t stringLength = str::lenghthof( _ChArr );
+	newString.length = thisLength + stringLength;
 	newString.str = new char[thisLength + stringLength + 1];
 	int i = 0;
 	for ( ; i < thisLength; i++ ) {
@@ -198,7 +198,17 @@ bool string::operator==( const string& _String )
 
 bool string::operator==( const char* _ChArr )
 {
-	return ( this->operator==( _ChArr ) );
+	//return ( this->operator==( (string&)_ChArr ) );
+
+	if ( this->length != str::lenghthof( _ChArr ) ) {
+		return false;
+	}
+	for ( int i = 0; i < this->length; i++ ) {
+		if ( this->str[i] != _ChArr[i] ) {
+			return false;
+		}
+	}
+	return true;
 }
 
 bool string::operator!=( const string& _String )
@@ -211,7 +221,7 @@ bool string::operator!=( const char* _ChArr )
 	return ( this->operator==( _ChArr ) );
 }
 
-char& string::operator[]( int _Index )
+char& string::operator[]( size_t _Index )
 {
 	if ( _Index >= this->length ) {
 		throw( "Overlength indexing" );
@@ -443,7 +453,7 @@ void string::pop_head()
 	this->str = tmp;
 }
 
-int string::size()
+size_t string::size()
 {
 	return this->length;
 }
@@ -455,14 +465,24 @@ void string::clear()
 	this->length = 0;
 }
 
+size_t str::string::begin()
+{
+	return 0;
+}
+
+size_t str::string::end()
+{
+	return this->length;
+}
+
 char* str::string::find( const char* _ChArr )
 {
-	int ChArrLength = str::lenghthof( _ChArr );
+	size_t ChArrLength = str::lenghthof( _ChArr );
 	if ( ChArrLength > this->length ) {
 		return nullptr;
 	}
 	else {
-		for ( size_t i = 0; i < (size_t)this->length - ChArrLength + 1; i++ ) {
+		for ( size_t i = 0; i < this->length - ChArrLength + 1; i++ ) {
 			bool match = false;
 			int count = 0;
 			for ( size_t j = 0; j < ChArrLength; j++ ) {
@@ -486,12 +506,12 @@ char* str::string::find( const char* _ChArr )
 
 char* str::string::find( const string& _String )
 {
-	int StringLength = _String.length;
+	size_t StringLength = _String.length;
 	if ( StringLength > this->length ) {
 		return nullptr;
 	}
 	else {
-		for ( size_t i = 0; i < (size_t)this->length - StringLength + 1; i++ ) {
+		for ( size_t i = 0; i < this->length - StringLength + 1; i++ ) {
 			bool match = false;
 			int count = 0;
 			for ( size_t j = 0; j < StringLength; j++ ) {
@@ -514,9 +534,9 @@ char* str::string::find( const string& _String )
 }
 
 /*
-* 
+*
 * FRIENDS
-* 
+*
 */
 
 std::ostream& str::operator<<( std::ostream& _outStream, const str::string& _String )
@@ -533,7 +553,7 @@ std::istream& str::operator>>( std::istream& _inStream, str::string& _String )
 	_inStream >> tmp;
 	SetConsoleCP( 866 );
 	_String.length = str::lenghthof( tmp );
-	_String.str = new char[(size_t)_String.length + 1];
+	_String.str = new char[_String.length + 1];
 	for ( int i = 0; i < _String.length; i++ ) {
 		_String.str[i] = tmp[i];
 	}
@@ -542,7 +562,7 @@ std::istream& str::operator>>( std::istream& _inStream, str::string& _String )
 	return _inStream;
 }
 
-int str::lenghthof( const char* _String )
+size_t str::lenghthof( const char* _String )
 {
 	int count = 0;
 	while ( _String[count] != '\0' ) {

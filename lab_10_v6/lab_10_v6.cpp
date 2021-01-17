@@ -7,8 +7,10 @@
 //
 
 #include <iostream>
-#include <string>
+#include "..\string\string.h"
+#include "..\vector\vector.h"
 
+#if 0
 template <typename Tarr, typename Tsize, typename Tsize_add>
 void push_back( Tarr*& _Arr, Tsize _size, Tarr*& const _Arr_add, const Tsize_add _size_add )
 {
@@ -45,7 +47,7 @@ void push_back( char*& _Arr, char* const& _Arr_add )
 {
 	size_t size = strlen( _Arr );
 	size_t size_add = strlen( _Arr_add );
-	char* newArray = new char[ size + size_add + 1];
+	char* newArray = new char[size + size_add + 1];
 	for ( int i = 0; i < size; i++ ) {
 		newArray[i] = _Arr[i];
 	}
@@ -111,14 +113,77 @@ char* GetWord( char* _Line, int& _StartPos )
 	_StartPos = CurPos;
 	return Word;
 }
+#endif // 0
 
-const int MAX_LINES = 10; // максимальное количество строк
+const int MAX_LINES = 3; // максимальное количество строк
 
 int main()
 {
-	//setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
+	setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
 	
-#if 1
+	vector<str::string, MAX_LINES> arrTxt;
+	for ( size_t i = 0; i < arrTxt.size(); i++ ) {
+		str::string Tmp;
+		Tmp.getline();
+		arrTxt.push_back( Tmp );
+	}
+
+	for ( size_t i = 0; i < arrTxt.size(); i++ ) {
+		arrTxt[i].cout();
+		std::cout << '\n';
+	}
+
+	
+	/*str::string* tmp = new str::string[MAX_LINES];
+	for ( size_t i = 0; i < MAX_LINES; i++ ) {
+		tmp[i].getline();
+		std::cout << "[TEST:]\nline " << i << ":\n" << tmp[i] << std::endl;
+	}
+	str::string* Text = new str::string[MAX_LINES + 1];
+	for ( size_t i = 0; i < MAX_LINES; i++ ) {
+		Text[i] = tmp[i];
+	}
+
+	std::cout << "getline();\n";
+	Text[MAX_LINES].getline();
+	std::cout << "\nText[1..3].cout():\n";
+	for ( size_t i = 0; i < MAX_LINES + 1; i++ ) {
+		Text[i].cout();
+		std::cout << std::endl;
+	}*/
+
+	/*str::string* Text = nullptr;
+	for ( size_t i = 0; i < MAX_LINES; i++ ) {
+		str::string* tmp = new str::string[i + 1];
+		for ( int j = 0; j < i + 1; j++ ) {
+			tmp[j].getline();
+			std::cout << "line " << j << ":\t" << tmp[j] << std::endl;
+		}
+		delete[] Text;
+		if ( tmp[i].size() ) {
+			Text = new str::string[i + 1];
+			for ( int j = 0; j < i + 1; j++ ) {
+				Text[j] = tmp[j];
+			}
+		}
+		else {
+			Text = new str::string[i];
+			for ( int j = 0; j < i; j++ ) {
+				Text[j] = tmp[j];
+				delete[] tmp;
+				break;
+			}
+		}
+		delete[] tmp;
+	}
+
+	std::cout << "\nText[1..n].cout():\n";
+	for ( size_t i = 0; i < MAX_LINES; i++ ) {
+		Text[i].cout();
+		std::cout << std::endl;
+	}*/
+
+#if 0
 	std::cout << "Hello World!\n";
 	int LinesNumber = 0;
 	char* cText[MAX_LINES];			// исходный текст
@@ -226,6 +291,9 @@ int main()
 		puts( s[i] );
 	std::cin.get();
 #endif // 0
+
+	system( "pause" );
+	return 0;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
