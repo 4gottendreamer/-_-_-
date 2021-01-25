@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-template <typename T, size_t Tsize>
+template <typename T, size_t Tsize = 2>
 class vector
 {
 public:
@@ -10,24 +10,40 @@ public:
 	vector<T, Tsize>( vector&& _Arr );
 	~vector();
 
-	int size();
-	void push_back( T& _Elem );
-	void push_head( T& _Elem );
-	void pop_back( T& _Elem );
-	void pop_head( T& _Elem );
-	T& operator[]( int _i );
+	size_t size();
+	size_t capacity();
+
+	void push_back( const T& _Elem );
+	void push_back( const T&& _Elem );
+
+	template<typename... Targs>
+	T& emplace_back( Targs... _Args );
+
+	void push_head( const T& _Elem );
+	void pop_back();
+	T& pop_head(); // Deletes and nullifies element m_Arr[0]; returns ref. to new m_Arr[0]
+
+	void clear(); // Destroys evey element of vector
+
+	void reserve( size_t _newCapacity );
+
+	T& operator[]( size_t _i );
+	const T& operator[]( size_t _i ) const;
 
 private:
-	T* m_Arr;
-	size_t m_Size;
+	T* m_Arr = nullptr;
+	size_t m_Size = 0;
+	size_t m_Capacity = 0;
+
+	void realloc( size_t _newCapacity );
 };
 
 template <typename T, size_t Tsize>
 vector<T, Tsize>::vector()
 {
 	this->m_Size = Tsize;
-	//T* m_Arr = (T*)alloca( Tsize * sizeof( T ) ); // Dynamic stack allocation. Dangerous way.
-	this->m_Arr = new T[Tsize];
+	//this->m_Arr = new T[Tsize];
+	realloc( Tsize );
 }
 
 template <typename T, size_t Tsize>
@@ -51,21 +67,32 @@ vector<T, Tsize>::vector( vector&& _Arr )
 template <typename T, size_t Tsize>
 vector<T, Tsize>::~vector()
 {
-	if ( this->m_Arr ) {
-		delete[] this->m_Arr;
+	clear();
+	//delete[] this->m_Arr;
+	::operator delete( m_Arr, m_Capacity * sizeof( T ) );
+}
+
+template<typename T, size_t Tsize>
+inline size_t vector<T, Tsize>::size()
+{
+	return m_Size;
+}
+
+template<typename T, size_t Tsize>
+inline size_t vector<T, Tsize>::capacity()
+{
+	return m_Capacity;
+}
+
+template <typename T, size_t Tsize>
+void vector<T, Tsize>::push_back( const T& _Elem )
+{
+#if 1
+	if ( m_Size >= m_Capacity ) {
+		realloc( m_Capacity + m_Capacity / 2 );
 	}
-	delete this->m_Arr;
-}
-
-template <typename T, size_t Tsize>
-int vector<T, Tsize>::size()
-{
-	return this->m_Size;
-}
-
-template <typename T, size_t Tsize>
-void vector<T, Tsize>::push_back( T& _Elem )
-{
+	m_Arr[m_Size++] = _Elem;
+#else
 	T* tmp = new T[this->m_Size + 1];
 	for ( size_t i = 0; i < this->m_Size; i++ ) {
 		tmp[i] = this->m_Arr[i];
@@ -74,10 +101,32 @@ void vector<T, Tsize>::push_back( T& _Elem )
 	delete[] this->m_Arr;
 	this->m_Arr = tmp;
 	tmp = nullptr;
+#endif // 0
+}
+
+template<typename T, size_t Tsize>
+inline void vector<T, Tsize>::push_back( const T&& _Elem )
+{
+	if ( m_Size >= m_Capacity ) {
+		realloc( m_Capacity + m_Capacity / 2 );
+	}
+	m_Arr[m_Size++] = std::move( _Elem );
+}
+
+template<typename T, size_t Tsize>
+template<typename ...Targs>
+inline T& vector<T, Tsize>::emplace_back( Targs ..._Args )
+{
+	if ( m_Size >= m_Capacity ) {
+		realloc( m_Capacity + m_Capacity / 2 );
+	}
+	//m_Arr[m_Size] = T( std::forward<Targs>( _Args )... );
+	new( &m_Arr[m_Size] ) T( std::forward<Targs>( _Args )... );
+	return m_Arr[m_Size++];
 }
 
 template <typename T, size_t Tsize>
-void vector<T, Tsize>::push_head( T& _Elem )
+void vector<T, Tsize>::push_head( const T& _Elem )
 {
 	T* tmp = new T[this->m_Size + 1];
 	for ( size_t i = 1; i < this->m_Size + 1; i++ ) {
@@ -90,8 +139,13 @@ void vector<T, Tsize>::push_head( T& _Elem )
 }
 
 template <typename T, size_t Tsize>
-void vector<T, Tsize>::pop_back( T& _Elem )
+void vector<T, Tsize>::pop_back()
 {
+#if 1
+	if ( m_Size > 0 ) {
+		m_Arr[--m_Size].~T();
+	}
+#else
 	T* tmp = new T[this->m_Size - 1];
 	for ( size_t i = 0; i < this->m_Size - 1; i++ ) {
 		tmp[i] = this->m_Arr[i];
@@ -99,10 +153,71 @@ void vector<T, Tsize>::pop_back( T& _Elem )
 	delete[] this->m_Arr;
 	this->m_Arr = tmp;
 	tmp = nullptr;
+#endif // 0
+}
+
+template<typename T, size_t Tsize>
+inline void vector<T, Tsize>::clear()
+{
+	for ( size_t i = 0; i < m_Size; i++ ) {
+		m_Arr[i].~T();
+	}
+	m_Size = 0;
+}
+
+template<typename T, size_t Tsize>
+inline void vector<T, Tsize>::reserve( size_t _newCapacity )
+{
+	realloc( _newCapacity );
+}
+
+template<typename T, size_t Tsize>
+inline const T& vector<T, Tsize>::operator[]( size_t _i ) const
+{
+	// TODO: Out of range subscripting check
+	return this->m_Arr[_i];
 }
 
 template <typename T, size_t Tsize>
-T& vector<T, Tsize>::operator[]( int _i )
+T& vector<T, Tsize>::operator[]( size_t _i )
 {
+	// TODO: Out of range subscripting check
 	return this->m_Arr[_i];
+}
+
+/*//////////////////////////////////////////
+*
+* PRIVATE METHODS
+*
+*///////////////////////////////////////////
+
+// Gets vector m_Capacity grown or shrinked to _newCapacity size
+template<typename T, size_t Tsize>
+inline void vector<T, Tsize>::realloc( size_t _newCapacity )
+{
+	if ( _newCapacity < m_Size ) { // Downsizing capacity case
+		m_Size = _newCapacity;
+	} // TODO(*): Check for memory re-allocations in shrinking case
+
+	//T* newArr = new T[_newCapacity];
+	T* newArr = ( T* )::operator new( _newCapacity * sizeof( T ) );
+
+	if ( m_Arr != nullptr ) { // If (this) is un-initialized instance no move and destroys are needed
+
+		for ( size_t i = 0; i < m_Size; i++ ) {
+			newArr[i] = std::move( m_Arr[i] );
+		}
+
+		// TODO(*): Use original m_Size in case of shrinking
+		// TODO(*): Использовать изначальный размер в случае сжатия ёмкости
+		for ( size_t i = 0; i < m_Size; i++ ) {
+			m_Arr[i].~T();
+		}
+
+		//delete[] m_Arr;
+		::operator delete( m_Arr, m_Capacity * sizeof( T ) );
+	}
+
+	m_Arr = newArr;
+	m_Capacity = _newCapacity;
 }
