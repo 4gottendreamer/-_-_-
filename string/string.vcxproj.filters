@@ -23,7 +23,7 @@
     <ClCompile Include="string.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="string_main.cpp">
+    <ClCompile Include="main_string.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

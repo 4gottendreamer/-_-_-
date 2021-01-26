@@ -9,6 +9,15 @@ int main()
 {
 	setlocale( LC_ALL, "ru" );
 
+	str::string str_1( "Hello" );
+	std::cout << "str_1 == " << str_1 << std::endl;
+
+	str::string str_2( "World" );
+	std::cout << "str_2 == " << str_2 << std::endl;
+	str_1 = std::move( str_2 );
+	std::cout << "str_1 == " << str_1;
+	std::cout << std::endl;
+
 	int I = 2;
 	int c_I = I;
 	str::string strLine( "Слово другое" );
@@ -115,7 +124,7 @@ int main()
 		BinA = nullptr;
 	}
 	else {
-		for ( size_t i = 0; i < (size_t)ALength - BLength + 1; i++ ) {
+		for ( size_t i = 0; i < ALength - BLength + 1; i++ ) {
 			bool match = false;
 			int count = 0;
 			for ( size_t j = 0; j < BLength; j++ ) {

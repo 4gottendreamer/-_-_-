@@ -15,13 +15,14 @@ namespace str
 		string( string&& _String ) noexcept; // Конструктор переноса по ссылке
 		~string(); // Деструктор
 
-		string& operator=( const string& _String ); // Присваивание r-value str::string
-		string& operator=( const char _Ch ); // Присваивание r-value const char
-		string& operator=( const char* _ChArr ); // Присваивание r-value const char[]
+		string& operator =( const string& _String ); // Присваивание rvalue str::string
+		string& operator=( string&& _String ) noexcept; // Перемещение-переназначение
+		string& operator=( const char _Ch ); // Присваивание rvalue const char
+		string& operator=( const char* _ChArr ); // Присваивание rvalue const char[]
 
-		string operator+( const string& _String ); // Конкатенация строк r-value str::string
-		string operator+( const char _Ch ); // Конкатенация строк r-value const char
-		string operator+( const char* ); // Конкатенация строк r-value const char[]
+		string operator+( const string& _String ); // Конкатенация строк rvalue str::string
+		string operator+( const char _Ch ); // Конкатенация строк rvalue const char
+		string operator+( const char* ); // Конкатенация строк rvalue const char[]
 
 		void operator+=( const string& _String ); // Конкатенация с присваиванием
 		void operator+=( const char _Ch ); // Конкатенация с присваиванием
@@ -49,9 +50,9 @@ namespace str
 		//string& pull_word( const char* ); // Возвращает первое слово из массива char[]
 		//string& pull_word( const char*, int ); // TODO // Возвращает слово из массива char[], начиная от указанного индекса
 
-		void push( const char _Ch, const size_t _Index );
-		void push( const char* _ChArr, const size_t _Index );
-		void push( const string& _String, const size_t _Index );
+		void push_at( const char _Ch, const size_t _Index );
+		void push_at( const char* _ChArr, const size_t _Index );
+		void push_at( const string& _String, const size_t _Index );
 
 		void push_back( const char _Ch ); // Дописывает символ в конец строки
 		void push_back( const string& _String ); // Дописывает строку в конец строки
@@ -73,8 +74,8 @@ namespace str
 		char* find( const string& _String ); // Возвращает указатель на первый символ первого вхождения _String в строку
 
 	private:
-		size_t length;
-		char* str;
+		size_t m_Length = 0;
+		char* m_Str = nullptr;
 
 		friend std::ostream& operator<<( std::ostream& _outStream, const string& _String );
 		friend std::istream& operator>>( std::istream& _outStream, string& _String );
