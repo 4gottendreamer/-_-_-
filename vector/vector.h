@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+#define _ALLOCATION_ 0
+
 template <typename T>
 class vector
 {
@@ -42,8 +44,6 @@ private:
 template <typename T>
 vector<T>::vector()
 {
-	//this->m_Capacity = TCap;
-	//this->m_Arr = new T[TCap];
 	realloc( 2 );
 }
 
@@ -65,6 +65,16 @@ vector<T>::vector()
 //	_Arr.m_Arr = nullptr;
 //}
 
+#if _ALLOCATION_
+template <typename T>
+vector<T>::~vector()
+{
+	//clear();
+	delete[] this->m_Arr;
+	//::operator delete( m_Arr, m_Capacity * sizeof( T ) );
+}
+
+#else
 template <typename T>
 vector<T>::~vector()
 {
@@ -73,34 +83,42 @@ vector<T>::~vector()
 	::operator delete( m_Arr, m_Capacity * sizeof( T ) );
 }
 
+#endif // 0
+
 template <typename T>
 void vector<T>::push_back( const T& _Elem )
 {
-#if 1
+#if _ALLOCATION_
 	if ( m_Size >= m_Capacity ) {
 		realloc( m_Capacity + m_Capacity / 2 );
 	}
 	m_Arr[m_Size++] = _Elem;
 #else
-	T* tmp = new T[this->m_Size + 1];
+	emplace_back( _Elem );
+#endif // 0
+
+	/*T* tmp = new T[this->m_Size + 1];
 	for ( size_t i = 0; i < this->m_Size; i++ ) {
 		tmp[i] = this->m_Arr[i];
 	}
 	tmp[this->m_Size++] = _Elem;
 	delete[] this->m_Arr;
 	this->m_Arr = tmp;
-	tmp = nullptr;
-#endif // 0
+	tmp = nullptr;*/
 }
 
 template <typename T>
 void vector<T>::push_back( T&& _Elem )
 {
+#if _ALLOCATION_
 	if ( m_Size >= m_Capacity ) {
 		realloc( m_Capacity + m_Capacity / 2 );
 	}
 	m_Arr[m_Size++] = std::move( _Elem );
 	//m_Arr[m_Size++] = _Elem;
+#else
+	emplace_back( std::move( _Elem ) );
+#endif
 }
 
 template <typename T>
@@ -131,19 +149,18 @@ void vector<T>::push_head( const T& _Elem )
 template <typename T>
 void vector<T>::pop_back()
 {
-#if 1
+
 	if ( m_Size > 0 ) {
 		m_Arr[--m_Size].~T();
 	}
-#else
-	T* tmp = new T[this->m_Size - 1];
-	for ( size_t i = 0; i < this->m_Size - 1; i++ ) {
-		tmp[i] = this->m_Arr[i];
-	}
-	delete[] this->m_Arr;
-	this->m_Arr = tmp;
-	tmp = nullptr;
-#endif // 0
+
+	//T* tmp = new T[this->m_Size - 1];
+	//for ( size_t i = 0; i < this->m_Size - 1; i++ ) {
+	//	tmp[i] = this->m_Arr[i];
+	//}
+	//delete[] this->m_Arr;
+	//this->m_Arr = tmp;
+	//tmp = nullptr;
 }
 
 template <typename T>
@@ -194,35 +211,37 @@ size_t vector<T>::capacity()
 *///////////////////////////////////////////
 
 // Gets vector m_Capacity grown or shrinked to _newCapacity size
-//template <typename T>
-//void vector<T>::realloc( size_t _newCapacity )
-//{
-//	T* newArr = new T[_newCapacity];
-//	//T* newArr = ( T* )::operator new( _newCapacity * sizeof( T ) );
-//
-//	if ( _newCapacity < m_Size ) { // Downsizing capacity case
-//		m_Size = _newCapacity;
-//	} // TODO(*): Check for memory re-allocations in shrinking case
-//
-//	for ( size_t i = 0; i < m_Size; i++ ) {
-//		//newArr[i] = std::move( m_Arr[i] );
-//		newArr[i] = m_Arr[i];
-//	}
-//
-//	delete[] m_Arr;
-//
-//	// TODO(*): Use initial m_Size in case of shrinking
-//	// TODO(*): Использовать
-//	//for ( size_t i = 0; i < m_Size; i++ ) {
-//	//	m_Arr[i].~T();
-//	//}
-//	//::operator delete( m_Arr, m_Capacity * sizeof( T ) );
-// 
-//
-//	m_Arr = newArr;
-//	m_Capacity = _newCapacity;
-//}
 
+#if _ALLOCATION_
+template <typename T>
+void vector<T>::realloc( size_t _newCapacity )
+{
+	T* newArr = new T[_newCapacity];
+	//T* newArr = ( T* )::operator new( _newCapacity * sizeof( T ) );
+
+	if ( _newCapacity < m_Size ) { // Downsizing capacity case
+		m_Size = _newCapacity;
+	} // TODO(*): Check for memory re-allocations in shrinking case
+
+	for ( size_t i = 0; i < m_Size; i++ ) {
+		//newArr[i] = m_Arr[i];
+		newArr[i] = std::move( m_Arr[i] );
+	}
+
+	delete[] m_Arr;
+
+	// TODO(*): Use initial m_Size in case of shrinking
+	// TODO(*): Использовать изначальный m_Size в случае сокращения ёмкости
+	//for ( size_t i = 0; i < m_Size; i++ ) {
+	//	m_Arr[i].~T();
+	//}
+	//::operator delete( m_Arr, m_Capacity * sizeof( T ) );
+
+	m_Arr = newArr;
+	m_Capacity = _newCapacity;
+}
+
+#else
 template <typename T>
 void vector<T>::realloc( size_t _newCapacity )
 {
@@ -234,8 +253,10 @@ void vector<T>::realloc( size_t _newCapacity )
 	} // TODO(*): Check for memory re-allocations in shrinking case
 
 	for ( size_t i = 0; i < m_Size; i++ ) {
-		newArr[i] = std::move( m_Arr[i] );
 		//newArr[i] = m_Arr[i];
+		//newArr[i] = std::move( m_Arr[i] );
+		new( &newArr[i] ) T( std::forward<T>( m_Arr[i] ) );
+
 	}
 
 	//delete[] m_Arr;
@@ -250,3 +271,4 @@ void vector<T>::realloc( size_t _newCapacity )
 	m_Arr = newArr;
 	m_Capacity = _newCapacity;
 }
+#endif // 0

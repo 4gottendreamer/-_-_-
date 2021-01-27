@@ -121,7 +121,7 @@ int main()
 {
 	setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
 	
-	vector<str::string, MAX_LINES> arrTxt;
+	vector<str::string> arrTxt;
 	for ( size_t i = 0; i < arrTxt.size(); i++ ) {
 		str::string Tmp;
 		Tmp.getline();

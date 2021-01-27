@@ -9,13 +9,26 @@ int main()
 {
 	setlocale( LC_ALL, "ru" );
 
+	std::cout << "START\n" << std::endl;
+
+	char s1[]( "String_one" );
+	char s2[]( "String_two" );
+	char* s3;
+	std::cout << "s1 == " << s1 << std::endl;
+	std::cout << "s2 == " << s2 << std::endl;
+	s3 = std::move( s2 );
+	std::cout << "s3 = std::move( s2 );\ns3 == " << s3 << std::endl;
+	std::cout << "s2 == " << s2 << std::endl;
 	str::string str_1( "Hello" );
 	std::cout << "str_1 == " << str_1 << std::endl;
 
 	str::string str_2( "World" );
 	std::cout << "str_2 == " << str_2 << std::endl;
-	str_1 = std::move( str_2 );
+	str_1 = std::move( str_2 ); // str_2 is nullified
 	std::cout << "str_1 == " << str_1;
+	std::cout << "str_2 = \"ÂÒÎÐÀß ñÒðÎêÀ\" ";
+	str_2 = "ÂÒÎÐÀß ñÒðÎêÀ";
+	std::cout << "str_2 == " << str_2;
 	std::cout << std::endl;
 
 	int I = 2;

@@ -2,16 +2,19 @@
 using namespace str;
 
 string::string()
+	: m_Length( 0 )
+	, m_Str( nullptr )
 {
 	//std::cout << "string()\n";
-	m_Length = 0;
-	m_Str = nullptr;
+	/*m_Str = nullptr;
+	m_Str = nullptr;*/
 }
 
 string::string( char _Ch )
+	: m_Length( 1 )
 {
 	//std::cout << "string( char )\n";
-	this->m_Length = 1;
+	//this->m_Length = 1;
 	this->m_Str = new char[2];
 	this->m_Str[0] = _Ch;
 	this->m_Str[1] = '\0';
@@ -40,10 +43,12 @@ string::string( const char* _String )
 }
 
 string::string( string&& _String ) noexcept
+	: m_Length( _String.m_Length )
+	, m_Str( _String.m_Str )
 {
 	//std::cout << "string( string&& )\n";
-	this->m_Length = _String.m_Length;
-	this->m_Str = _String.m_Str;
+	//this->m_Length = _String.m_Length;
+	//this->m_Str = _String.m_Str;
 	_String.m_Length = 0;
 	_String.m_Str = nullptr;
 }
@@ -62,7 +67,9 @@ string::string( const string& _String )
 string::~string()
 {
 	//std::cout << "~string()\n";
+	m_Length = 0;
 	delete[]( this->m_Str );
+	//::operator delete( m_Str, ( str::lenghthof( m_Str ) + 1 ) * sizeof( char ) );
 }
 
 string& string::operator=( const string& _String )
@@ -83,7 +90,7 @@ string& string::operator=( string&& _String ) noexcept
 {
 	if ( this != &_String ) {
 		delete[] this->m_Str;
-		
+
 		this->m_Length = _String.m_Length;
 		this->m_Str = _String.m_Str;
 
@@ -322,7 +329,7 @@ void string::getline()
 	this->m_Str = new char[this->m_Length + 1];
 	for ( int i = 0; i < this->m_Length; i++ ) {
 		this->m_Str[i] = tmp[i];
-	}
+}
 #endif // 0
 }
 
@@ -380,7 +387,7 @@ string string::pull_word_iter( int& _Index ) const
 	while ( this->m_Str[i] != ' ' and this->m_Str[i] != '\0' ) {
 		strWord += this->m_Str[i];
 		i++;
-	}
+}
 #else
 	if ( this->m_Str[_Index] == '\0' ) {
 		return strWord;
