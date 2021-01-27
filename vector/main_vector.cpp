@@ -3,6 +3,7 @@
 #include <vector>
 #include "..\string\string.h"
 
+//using TYPE = std::string;
 using TYPE = str::string;
 
 void PrintVector( vector<TYPE>& _Vec )
@@ -20,12 +21,13 @@ int main()
 	//TYPE S;
 	//std::cout << "S.capacity() == " << S.capacity() << std::endl;
 	
-	/*std::vector<std::string> strVec;
-	strVec.push_back( "Один" );
+	std::vector<std::string> strVec;
+	
+	/*strVec.push_back( "Один" );
 	strVec.push_back( "Два" );
 	strVec.emplace_back( "Три" );
 	strVec.push_back( "Четыре" );*/
-
+	
 	TYPE S_ONE = "std::String___O.N.E.__";
 	TYPE R("this was emplaced inTWO here");
 
@@ -39,7 +41,7 @@ int main()
 	PrintVector( sV );
 	
 	std::cout << "\n\tsV.pop_back();" << std::endl;
-	//sV.pop_back();
+	sV.pop_back();
 
 	std::cout << "\nsizeof( str::string ) == " << sizeof( TYPE ) << '\n';
 	std::cout << "sV.size() == " << sV.size() << "\tsV.capacity() == " << sV.capacity() << std::endl;
@@ -73,6 +75,15 @@ int main()
 
 	PrintVector( sV );
 
+	sV.pop_back();
+	sV.pop_back();
+	sV.pop_back();
+	sV.pop_back();
+	sV.pop_back();
+	sV.pop_back();
+
+	PrintVector( sV );
+
 	std::cout << "clear();\n";
 	sV.clear();
 	std::cout << "sV.size() == " << sV.size() << "\tsV.capacity() == " << sV.capacity() << std::endl;
@@ -86,6 +97,6 @@ int main()
 		std::cout << sV[i] << '\n';
 	}*/
 
-	//std::cin.get();
+	system( "pause" );
 	std::cout << std::endl;
 }

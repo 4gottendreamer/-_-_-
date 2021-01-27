@@ -3,6 +3,17 @@
 
 #define _ALLOCATION_ 0
 
+/*
+* TODO:
+*	1.	Teach realloc() to reduce allocated memory
+*	2.	Check on pop_back() if reductive reallocation is needed
+*	3.	vector( const std::initializer_list<T>& _List )
+*		vector<int> A = { 1, 2, 3, ... }
+*	4.	T& at() // operator[]() with range checking
+*	5.	T& begin()
+*	6.	T& end()
+*/
+
 template <typename T>
 class vector
 {
@@ -256,7 +267,6 @@ void vector<T>::realloc( size_t _newCapacity )
 		//newArr[i] = m_Arr[i];
 		//newArr[i] = std::move( m_Arr[i] );
 		new( &newArr[i] ) T( std::forward<T>( m_Arr[i] ) );
-
 	}
 
 	//delete[] m_Arr;
