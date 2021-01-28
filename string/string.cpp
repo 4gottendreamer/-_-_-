@@ -54,9 +54,10 @@ string::string( string&& _String ) noexcept
 }
 
 string::string( const string& _String )
+	: m_Length( str::lenghthof( _String.m_Str ) )
 {
 	//std::cout << "string( const string& )\n";
-	m_Length = str::lenghthof( _String.m_Str );
+	//m_Length = str::lenghthof( _String.m_Str );
 	this->m_Str = new char[m_Length + 1];
 	for ( int i = 0; i < m_Length; i++ ) {
 		this->m_Str[i] = _String.m_Str[i];
@@ -246,7 +247,7 @@ bool string::operator!=( const char* _ChArr )
 
 char& string::operator[]( size_t _Index )
 {
-	if ( _Index >= this->m_Length ) {
+	if ( _Index > this->m_Length ) {
 		throw( "Overlength indexing" );
 	}
 	else {
@@ -329,13 +330,18 @@ void string::getline()
 	this->m_Str = new char[this->m_Length + 1];
 	for ( int i = 0; i < this->m_Length; i++ ) {
 		this->m_Str[i] = tmp[i];
-}
+	}
 #endif // 0
 }
 
 void string::cout()
 {
 	std::cout << this->m_Str;
+}
+
+void string::coutnl()
+{
+	std::cout << this->m_Str << std::endl;
 }
 
 string string::pull_word() const
@@ -355,14 +361,15 @@ string string::pull_word() const
 	return strWord;
 }
 
-string str::string::pull_word( const int _Index ) const
+string string::pull_word( const size_t _Index ) const
 {
 	string strWord;
 	int i = _Index;
-	if ( this->m_Str[i] == '\0' ) {
+	if(_Index == m_Length ){
+	//if ( this->m_Str[i] == '\0' ) {
 		return strWord;
 	}
-	while ( this->m_Str[i] == ' ' or this->m_Str[i] == '\0' ) {
+	while ( this->m_Str[i] == ' ' /*or this->m_Str[i] == '\0'*/ ) {
 		i++;
 	}
 	while ( this->m_Str[i] != ' ' and this->m_Str[i] != '\0' ) {
@@ -372,7 +379,7 @@ string str::string::pull_word( const int _Index ) const
 	return strWord;
 }
 
-string string::pull_word_iter( int& _Index ) const
+string string::pull_word_iter( size_t& _Index ) const
 {
 	// TODO: Проверка на выход за длину строки
 	string strWord;
@@ -387,12 +394,16 @@ string string::pull_word_iter( int& _Index ) const
 	while ( this->m_Str[i] != ' ' and this->m_Str[i] != '\0' ) {
 		strWord += this->m_Str[i];
 		i++;
-}
+	}
 #else
-	if ( this->m_Str[_Index] == '\0' ) {
+	if ( _Index >= this->m_Length ) {
 		return strWord;
 	}
-	while ( this->m_Str[_Index] == ' ' or this->m_Str[_Index] == '\0' ) {
+	 if( _Index == m_Length ) {
+	//if ( this->m_Str[_Index] == '\0' ) {
+		return strWord;
+	}
+	while ( this->m_Str[_Index] == ' ' /*or this->m_Str[_Index] == '\0'*/ ) {
 		_Index++;
 	}
 	while ( this->m_Str[_Index] != ' ' and this->m_Str[_Index] != '\0' ) {
@@ -403,7 +414,7 @@ string string::pull_word_iter( int& _Index ) const
 	return strWord;
 }
 
-string& string::pull_word_iter( const string& _String, int& _Index )
+string& string::pull_word_iter( const string& _String, size_t& _Index )
 {
 	*this = _String.pull_word_iter( _Index );
 	/*string strWord;
@@ -420,7 +431,7 @@ string& string::pull_word_iter( const string& _String, int& _Index )
 	return *this;
 }
 
-string& str::string::pull_word( const string& _String, const int _Index )
+string& string::pull_word( const string& _String, const size_t _Index )
 {
 	// TODO: вставьте здесь оператор return
 	*this = _String.pull_word( _Index );
@@ -488,21 +499,66 @@ void string::clear()
 	this->m_Length = 0;
 }
 
-size_t str::string::begin()
+void str::string::erase( size_t _Index, size_t _Amount )
+{
+	// TODO: _Index out of rande checking
+	char* tmp;
+	if ( _Amount < size() - _Index - 1 ) {
+
+		m_Length -= _Amount;
+		tmp = new char[m_Length + 1];
+		for ( size_t i = 0; i < _Index; i++ ) {
+			tmp[i] = m_Str[i];
+		}
+
+		for ( size_t i = _Index; i < m_Length; i++ ) {
+			tmp[i] = m_Str[i + _Amount];
+		}
+	}
+	else { // _Amount > size();
+		m_Length = _Index;
+		tmp = new char[m_Length + 1];
+		for ( size_t i = 0; i < m_Length; i++ ) {
+			tmp[i] = m_Str[i];
+		}
+	}
+	tmp[m_Length] = 0;
+	delete[] m_Str;
+	m_Str = tmp;
+	tmp = nullptr;
+}
+
+bool str::string::empty()
+{
+	return size() == 0;
+}
+
+size_t string::begin()
 {
 	return 0;
 }
 
-size_t str::string::end()
+size_t string::end()
 {
 	return this->m_Length;
 }
 
-char* str::string::find( const char* _ChArr )
+size_t str::string::find( const char _Ch )
+{
+	for ( size_t i = 0; i < this->m_Length + 1; i++ ) {
+		if ( this->m_Str[i] == _Ch ) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+size_t string::find( const char* _ChArr )
 {
 	size_t ChArrLength = str::lenghthof( _ChArr );
 	if ( ChArrLength > this->m_Length ) {
-		return nullptr;
+		//return (size_t)nullptr;
+		return -1;
 	}
 	else {
 		for ( size_t i = 0; i < this->m_Length - ChArrLength + 1; i++ ) {
@@ -520,18 +576,20 @@ char* str::string::find( const char* _ChArr )
 				}
 			}
 			if ( match ) {
-				return &( this->m_Str[i] );
+				return i;
 			}
 		}
 	}
-	return nullptr;
+	//return nullptr;
+	return -1;
 }
 
-char* str::string::find( const string& _String )
+size_t string::find( const string& _String )
 {
 	size_t StringLength = _String.m_Length;
 	if ( StringLength > this->m_Length ) {
-		return nullptr;
+		//return nullptr;
+		return -1;
 	}
 	else {
 		for ( size_t i = 0; i < this->m_Length - StringLength + 1; i++ ) {
@@ -549,11 +607,12 @@ char* str::string::find( const string& _String )
 				}
 			}
 			if ( match ) {
-				return &( this->m_Str[i] );
+				return i;
 			}
 		}
 	}
-	return nullptr;
+	//return nullptr;
+	return -1;
 }
 
 /*

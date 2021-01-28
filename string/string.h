@@ -34,25 +34,32 @@ namespace str
 		bool operator!=( const string& _String ); // Сравнение строк
 		bool operator!=( const char* _ChArr ); // Сравнение строк
 
-		char& operator[]( size_t ); // Индексирование буквы строки
+		char& operator[]( size_t _Index ); // Индексирование буквы строки
 
+		// Console input
 		void cin();
 		void getline();
+		
+		// Console output
 		void cout(); // Вывод в консоль
+		void coutnl(); // Вывод в консоль с переводом каретки на новую строку
 
 		string pull_word() const; // Возвращает первое слово (строку символов до пробела) из текущей строки
-		string pull_word( const int _Index ) const; // Возвращает слово из текущей строки, начиная с индекса _Index
-		string pull_word_iter( int& _Index ) const; // Возвращает слово из текущей строки, начиная с индекса _Index
-													// меняет _Index на индекс символа следующего за входящим словом
-		string& pull_word_iter( const string& _String, int& _Index ); // Меняет текущую строку на первое слово из _String, начиная с индекса _Index
+		string pull_word( const size_t _Index ) const; // Возвращает слово из текущей строки, начиная с индекса _Index
+		string pull_word_iter( size_t& _Index ) const; // Возвращает слово из текущей строки, начиная с индекса _Index
+													// меняет _Index на индекс символа, следующего за входящим словом
+		string& pull_word_iter( const string& _String, size_t& _Index ); // Меняет текущую строку на первое слово из _String, начиная с индекса _Index
 																	  // меняет _Index на индекс символа следующего за входящим словом
-		string& pull_word( const string& _String, const int _Index ); // Меняет строку на первое слово из _String, начиная с индекса _Index
+		string& pull_word( const string& _String, const size_t _Index ); // Меняет строку на первое слово из _String, начиная с индекса _Index
 		//string& pull_word( const char* ); // Возвращает первое слово из массива char[]
 		//string& pull_word( const char*, int ); // TODO // Возвращает слово из массива char[], начиная от указанного индекса
 
-		void push_at( const char _Ch, const size_t _Index );
-		void push_at( const char* _ChArr, const size_t _Index );
-		void push_at( const string& _String, const size_t _Index );
+		size_t insert( size_t _Pos, const char _Ch );
+		size_t insert( size_t _Pos, const char* _ChArr );
+		size_t insert( size_t _Pos, const str::string& _String );
+
+		size_t insert( size_t _Pos, size_t _Amount, const char _Ch );
+		size_t insert( size_t _Pos, const str::string& _String, size_t _Index, size_t _Amount );
 
 		void push_back( const char _Ch ); // Дописывает символ в конец строки
 		void push_back( const string& _String ); // Дописывает строку в конец строки
@@ -66,19 +73,22 @@ namespace str
 
 		size_t size(); // Возвращает длину строки
 		void clear(); // Обнуляет строку
+		void erase( size_t _Index, size_t _Amount ); // Удаляет количество символов _Amount, начиная с позиции _Index
+		bool empty(); // 1, если строка пустая (size() == 0), иначе 1
 
-		size_t	 begin();
+		size_t begin();
 		size_t end();
 
-		char* find( const char* _ChArr ); // Возвращает указатель на первый символ первого вхождения _ChArr в строку
-		char* find( const string& _String ); // Возвращает указатель на первый символ первого вхождения _String в строку
+		size_t find( const char _Ch ); // Возвращает индекс первого вхождения _ChArr в строку
+		size_t find( const char* _ChArr ); // Возвращает индекс первого символа первого вхождения _ChArr в строку
+		size_t find( const string& _String ); // Возвращает индекс первого символа первого вхождения _String в строку
+
+		friend std::ostream& operator<<( std::ostream& _outStream, const string& _String );
+		friend std::istream& operator>>( std::istream& _outStream, string& _String );
 
 	private:
 		size_t m_Length = 0;
 		char* m_Str = nullptr;
-
-		friend std::ostream& operator<<( std::ostream& _outStream, const string& _String );
-		friend std::istream& operator>>( std::istream& _outStream, string& _String );
 	};
 
 	std::ostream& operator<<( std::ostream& _outStream, const string& _String );
