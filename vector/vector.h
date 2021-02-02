@@ -9,7 +9,7 @@
 *	2.	Check on pop_back() if reductive reallocation is needed
 *	3.	vector( const std::initializer_list<T>& _List )
 *		vector<int> A = { 1, 2, 3, ... }
-*	4.	T& at() // operator[]() with range checking
+*	4.	T& at( size_t _Index ) // operator[]() with range checking
 *	5.	T& begin()
 *	6.	T& end()
 */
@@ -34,7 +34,7 @@ public:
 	T& pop_head(); // Deletes and nullifies element m_Arr[0]; returns ref. to new m_Arr[0]
 
 	void clear(); // Destroys evey element of vector
-	void reserve( size_t _newCapacity );
+	void reserve( size_t _newCapacity ); // Allocates _newCapacity elements of space in advance
 
 	T& operator[]( size_t _i );
 	const T& operator[]( size_t _i ) const;

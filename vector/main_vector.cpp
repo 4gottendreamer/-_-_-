@@ -33,7 +33,7 @@ int main()
 
 	vector<TYPE> sV;
 	sV.emplace_back( "emplaced_one" );
-	sV.emplace_back( R );
+	sV.emplace_back( R.pull_word() );
 	sV.push_back( "three" );
 	sV.push_back( "four" );
 	sV.push_back( S_ONE );
@@ -92,7 +92,16 @@ int main()
 	sV.emplace_back( C );
 	std::cout << "sV.size() == " << sV.size() << "\tsV.capacity() == " << sV.capacity() << std::endl;
 	PrintVector( sV );
-	
+
+	std::cout << "---------------------------\n";
+	str::string S1;
+	str::string S2("Слово");
+	std::cout << S2.size() << std::endl;
+
+	S2 += S1;
+	std::cout << S2 << std::endl;
+	std::cout << S2.size() << std::endl;
+
 	/*for ( size_t i = 0; i < sV.size(); i++ ) {
 		std::cout << sV[i] << '\n';
 	}*/
