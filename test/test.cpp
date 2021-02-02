@@ -7,6 +7,7 @@
 #include <iostream>
 #include <ctime>
 #include <memory>
+#include <string>
 
 #if 0
 
@@ -23,6 +24,110 @@ int AddMe( int a, int b )
 }
 #endif // 0
 
+#if 0
+template <typename Tarr, typename Tsize, typename Tsize_add>
+void push_back( Tarr*& _Arr, Tsize _size, Tarr*& const _Arr_add, const Tsize_add _size_add )
+{
+	Tarr* newArray = new Tarr[( _size + (size_t)_size_add )];
+	for ( int i = 0; i < _size; i++ ) {
+		newArray[i] = _Arr[i];
+	}
+	for ( int i = _size; i < _size + _size_add; i++ ) {
+		newArray[i] = _Arr_add[i - _size];
+	}
+	delete[] _Arr;
+	_size += _size_add;
+	_Arr = newArray;
+}
+
+template <typename Tarr, typename Tsize, typename Tsize_add>
+void push_back( Tarr*& _Arr, Tsize _size, const Tarr* _Arr_add, const Tsize_add _size_add )
+{
+	Tarr* newArray = new Tarr[( _size + (size_t)_size_add )];
+	for ( int i = 0; i < _size; i++ ) {
+		newArray[i] = _Arr[i];
+	}
+	for ( int i = _size; i < _size + _size_add; i++ ) {
+		newArray[i] = _Arr_add[i - _size];
+	}
+	delete[] _Arr;
+	_size += _size_add;
+	_Arr = newArray;
+}
+
+// Конкатенация символьных массивов (строк) _Arr и _Arr_add
+// _Arr = _Arr + _Arr_add
+void push_back( char*& _Arr, char* const& _Arr_add )
+{
+	size_t size = strlen( _Arr );
+	size_t size_add = strlen( _Arr_add );
+	char* newArray = new char[size + size_add + 1];
+	for ( int i = 0; i < size; i++ ) {
+		newArray[i] = _Arr[i];
+	}
+	for ( int i = size; i < size + size_add; i++ ) {
+		newArray[i] = _Arr_add[i - size];
+	}
+	newArray[size + size_add] = '\0';
+	delete[] _Arr;
+	_Arr = newArray;
+}
+
+// Перегрузка push_back( char*, const char*& )
+void push_back( char*& _Arr, const char*& _Arr_add )
+{
+	size_t size = strlen( _Arr );
+	size_t size_add = strlen( _Arr_add );
+	char* newArray = new char[size + size_add + 1];
+	for ( int i = 0; i < size; i++ ) {
+		newArray[i] = _Arr[i];
+	}
+	for ( int i = size; i < size + size_add; i++ ) {
+		newArray[i] = _Arr_add[i - size];
+	}
+	newArray[size + size_add] = '\0';
+	delete[] _Arr;
+	_Arr = newArray;
+}
+
+// Проверяет, является ли символ <char>_symbol
+// заглавной или строчной буквой английского или русского алфавита
+bool IsSymbol( const char& _symbol )
+{
+	if ( ( _symbol >= 65 and _symbol <= 90 ) or	// English CAPITALS
+		 ( _symbol >= 97 and _symbol <= 122 ) ) { // English lowercases
+		return true;
+	}
+	if ( _symbol >= -128 and _symbol <= -15 ) { // Русские буквы
+		return true;
+	}
+	return false;
+}
+
+// Возвращает указатель на строку с очередным словом из строки _Line
+// Менает значение переменной _StartPos
+// на индекс первого пробела после текущего слова в строке _Line
+char* GetWord( char* _Line, int& _StartPos )
+{
+	// Если текущий символ не буква, сдвигаем каретку до первой буквы
+	while ( !IsSymbol( _Line[_StartPos] ) ) {
+		_StartPos++;
+	}
+	int CurPos = _StartPos; // Текущее начало слова == текущему концу слова
+
+	// Подсчёт количества непрерывной цепочки букв
+	while ( IsSymbol( _Line[CurPos] ) and _Line[CurPos] != '\0' and _Line[CurPos] != '\n' ) {
+		CurPos++;
+	}
+
+	char* Word = new char[1];
+	Word[0] = '\0';
+	push_back( Word, 0, _Line + _StartPos, CurPos - _StartPos );
+	push_back( Word, CurPos - _StartPos, "\0", strlen( Word ) );
+	_StartPos = CurPos;
+	return Word;
+}
+#endif // 0
 
 // Возвращает знак вещественного _X
 // -1 при _X < 0
@@ -100,32 +205,33 @@ void myOut( T* a = T( 1 ) )
 
 int main()
 {
-	setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
+	setlocale( LC_ALL, "ru_RU.utf8" );
+	//setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
 	srand( time( NULL ) ); // Установка генератора случайных чисел
 
-	std::unique_ptr<int> uptrA;
-	std::string strA("This is the string of characters.");
-	strA.size();
-	int A = -5;
-	int B = 7;
-	int* ptrA = &A;
-	// В качестве параметров в функию передаются адреса переменных A и B
-	std::cout << "myOut(ptrA) = "; myOut( ptrA );  std::cout << std::endl;
-	std::cout << "A = " << A << std::endl;
-	std::cout << "B = " << B << std::endl;
-	swap( &A, &B ); std::cout << "Swapping...\n";
-	std::cout << "A = " << A << std::endl;
-	std::cout << "B = " << B << std::endl;
+	std::wstring wstrA(L"Русский текст в кодировке UTF8.");
+	std::wcout << wstrA << std::endl;
+	std::wcout << L"Размер строки:\t" << wstrA.size() << std::endl;
+	
+	char* C = new char[5];
+	
+	std::cin >> C;
+	std::cout << C << std::endl;
+	
+	delete[] C;
+	C = nullptr;
 
-	B = signum( A );
-	std::cout << "B = signum(A)" << std::endl;
-	Inverse( B );
-	std::cout << "Inverse(B) = " << B << std::endl;
+	::operator delete( C, 5 * sizeof( char ) );
 
-	for ( int i = 0; i <= 255; i++ ) {
-		std::cout << (char)i << '\t' << i << std::endl;
-	}
+	std::cout << "(size_t)C == " << (size_t)C;
+	std::cout << "\n(size_t)(-1) == " << (size_t)(-1);
 
+	std::string strA("Русский текст в кодировке ANSI CP1251.");
+	std::cout << std::endl;
+	std::cout << "std::string::npos\t" << std::string::npos << '\n';
+	std::cout << strA << std::endl;
+	std::cout << "Размер строки:\t" << strA.size() << std::endl;
+	
 #if 0   // ЛАБОРАТОРНАЯ 8. Вопрос 2. Синтаксис указателей //
 	// Указатель symbol указывает на переменную типа char
 	char* symbol;
