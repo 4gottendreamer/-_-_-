@@ -19,7 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\string\string.cpp" />
     <ClCompile Include="lab_10_v6.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\string\string.h" />
+    <ClInclude Include="..\vector\vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

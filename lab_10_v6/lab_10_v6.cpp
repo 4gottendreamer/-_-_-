@@ -7,133 +7,100 @@
 //
 
 #include <iostream>
+//#include <fstream>
 #include "..\string\string.h"
 #include "..\vector\vector.h"
 
-#if 0
-template <typename Tarr, typename Tsize, typename Tsize_add>
-void push_back( Tarr*& _Arr, Tsize _size, Tarr*& const _Arr_add, const Tsize_add _size_add )
-{
-	Tarr* newArray = new Tarr[( _size + (size_t)_size_add )];
-	for ( int i = 0; i < _size; i++ ) {
-		newArray[i] = _Arr[i];
-	}
-	for ( int i = _size; i < _size + _size_add; i++ ) {
-		newArray[i] = _Arr_add[i - _size];
-	}
-	delete[] _Arr;
-	_size += _size_add;
-	_Arr = newArray;
-}
-
-template <typename Tarr, typename Tsize, typename Tsize_add>
-void push_back( Tarr*& _Arr, Tsize _size, const Tarr* _Arr_add, const Tsize_add _size_add )
-{
-	Tarr* newArray = new Tarr[( _size + (size_t)_size_add )];
-	for ( int i = 0; i < _size; i++ ) {
-		newArray[i] = _Arr[i];
-	}
-	for ( int i = _size; i < _size + _size_add; i++ ) {
-		newArray[i] = _Arr_add[i - _size];
-	}
-	delete[] _Arr;
-	_size += _size_add;
-	_Arr = newArray;
-}
-
-// Конкатенация символьных массивов (строк) _Arr и _Arr_add
-// _Arr = _Arr + _Arr_add
-void push_back( char*& _Arr, char* const& _Arr_add )
-{
-	size_t size = strlen( _Arr );
-	size_t size_add = strlen( _Arr_add );
-	char* newArray = new char[size + size_add + 1];
-	for ( int i = 0; i < size; i++ ) {
-		newArray[i] = _Arr[i];
-	}
-	for ( int i = size; i < size + size_add; i++ ) {
-		newArray[i] = _Arr_add[i - size];
-	}
-	newArray[size + size_add] = '\0';
-	delete[] _Arr;
-	_Arr = newArray;
-}
-
-// Перегрузка push_back( char*, const char*& )
-void push_back( char*& _Arr, const char*& _Arr_add )
-{
-	size_t size = strlen( _Arr );
-	size_t size_add = strlen( _Arr_add );
-	char* newArray = new char[size + size_add + 1];
-	for ( int i = 0; i < size; i++ ) {
-		newArray[i] = _Arr[i];
-	}
-	for ( int i = size; i < size + size_add; i++ ) {
-		newArray[i] = _Arr_add[i - size];
-	}
-	newArray[size + size_add] = '\0';
-	delete[] _Arr;
-	_Arr = newArray;
-}
-
-// Проверяет, является ли символ <char>_symbol
-// заглавной или строчной буквой английского или русского алфавита
-bool IsSymbol( const char& _symbol )
-{
-	if ( ( _symbol >= 65 and _symbol <= 90 ) or	// English CAPITALS
-		 ( _symbol >= 97 and _symbol <= 122 ) ) { // English lowercases
-		return true;
-	}
-	if ( _symbol >= -128 and _symbol <= -15 ) { // Русские буквы
-		return true;
-	}
-	return false;
-}
-
-// Возвращает указатель на строку с очередным словом из строки _Line
-// Менает значение переменной _StartPos
-// на индекс первого пробела после текущего слова в строке _Line
-char* GetWord( char* _Line, int& _StartPos )
-{
-	// Если текущий символ не буква, сдвигаем каретку до первой буквы
-	while ( !IsSymbol( _Line[_StartPos] ) ) {
-		_StartPos++;
-	}
-	int CurPos = _StartPos; // Текущее начало слова == текущему концу слова
-
-	// Подсчёт количества непрерывной цепочки букв
-	while ( IsSymbol( _Line[CurPos] ) and _Line[CurPos] != '\0' and _Line[CurPos] != '\n' ) {
-		CurPos++;
-	}
-
-	char* Word = new char[1];
-	Word[0] = '\0';
-	push_back( Word, 0, _Line + _StartPos, CurPos - _StartPos );
-	push_back( Word, CurPos - _StartPos, "\0", strlen( Word ) );
-	_StartPos = CurPos;
-	return Word;
-}
-#endif // 0
-
-const int MAX_LINES = 3; // максимальное количество строк
+const int MAX_LINES = 3; // Максимальное количество строк
 
 int main()
 {
 	setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
-	
-	vector<str::string> arrTxt;
-	for ( size_t i = 0; i < arrTxt.size(); i++ ) {
+
+	//std::ofstream fileOutput( "file.txt" );
+	//std::ifstream fileInput( "file.txt" );
+
+	vector<str::string> InputText;
+	for ( size_t i = 0; i < MAX_LINES; i++ ) {
 		str::string Tmp;
 		Tmp.getline();
-		arrTxt.push_back( Tmp );
+		InputText.push_back( Tmp );
 	}
-
-	for ( size_t i = 0; i < arrTxt.size(); i++ ) {
-		arrTxt[i].cout();
-		std::cout << '\n';
+	std::cout << "\n=============================\n";
+	for ( size_t i = 0; i < InputText.size(); i++ ) {
+		std::cout << "[" << i << "] " << InputText[i].size() << '\t' << InputText[i] << std::endl;
 	}
+	std::cout << "\n=============================\n";
 
-	
+	vector<str::string> OutputText;
+#if 1
+	for ( size_t i = 0; i < InputText.size(); i++ ) { // Построчный перебор текста
+
+		size_t j = 0;
+
+		str::string OddWord( InputText[i].pull_word_iter( j ) ); // Вытягиваем первое (нечётное) слово
+																 // из строки i исходного текста
+																 // (j смещает каретку)
+
+		str::string EvenWord( InputText[i].pull_word_iter( j ) );
+		if ( EvenWord.size() ) {				// Если слово не нулевой длины,
+			OutputText.push_back( EvenWord );	// толкаем его новым элементом в вектор
+			OutputText[i].push_back( ' ' );		// и после добавляем пробел
+		}
+
+		OutputText[i].push_back( OddWord ); // Дописываем к новому элементу вектора (к строке) нечётное слово
+
+		for ( ; j < InputText[i].size(); j++ ) {
+			str::string OddWord( InputText[i].pull_word_iter( j ) ); // Вытягиваем следующее нечётное слово
+			str::string EvenWord( InputText[i].pull_word_iter( j ) );
+			if ( OddWord.size() ) {
+				if ( EvenWord.size() ) {
+					//std::cout << "\n\n" << EvenWord << "\n\n";
+					OutputText[i].push_back( ' ' );
+					OutputText[i].push_back( EvenWord );
+				}
+				OutputText[i].push_back( ' ' );
+				OutputText[i].push_back( OddWord );
+			}
+		}
+
+		std::cout << "[" << i << "] " << OutputText[i].size() << '\t' << OutputText[i] << std::endl;
+}
+#else
+	for ( size_t i = 0; i < InputText.size(); i++ ) { // Построчный перебор текста
+
+		size_t j = 0;
+
+		str::string OddWord( InputText[i].pull_word_iter( j ) ); // Вытягиваем первое (нечётное) слово
+																 // из строки i исходного текста
+																 // (j смещает каретку)
+
+		str::string EvenWord( InputText[i].pull_word_iter( j ) );
+		if ( EvenWord.size() ) {				// Если слово не нулевой длины,
+			OutputText.push_back( EvenWord );	// толкаем его новым элементом в вектор
+			OutputText[i].push_back( ' ' );		// и после добавляем пробел
+		}
+
+		OutputText[i].push_back( OddWord ); // Дописываем к новому элементу вектора (к строке) нечётное слово
+
+		for ( ; j < InputText[i].size(); j++ ) {
+			str::string OddWord( InputText[i].pull_word_iter( j ) ); // Вытягиваем следующее нечётное слово
+			str::string EvenWord( InputText[i].pull_word_iter( j ) );
+			if ( OddWord.size() ) {
+				if ( EvenWord.size() ) {
+					//std::cout << "\n\n" << EvenWord << "\n\n";
+					OutputText[i].push_back( ' ' );
+					OutputText[i].push_back( EvenWord );
+				}
+				OutputText[i].push_back( ' ' );
+				OutputText[i].push_back( OddWord );
+			}
+		}
+
+		std::cout << "[" << i << "] " << OutputText[i].size() << '\t' << OutputText[i] << std::endl;
+	}
+#endif // 0
+
 	/*str::string* tmp = new str::string[MAX_LINES];
 	for ( size_t i = 0; i < MAX_LINES; i++ ) {
 		tmp[i].getline();
