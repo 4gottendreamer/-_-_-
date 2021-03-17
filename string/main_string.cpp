@@ -11,6 +11,16 @@ int main()
 
 	std::cout << "START\n" << std::endl;
 
+	str::string strA( "THIS IS A" );
+	str::string strB( "THIS IS B" );
+	if ( strA < strB ) {
+		std::cout << "A less than B\n";
+	}
+	else {
+		std::cout << "A no greater than B\n";
+	}
+	return 0;
+
 	char s1[]( "String_one" );
 	char s2[]( "String_two" );
 	char* s3;

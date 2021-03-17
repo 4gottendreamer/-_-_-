@@ -28,11 +28,11 @@ int AddMe( int a, int b )
 template <typename Tarr, typename Tsize, typename Tsize_add>
 void push_back( Tarr*& _Arr, Tsize _size, Tarr*& const _Arr_add, const Tsize_add _size_add )
 {
-	Tarr* newArray = new Tarr[( _size + (size_t)_size_add )];
-	for ( int i = 0; i < _size; i++ ) {
+	Tarr* newArray = new Tarr[( _size + (size_t) _size_add )];
+	for( int i = 0; i < _size; i++ ) {
 		newArray[i] = _Arr[i];
 	}
-	for ( int i = _size; i < _size + _size_add; i++ ) {
+	for( int i = _size; i < _size + _size_add; i++ ) {
 		newArray[i] = _Arr_add[i - _size];
 	}
 	delete[] _Arr;
@@ -43,11 +43,11 @@ void push_back( Tarr*& _Arr, Tsize _size, Tarr*& const _Arr_add, const Tsize_add
 template <typename Tarr, typename Tsize, typename Tsize_add>
 void push_back( Tarr*& _Arr, Tsize _size, const Tarr* _Arr_add, const Tsize_add _size_add )
 {
-	Tarr* newArray = new Tarr[( _size + (size_t)_size_add )];
-	for ( int i = 0; i < _size; i++ ) {
+	Tarr* newArray = new Tarr[( _size + (size_t) _size_add )];
+	for( int i = 0; i < _size; i++ ) {
 		newArray[i] = _Arr[i];
 	}
-	for ( int i = _size; i < _size + _size_add; i++ ) {
+	for( int i = _size; i < _size + _size_add; i++ ) {
 		newArray[i] = _Arr_add[i - _size];
 	}
 	delete[] _Arr;
@@ -62,10 +62,10 @@ void push_back( char*& _Arr, char* const& _Arr_add )
 	size_t size = strlen( _Arr );
 	size_t size_add = strlen( _Arr_add );
 	char* newArray = new char[size + size_add + 1];
-	for ( int i = 0; i < size; i++ ) {
+	for( int i = 0; i < size; i++ ) {
 		newArray[i] = _Arr[i];
 	}
-	for ( int i = size; i < size + size_add; i++ ) {
+	for( int i = size; i < size + size_add; i++ ) {
 		newArray[i] = _Arr_add[i - size];
 	}
 	newArray[size + size_add] = '\0';
@@ -79,10 +79,10 @@ void push_back( char*& _Arr, const char*& _Arr_add )
 	size_t size = strlen( _Arr );
 	size_t size_add = strlen( _Arr_add );
 	char* newArray = new char[size + size_add + 1];
-	for ( int i = 0; i < size; i++ ) {
+	for( int i = 0; i < size; i++ ) {
 		newArray[i] = _Arr[i];
 	}
-	for ( int i = size; i < size + size_add; i++ ) {
+	for( int i = size; i < size + size_add; i++ ) {
 		newArray[i] = _Arr_add[i - size];
 	}
 	newArray[size + size_add] = '\0';
@@ -94,11 +94,11 @@ void push_back( char*& _Arr, const char*& _Arr_add )
 // заглавной или строчной буквой английского или русского алфавита
 bool IsSymbol( const char& _symbol )
 {
-	if ( ( _symbol >= 65 and _symbol <= 90 ) or	// English CAPITALS
-		 ( _symbol >= 97 and _symbol <= 122 ) ) { // English lowercases
+	if( ( _symbol >= 65 and _symbol <= 90 ) or	// English CAPITALS
+		( _symbol >= 97 and _symbol <= 122 ) ) { // English lowercases
 		return true;
 	}
-	if ( _symbol >= -128 and _symbol <= -15 ) { // Русские буквы
+	if( _symbol >= -128 and _symbol <= -15 ) { // Русские буквы
 		return true;
 	}
 	return false;
@@ -110,13 +110,13 @@ bool IsSymbol( const char& _symbol )
 char* GetWord( char* _Line, int& _StartPos )
 {
 	// Если текущий символ не буква, сдвигаем каретку до первой буквы
-	while ( !IsSymbol( _Line[_StartPos] ) ) {
+	while( !IsSymbol( _Line[_StartPos] ) ) {
 		_StartPos++;
 	}
 	int CurPos = _StartPos; // Текущее начало слова == текущему концу слова
 
 	// Подсчёт количества непрерывной цепочки букв
-	while ( IsSymbol( _Line[CurPos] ) and _Line[CurPos] != '\0' and _Line[CurPos] != '\n' ) {
+	while( IsSymbol( _Line[CurPos] ) and _Line[CurPos] != '\0' and _Line[CurPos] != '\n' ) {
 		CurPos++;
 	}
 
@@ -205,33 +205,45 @@ void myOut( T* a = T( 1 ) )
 
 int main()
 {
-	setlocale( LC_ALL, "ru_RU.utf8" );
-	//setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
-	srand( time( NULL ) ); // Установка генератора случайных чисел
 
-	std::wstring wstrA(L"Русский текст в кодировке UTF8.");
-	std::wcout << wstrA << std::endl;
-	std::wcout << L"Размер строки:\t" << wstrA.size() << std::endl;
-	
-	char* C = new char[5];
-	
-	std::cin >> C;
-	std::cout << C << std::endl;
-	
-	delete[] C;
-	C = nullptr;
+	int num,
+		reversedNum = 0;
+	std::cin >> num;
 
-	::operator delete( C, 5 * sizeof( char ) );
+	//while( num != 0 ) {
+	//	reversedNum *= 10;
+	//	reversedNum += num % 10;
+	//	num /= 10;
+	//}
+	//std::cout << reversedNum << std::endl;
 
-	std::cout << "(size_t)C == " << (size_t)C;
-	std::cout << "\n(size_t)(-1) == " << (size_t)(-1);
+	//setlocale( LC_ALL, "ru_RU.utf8" );
+	////setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
+	//srand( time( NULL ) ); // Установка генератора случайных чисел
 
-	std::string strA("Русский текст в кодировке ANSI CP1251.");
-	std::cout << std::endl;
-	std::cout << "std::string::npos\t" << std::string::npos << '\n';
-	std::cout << strA << std::endl;
-	std::cout << "Размер строки:\t" << strA.size() << std::endl;
-	
+	//std::wstring wstrA(L"Русский текст в кодировке UTF8.");
+	//std::wcout << wstrA << std::endl;
+	//std::wcout << L"Размер строки:\t" << wstrA.size() << std::endl;
+	//
+	//char* C = new char[5];
+	//
+	//std::cin >> C;
+	//std::cout << C << std::endl;
+	//
+	//delete[] C;
+	//C = nullptr;
+
+	//::operator delete( C, 5 * sizeof( char ) );
+
+	//std::cout << "(size_t)C == " << (size_t)C;
+	//std::cout << "\n(size_t)(-1) == " << (size_t)(-1);
+
+	//std::string strA("Русский текст в кодировке ANSI CP1251.");
+	//std::cout << std::endl;
+	//std::cout << "std::string::npos\t" << std::string::npos << '\n';
+	//std::cout << strA << std::endl;
+	//std::cout << "Размер строки:\t" << strA.size() << std::endl;
+
 #if 0   // ЛАБОРАТОРНАЯ 8. Вопрос 2. Синтаксис указателей //
 	// Указатель symbol указывает на переменную типа char
 	char* symbol;
@@ -299,7 +311,7 @@ int main()
 
 	// динамически в C
 	int* C = NULL;
-	C = (int*)malloc( M * sizeof( int ) );
+	C = (int*) malloc( M * sizeof( int ) );
 	/*...*/
 	free( C );
 
@@ -322,25 +334,25 @@ int main()
 	int M, N;
 	std::cin >> M >> N;
 	int** B = new int* [M];
-	for ( int i = 0; i < M; i++ ) {
+	for( int i = 0; i < M; i++ ) {
 		B[i] = new int[N];
 	}
 	/*...*/
-	for ( int i = 0; i < M; i++ ) {
+	for( int i = 0; i < M; i++ ) {
 		delete B[i];
 	}
 	delete[]B;
 
 	// динамически в C
 	int** C = NULL;
-	C = (int**)malloc( M * sizeof( int ) );
-	for ( int i = 0; i < N; i++ ) {
-		C[i] = (int*)malloc( N * sizeof( int ) );
+	C = (int**) malloc( M * sizeof( int ) );
+	for( int i = 0; i < N; i++ ) {
+		C[i] = (int*) malloc( N * sizeof( int ) );
 	}
 	/*...*/
-	for ( int i = 0; i < M; i++ ) {
+	for( int i = 0; i < M; i++ ) {
 		free( C[i] );
-}
+	}
 	free( C );
 
 	// явное задание размера
@@ -359,14 +371,14 @@ int main()
 	int negatives[N]; // Массив с постолбовыми произведениями
 	std::fill_n( negatives, N, 1 ); // Заполнение массива единицами
 
-	for ( int i = 0; i < N; i++ ) {
+	for( int i = 0; i < N; i++ ) {
 		std::cout << negatives[i] << '\t';
 	}
 	std::cout << "\n\n";
 	// Пример вывода массива в виде квадратной матрицы
 	// Заполнение массива
-	for ( int i = 0; i < M; i++ ) {
-		for ( int j = 0; j < N; j++ ) {
+	for( int i = 0; i < M; i++ ) {
+		for( int j = 0; j < N; j++ ) {
 			A[i][j] = rand() % 10 - 5; // Примерно половина отрицательных
 			std::cout << A[i][j] << '\t';
 		}
@@ -375,18 +387,18 @@ int main()
 	std::cout << std::endl;
 
 	// Проверка условия с выводом на экран
-	for ( int j = 0; j < N; j++ ) { // Внешний цикл делает обход по строкам
+	for( int j = 0; j < N; j++ ) { // Внешний цикл делает обход по строкам
 		int product = 1;
 		bool ThereIsNegative = false;
-		for ( int i = 0; i < M; i++ ) { // Внутренний цикл делает обход по столбцам
-			if ( A[i][j] < 0 ) {
+		for( int i = 0; i < M; i++ ) { // Внутренний цикл делает обход по столбцам
+			if( A[i][j] < 0 ) {
 				product *= A[i][j];
 				negatives[j] *= A[i][j]; // Если данные понадобятся в дальнейшем
 				ThereIsNegative = true;
 			}
 		}
 		// Если нет отрицательных, выводится прочерк
-		if ( !ThereIsNegative ) {
+		if( !ThereIsNegative ) {
 			std::cout << "-\t";
 			negatives[j] = 0; // Заполнение элемента массива нулём,
 							   // если не было отрицательных
@@ -399,8 +411,8 @@ int main()
 	std::cout << std::endl;
 
 	// Вывод результатов
-	for ( int i = 0; i < N; i++ ) {
-		if ( negatives[i] != 0 ) {
+	for( int i = 0; i < N; i++ ) {
+		if( negatives[i] != 0 ) {
 			std::cout << negatives[i] << '\t';
 		}
 		else
@@ -418,19 +430,19 @@ int main()
 	std::fill_n( positives, M, NULL );
 
 	// Ввод элементов массива
-	for ( int i = 0; i < M; i++ ) {
+	for( int i = 0; i < M; i++ ) {
 		int sum = 0;
 		bool ThereIsPositive = false;
-		for ( int j = 0; j < N; j++ ) {
+		for( int j = 0; j < N; j++ ) {
 			A[i][j] = rand() % 10 - 5;
-			if ( A[i][j] > 0 ) {
+			if( A[i][j] > 0 ) {
 				sum += A[i][j];
 				positives[i] += A[i][j];
 				ThereIsPositive = true;
 			}
 		}
 		// Вывод результата
-		if ( ThereIsPositive ) {
+		if( ThereIsPositive ) {
 			std::cout << sum << '\t';
 		}
 		// Если в строке не было положительных чисел, выводится прочерк
@@ -441,8 +453,8 @@ int main()
 
 	// Вывод результатов
 	// Если в строке не было положительных чисел, выводится прочерк
-	for ( int i = 0; i < M; i++ ) {
-		if ( positives[i] != NULL ) {
+	for( int i = 0; i < M; i++ ) {
+		if( positives[i] != NULL ) {
 			std::cout << positives[i] << '\t';
 		}
 		else
@@ -451,8 +463,8 @@ int main()
 	std::cout << std::endl;
 
 	// Вывод массива
-	for ( int i = 0; i < M; i++ ) {
-		for ( int j = 0; j < N; j++ ) {
+	for( int i = 0; i < M; i++ ) {
+		for( int j = 0; j < N; j++ ) {
 			std::cout << A[i][j] << '\t';
 		}
 		std::cout << std::endl;
@@ -470,8 +482,8 @@ int main()
 	// соответствуют индексам по M (количеству строк),
 	// а единичных разрядов соответствуют индексам по N (количеству столбцов),
 	// при M < 10; N < 10 (для удобства отладки)
-	for ( int i = 0; i < M; i++ ) {
-		for ( int j = 0; j < N; j++ ) {
+	for( int i = 0; i < M; i++ ) {
+		for( int j = 0; j < N; j++ ) {
 			A[i][j] = 10 * ( i + 1 ) + ( j + 1 );
 			std::cout << A[i][j] << "  ";
 		}
@@ -479,7 +491,7 @@ int main()
 	}
 #if 1   // 1. На главной диагонали
 	std::cout << "Главная диагональ\n";
-	for ( int i = 0; i < M and i < N; i++ ) {
+	for( int i = 0; i < M and i < N; i++ ) {
 		std::cout << A[i][i] << "  ";
 	}
 	std::cout << std::endl;
@@ -488,7 +500,7 @@ int main()
 
 #if 1   // 2. На побочной диагонали //
 	std::cout << "Побочная диагональ\n";
-	for ( int i = 0; i < M and i < N; i++ ) {
+	for( int i = 0; i < M and i < N; i++ ) {
 		std::cout << A[i][N - i - 1] << "  ";
 	}
 #endif
@@ -496,8 +508,8 @@ int main()
 
 #if 0   // 3. Выше главной диагонали //
 	std::cout << "Выше главной диагонали\n";
-	for ( int i = 0; i < M; i++ ) {
-		for ( int j = i + 1; j > i and j < N; j++ ) {
+	for( int i = 0; i < M; i++ ) {
+		for( int j = i + 1; j > i and j < N; j++ ) {
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
@@ -507,8 +519,8 @@ int main()
 
 #if 0   // 4. Ниже главной диагонали //
 	std::cout << "Ниже главной диагонали\n";
-	for ( int i = 0; i < M; i++ ) {
-		for ( int j = 0; j < i and j < N; j++ ) {
+	for( int i = 0; i < M; i++ ) {
+		for( int j = 0; j < i and j < N; j++ ) {
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
@@ -518,8 +530,8 @@ int main()
 
 #if 1   // 5. Выше побочной диагонали //
 	std::cout << "Выше побочной диагонали\n";
-	for ( int i = 0; i < M; i++ ) {
-		for ( int j = 0; j < N - i - 1; j++ ) {
+	for( int i = 0; i < M; i++ ) {
+		for( int j = 0; j < N - i - 1; j++ ) {
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
@@ -530,8 +542,8 @@ int main()
 #if 1   // 6. Ниже побочной диагонали //
 	// Элементы индексируются от начала к концу
 	std::cout << "Ниже побочной диагонали\n";
-	for ( int i = 0; i < M; i++ ) {
-		for ( int j = ( M > N ? M : N ) - i; j < N; j++ ) {
+	for( int i = 0; i < M; i++ ) {
+		for( int j = ( M > N ? M : N ) - i; j < N; j++ ) {
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
@@ -552,7 +564,7 @@ int main()
 #if 0
 
 
-	for ( int i = 0; i < N; i++ ) {
+	for( int i = 0; i < N; i++ ) {
 		A[i] = rand() % 10;
 		std::cout << A[i] << "  ";
 	}
@@ -568,14 +580,14 @@ int main()
 	std::cout << "A = " << A << endl;
 	std::cout << "*(A + 3) = " << *( A + 3 ) << endl;
 
-	for ( int i = 0; i < N; i++ ) {
+	for( int i = 0; i < N; i++ ) {
 		std::cout << *( A + i ) << "  ";
 	}
 	// Подсчет нулевых элементов в заданном одномерном массиве
 	int zeroes = 0;
 	bool bThereIsZero = false;
-	for ( int i = 0; i < N; i++ ) {
-		if ( A[i] == 0 ) {
+	for( int i = 0; i < N; i++ ) {
+		if( A[i] == 0 ) {
 			zeroes++;
 			bThereIsZero = true; // Есть ли вообще нули?
 		}
@@ -584,8 +596,8 @@ int main()
 	// Вычисление суммы положительных элементов
 	// в заданном одномерном массиве
 	int sum = 0;
-	for ( int i = 0; i < N; i++ ) {
-		if ( A[i] > 0 ) {
+	for( int i = 0; i < N; i++ ) {
+		if( A[i] > 0 ) {
 			sum += A[i];
 		}
 	}
@@ -594,8 +606,8 @@ int main()
 	// и его индекса в заданном одномерном массиве
 	int FirstMaxElement = *A,
 		FirstMaxIndex;
-	for ( int i = 0; i < N; i++ ) {
-		if ( FirstMaxElement < A[i] ) {
+	for( int i = 0; i < N; i++ ) {
+		if( FirstMaxElement < A[i] ) {
 			FirstMaxElement = A[i];
 			FirstMaxIndex = i;
 		}
@@ -605,8 +617,8 @@ int main()
 	// и его индекса в заданном одномерном массиве
 	int LastMinElement = *A,
 		LastMinIndex;
-	for ( int i = 0; i < N; i++ ) {
-		if ( LastMinElement >= A[i] ) {
+	for( int i = 0; i < N; i++ ) {
+		if( LastMinElement >= A[i] ) {
 			LastMinElement = A[i];
 			LastMinIndex = i;
 		}
@@ -622,18 +634,18 @@ int main()
 	bool FLAG;
 	do {
 		FLAG = 0;
-		for ( int i = 0; i < j; i++ ) {
-			if ( a[i] > a[i + 1] ) {
+		for( int i = 0; i < j; i++ ) {
+			if( a[i] > a[i + 1] ) {
 				// перестановка элементов массива
 				int temp = a[i];
 				a[i] = a[i + 1];
 				a[i + 1] = temp;
 				FLAG = 1;
-			}
+	}
 		}
 		j = j - 1;
 	}
-	while ( FLAG ); // сортировка заканчивается, если на предыдушем шаге
+	while( FLAG ); // сортировка заканчивается, если на предыдушем шаге
 				 // не было выполнено ни одной перестановки в массиве
 #endif
 
@@ -721,7 +733,7 @@ int main()
 	printf( "%d\n", count );
 	printf( "%f\n", fp );
 #endif
-	}
+		}
 
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

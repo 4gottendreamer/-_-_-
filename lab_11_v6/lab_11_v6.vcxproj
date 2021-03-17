@@ -18,19 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\string\string.cpp" />
-    <ClCompile Include="lab_10_v6.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\string\string.h" />
-    <ClInclude Include="..\vector\vector.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{7ab198a1-19bf-490e-8aab-de3d1a601e30}</ProjectGuid>
-    <RootNamespace>lab10v6</RootNamespace>
+    <ProjectGuid>{99cba1f0-2d36-49f4-b7fa-a895b80b1421}</ProjectGuid>
+    <RootNamespace>lab11v6</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -154,6 +146,18 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\string\string.cpp" />
+    <ClCompile Include="lab_11_v6.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\string\string.h" />
+    <ClInclude Include="..\vector\vector.h" />
+    <ClInclude Include="lab_11_v6_struct.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="IDbook.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

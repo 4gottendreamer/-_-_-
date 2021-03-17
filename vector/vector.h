@@ -12,6 +12,7 @@
 *	4.	T& at( size_t _Index ) // operator[]() with range checking
 *	5.	T& begin()
 *	6.	T& end()
+*	7.	void swap( size_t _From, size_t _To );
 */
 
 template <typename T>
@@ -32,6 +33,8 @@ public:
 	void push_head( const T& _Elem );
 	void pop_back();
 	T& pop_head(); // Deletes and nullifies element m_Arr[0]; returns ref. to new m_Arr[0]
+	
+	void swap( size_t _From, size_t _To ); // Swaps element m_Arr[_From] with element m_Arr[_To]
 
 	void clear(); // Destroys evey element of vector
 	void reserve( size_t _newCapacity ); // Allocates _newCapacity elements of space in advance
@@ -174,6 +177,14 @@ void vector<T>::pop_back()
 	//tmp = nullptr;
 }
 
+template<typename T>
+inline void vector<T>::swap( size_t _From, size_t _To )
+{
+	T tmp = m_Arr[_To];
+	m_Arr[_To] = m_Arr[_From];
+	m_Arr[_From] = tmp;
+}
+
 template <typename T>
 void vector<T>::clear()
 {
@@ -246,6 +257,7 @@ void vector<T>::realloc( size_t _newCapacity )
 	//for ( size_t i = 0; i < m_Size; i++ ) {
 	//	m_Arr[i].~T();
 	//}
+
 	//::operator delete( m_Arr, m_Capacity * sizeof( T ) );
 
 	m_Arr = newArr;
@@ -266,7 +278,8 @@ void vector<T>::realloc( size_t _newCapacity )
 	for ( size_t i = 0; i < m_Size; i++ ) {
 		//newArr[i] = m_Arr[i];
 		//newArr[i] = std::move( m_Arr[i] );
-		new( &newArr[i] ) T( std::forward<T>( m_Arr[i] ) );
+		//new( &newArr[i] ) T( std::forward<T>( m_Arr[i] ) );
+		new( &newArr[i] ) T( std::move( m_Arr[i] ) );
 	}
 
 	//delete[] m_Arr;
@@ -276,6 +289,7 @@ void vector<T>::realloc( size_t _newCapacity )
 	for ( size_t i = 0; i < m_Size; i++ ) {
 		m_Arr[i].~T();
 	}
+	
 	::operator delete( m_Arr, m_Capacity * sizeof( T ) );
 
 	m_Arr = newArr;

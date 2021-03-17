@@ -34,11 +34,17 @@ namespace str
 		bool operator!=( const string& _String ); // Сравнение строк
 		bool operator!=( const char* _ChArr ); // Сравнение строк
 
+		bool operator<( const string& _String ); // Сравнение строк лексикографическое
+		bool operator<=( const string& _String ); // Сравнение строк лексикографическое
+		bool operator>( const string& _String ); // Сравнение строк лексикографическое
+		bool operator>=( const string& _String ); // Сравнение строк лексикографическое
+
 		char& operator[]( size_t _Index ); // Индексирование буквы строки
 
 		// Console input
 		void cin();
 		void getline();
+		std::istream& fgetline( std::istream& _inStream );
 		
 		// Console output
 		void cout(); // Вывод в консоль
@@ -89,6 +95,12 @@ namespace str
 	private:
 		size_t m_Length = 0;
 		char* m_Str = nullptr;
+	private:
+		int strcmp1( const char* str1, const char* str2 );
+		int strcmp2( const char* str1, const char* str2 );
+		int strcmp3( const char* str1, const char* str2 );
+		int strcmp4( const char* str1, const char* str2 );
+		int strcmp5( const char* str1, const char* str2 );
 	};
 
 	std::ostream& operator<<( std::ostream& _outStream, const string& _String );
