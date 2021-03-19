@@ -19,7 +19,7 @@
 
 #include "..\string\string.h"
 #include "..\vector\vector.h"
-#include "..\lab_11_v6\lab_11_v6_struct.h"
+#include "lab_11_v6_struct.h"
 
 void sort_name_az( vector<ID>& _Container );
 void sort_name_za( vector<ID>& _Container );
@@ -31,6 +31,7 @@ int main()
 	std::ifstream inFile;
 	//std::ofstream outFile( "IDbook.txt", std::ios::app );
 
+	// Открытие файла
 	inFile.open( "IDbook.txt" );
 	if( !inFile.is_open() ) {
 		std::cerr << "Error opening file.";
@@ -40,48 +41,50 @@ int main()
 
 	ID tmp;
 
-	// Data input from file
 	// Ввод данных из файла
 	while( !inFile.eof() ) {
 		inFile >> tmp;
 		DataBase.push_back( tmp );
 	}
 
-	// Data output to console
 	// Вывод данных в консколь
 	for( size_t i = 0; i < DataBase.size(); i++ ) {
+		std::cout << i << "\t-------------\n";
 		std::cout << DataBase[i];
-		std::cout << "-------------\n";
+		std::cout << "\t-------------\n\n";
 	}
 
-	// Database filtering
+	// Выборка и копирование по ключам
 	vector<ID> db_fetched;
+	str::string QueryCity( "Krasnoyarsk" );			// Город
+	str::string QueryStreet( "Kirenskogo st." );	// Улица
 	for( size_t i = 0; i < DataBase.size(); i++ ) {
-		if( DataBase[i].nameLast == "Krasnoyarsk" ) {
+		if( DataBase[i].address.city == QueryCity and
+			DataBase[i].address.street == QueryStreet ) {
 			db_fetched.push_back( DataBase[i] );
 		}
 	}
 
 	std::cout << "\n----------- Sorting -------------\n";
-	// Sorting by name in accending order
+	std::cout << "Key\tValue\n\n";
+	std::cout << "City:\t" << QueryCity << std::endl;
+	std::cout << "Street:\t" << QueryStreet << std::endl << std::endl;
+
 	// Сортировка по имени в порядке возрастания
 	sort_name_az( db_fetched );
 
-	// Output
 	// Вывод
 	for( size_t i = 0; i < db_fetched.size(); i++ ) {
-		std::cout << db_fetched[i];
+		//std::cout << db_fetched[i];
+		/*std::cout << db_fetched[i].nameLast << std::endl;
+		std::cout << db_fetched[i].address.street << ", "
+				  << db_fetched[i].address.building << ", "
+				  << db_fetched[i].address.apartment << std::endl;*/
+		std::cout << db_fetched[i].address << std::endl;
 		std::cout << "------------\n";
 	}
 
 	inFile.close();
-
-	/*
-	1.+	Ввод данных (файл или консоль) в вектор
-	2.+	Выборка по ключу в вектор (копия)
-	3.	Сортировка выборки
-	4.	Вывод
-	*/
 }
 
 void sort_name_az( vector<ID>& _Container )
