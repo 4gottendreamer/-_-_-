@@ -130,6 +130,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +141,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\string\string.cpp" />
     <ClCompile Include="lab_12_v6.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="db_years.txt" />
+    <Text Include="db_score.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\string\string.h" />
+    <ClInclude Include="..\vector\vector.h" />
+    <ClInclude Include="lab_12_v6_struct.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,13 +1,206 @@
 ﻿// test.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
-#pragma warning ( disable : 4996 )
-#pragma warning ( disable : 6368 )
+//#pragma warning ( disable : 4996 )
+//#pragma warning ( disable : 6368 )
 
 #include <iostream>
 #include <ctime>
 #include <memory>
 #include <string>
+
+#include<stdlib.h>
+#include<conio.h>
+
+#include<stdio.h>
+#include<string.h>
+
+//Шаблон структуры для хранения записей из первого файла 
+struct stud1
+{
+	char fam[16];
+	char name[13];
+	int kurs;
+	int oc[3];
+};
+//Шаблон структуры для хранения записей из второго файла 
+struct stud2
+{
+	char fam[16];
+	char name[13];
+	char pol;
+	int god;
+};
+
+int main()
+{
+	int i,
+		fl,         //Флаг для сортировки 
+		kolm,      //Кол<во девушек 
+		kolw;    //Кол<во юношей 
+	float srm,    //Средний балл юношей по математике 
+		srw;    //Средний балл девушек по математике 
+	long ft;
+	FILE* ft1,     //Указатель первого текстового файла 
+		* ft2,      //Указатель второго текстового файла 
+		* fd1,     //Указатель первого двоичного файла 
+		* fd2;    //Указатель второго двоичного файла 
+	 //Буферные структуры 
+	stud1 so1, so2;
+	stud2 sx1, sx2;
+	char fnamet1[30] = "c:\\user\\oc.txt",
+		fnamet2[30] = "c:\\user\\xarakt.txt",
+		fnamed1[30] = "c:\\user\\oc.dat",
+		fnamed2[30] = "c:\\user\\xarakt.dat";
+
+	//Открытие текстовых файлов для чтения 
+	if( ( ft1 = fopen( fnamet1, "r" ) ) == NULL ) {
+		printf( "file %s ne syshestvyet", fnamet1 );
+		getch();
+		exit( -1 );
+
+	}
+	if( ( ft2 = fopen( fnamet2, "r" ) ) == NULL ) {
+		printf( "file %s ne syshestvyet", fnamet1 );
+		getch();
+		exit( -1 );
+	}
+	//Открытие двоичных файлов одновременно для записи и чтения 
+	fd1 = fopen( fnamed1, "w+b" );
+	fd2 = fopen( fnamed2, "w+b" );
+	//Цикл считывания информации из текстовых файлов в буферные структуры 
+  //и записи этих структур в двоичные файлы  
+	while( fgets( so1.fam, 16, ft1 ) == NULL )    //Считывается фамилия из 1<го текст. файла     
+	{
+		fgets( so1.name, 13, ft1 );                 //Считывается имя из 1<го текст. файла 
+
+		fscanf( ft1, "%d", &so1.kurs );          //Считывается номер курса 
+	 //Цикл чтения оценок 
+		for( i = 0; i < 3; i++ ) {
+			fscanf( ft1, "%d", &so1.oc[i] );
+		}
+		fscanf( ft1, "\n" );                                    //Переход на новую стоку в 1<м файле 
+		fwrite( &so1, sizeof( so1 ), 1, fd1 );          //Запись структуры в 1<й двоичн. файл 
+
+		fgets( sx1.fam, 16, ft2 );                 //Считывается фамилия из 2<го текст. файла 
+		fgets( sx1.name, 13, ft2 );             //Считывается имя из 1<го текст. файла 
+		sx1.pol = fgetc( ft2 );                    //Считывается пол 
+		fscanf( ft2, " %d", &sx1.god );    //Считывается год рождения 
+		fscanf( ft2, "\n" );                         //Переход на новую стоку во 2<м файле 
+		fwrite( &sx1, sizeof( sx1 ), 1, fd2 ); //Запись структуры во 2<й двоичн. файл 
+	}
+
+	//Цикл вывода информации о студентах из обоих двоичных файлов 
+	//Позиционирование указателей на начало каждого двоичного файла 
+	rewind( fd1 );
+	rewind( fd2 );
+	printf( "\nИнформация о студентах до сортировки\n" );
+	fread( &so1, sizeof( so1 ), 1, fd1 );          //Чтение структуры из 1<го двоичн. файла 
+	fread( &sx1, sizeof( sx1 ), 1, fd2 );          //Чтение структуры из 2<го двоичн. файла 
+	while( feof( fd1 ) ) {
+		printf( "\n%s %s %d ", so1.fam, so1.name, so1.kurs );
+		for( i = 0; i < 3; i++ )
+			printf( "%d ", so1.oc[i] );
+		printf( "%c %d", sx1.pol, sx1.god );
+		fread( &so1, sizeof( so1 ), 1, fd1 );
+		fread( &sx1, sizeof( sx1 ), 1, fd2 );
+	}
+	//Сортировка информации в двоичных файлах методом "пузырька" 
+	do {
+		fl = 0;                                   //Устанавливаем флаг в 0 
+		//Позиционирование указателей на начало каждого двоичного файла 
+		rewind( fd1 );
+		rewind( fd2 );
+		//Читаем по одной структуре из 1<го и 2<го двоичных файлов 
+		fread( &so1, sizeof( so1 ), 1, fd1 );
+		fread( &sx1, sizeof( sx1 ), 1, fd2 );
+		//Цикл однократного прохода по файлам 
+	  //Попарно сравниваем и, при необходимости, обмениваем местами структуры           
+		while( feof( fd1 ) ) {
+			//Читаем еще по одной структуре из каждого файла 
+			fread( &so2, sizeof( so2 ), 1, fd1 );
+			if( feof( fd1 ) ) break;
+			fread( &sx2, sizeof( sx2 ), 1, fd2 );
+			//Сравниваем фамилии  
+			if( strcmp( so1.fam, so2.fam ) > 0 ) {
+				//Обмен местами двух структур в 1<м файле 
+				ft = ftell( fd1 ) - 2 * sizeof( so1 );
+				fseek( fd1, ft, SEEK_SET );
+				fwrite( &so2, sizeof( so2 ), 1, fd1 );
+				fwrite( &so1, sizeof( so1 ), 1, fd1 );
+
+				//Обмен местами двух структур в 1<м файле 
+				ft = ftell( fd2 ) - 2 * sizeof( sx1 );
+				fseek( fd2, ft, SEEK_SET );
+				fwrite( &sx2, sizeof( sx2 ), 1, fd2 );
+				fwrite( &sx1, sizeof( sx1 ), 1, fd2 );
+				fl++;                                              //Увеличение флага в случае перестановки 
+			}
+			//Возвращаем указатель на одну структуру назад в 1<м файле 
+			ft = ftell( fd1 ) - sizeof( so1 );
+			fseek( fd1, ft, SEEK_SET );
+
+			//Чтение очередной структуры из 1<го файла 
+			fread( &so1, sizeof( so1 ), 1, fd1 );
+
+			//Возвращаем указатель на одну структуру назад во 2<м файле 
+			ft = ftell( fd2 ) - sizeof( sx1 );
+			fseek( fd2, ft, SEEK_SET );
+			//Чтение очередной структуры из 2<го файла  
+			fread( &sx1, sizeof( sx1 ), 1, fd2 );
+		}
+	}
+	while( fl > 0 );
+	//Цикл вывода информации о студентах из обоих двоичных файлов 
+  //Выход на начало каждого файла 
+	rewind( fd1 );
+	rewind( fd2 );
+	printf( "\n\nИнформация о студентах после сортировки\n" );
+	//Читаем по одной структуре из 1<го и 2<го двоичных файлов 
+	fread( &so1, sizeof( so1 ), 1, fd1 );
+	fread( &sx1, sizeof( sx1 ), 1, fd2 );
+	while( feof( fd1 ) ) {
+		printf( "\n%s %s %d ", so1.fam, so1.name, so1.kurs );
+		for( i = 0; i < 3; i++ )
+			printf( "%d ", so1.oc[i] );
+		printf( "%c %d", sx1.pol, sx1.god );
+		fread( &so1, sizeof( so1 ), 1, fd1 );
+		fread( &sx1, sizeof( sx1 ), 1, fd2 );
+	}
+	//Подсчет среднего балла по математике для юношей и девушек 
+	rewind( fd1 );
+	rewind( fd2 );
+	//Обнуляем кол-ва и суммы 
+	kolm = 0;
+	kolw = 0;
+	srm = 0;
+	srw = 0;
+	fread( &so1, sizeof( so1 ), 1, fd1 );
+	fread( &sx1, sizeof( sx1 ), 1, fd2 );
+
+	while( feof( fd1 ) && feof( fd2 ) ) {
+		if( sx1.pol == 'м' ) {
+			kolm++;
+			srm += so1.oc[1];
+		}
+		if( sx1.pol == 'ж' ) {
+			kolw++;
+			srw += so1.oc[1];
+		}
+		fread( &so1, sizeof( so1 ), 1, fd1 );
+		fread( &sx1, sizeof( sx1 ), 1, fd2 );
+	}
+	if( kolm ) srm /= kolm;
+	if( kolw ) srw /= kolw;
+	if( srm > srw )
+		printf( "\n\nМатематику лучше сдали юноши" );
+	else if( srm < srw )
+		printf( "\n\nМатематику лучше сдали девушки" );
+	else printf( "\n\nУ девушек и юношей одинаковый результат по математике" );
+
+	fcloseall(); //Закрытие всех файлов
+	std::cin.get();
+}
 
 #if 0
 
@@ -110,13 +303,13 @@ bool IsSymbol( const char& _symbol )
 char* GetWord( char* _Line, int& _StartPos )
 {
 	// Если текущий символ не буква, сдвигаем каретку до первой буквы
-	while( !IsSymbol( _Line[_StartPos] ) ) {
+	while( IsSymbol( _Line[_StartPos] ) ) {
 		_StartPos++;
 	}
 	int CurPos = _StartPos; // Текущее начало слова == текущему концу слова
 
 	// Подсчёт количества непрерывной цепочки букв
-	while( IsSymbol( _Line[CurPos] ) and _Line[CurPos] != '\0' and _Line[CurPos] != '\n' ) {
+	while( IsSymbol( _Line[CurPos] ) and _Line[CurPos] = '\0' and _Line[CurPos] = '\n' ) {
 		CurPos++;
 	}
 
@@ -203,14 +396,14 @@ void myOut( T* a = T( 1 ) )
 	std::cout << a[0] << std::endl;
 }
 
-int main()
+int main0()
 {
 
 	int num,
 		reversedNum = 0;
 	std::cin >> num;
 
-	//while( num != 0 ) {
+	//while( num  = 0 ) {
 	//	reversedNum *= 10;
 	//	reversedNum += num % 10;
 	//	num /= 10;
@@ -398,7 +591,7 @@ int main()
 			}
 		}
 		// Если нет отрицательных, выводится прочерк
-		if( !ThereIsNegative ) {
+		if( ThereIsNegative ) {
 			std::cout << "-\t";
 			negatives[j] = 0; // Заполнение элемента массива нулём,
 							   // если не было отрицательных
@@ -412,7 +605,7 @@ int main()
 
 	// Вывод результатов
 	for( int i = 0; i < N; i++ ) {
-		if( negatives[i] != 0 ) {
+		if( negatives[i] = 0 ) {
 			std::cout << negatives[i] << '\t';
 		}
 		else
@@ -454,7 +647,7 @@ int main()
 	// Вывод результатов
 	// Если в строке не было положительных чисел, выводится прочерк
 	for( int i = 0; i < M; i++ ) {
-		if( positives[i] != NULL ) {
+		if( positives[i] = NULL ) {
 			std::cout << positives[i] << '\t';
 		}
 		else
@@ -641,101 +834,14 @@ int main()
 				a[i] = a[i + 1];
 				a[i + 1] = temp;
 				FLAG = 1;
-	}
+			}
 		}
 		j = j - 1;
 	}
 	while( FLAG ); // сортировка заканчивается, если на предыдушем шаге
 				 // не было выполнено ни одной перестановки в массиве
 #endif
-
-#if 0
-	std::std::cout << "Hello World!\n";
-
-	int iINT = 1;               std::cout << "sizeof(iINT)\t\t" << sizeof( iINT ) << endl;
-
-	unsigned int uiINT = 1;     std::cout << "sizeof(unsigned int)\t" << sizeof( uiINT ) << endl;
-	long int liINT = 1;         std::cout << "sizeof(long int)\t" << sizeof( liINT ) << endl;
-	long long llINT = 1;        std::cout << "sizeof(long long)\t" << sizeof( llINT ) << endl;
-	float fFLOAT = 1;           std::cout << "sizeof(float)\t\t" << sizeof( fFLOAT ) << endl;
-	double dFLOAT = 1;          std::cout << "sizeof(double)\t\t" << sizeof( dFLOAT ) << endl;
-	long double ldFLOAT = 1;    std::cout << "sizeof(long double)\t" << sizeof( ldFLOAT ) << endl;
-	char cChar = 'a';           std::cout << "sizeof(char)\t\t" << sizeof( cChar ) << endl;
-	char32_t wcChar32 = 'A';    std::cout << "sizeof(char32_t)\t" << sizeof( wcChar32 ) << endl;
-	float* Arr;                std::cout << "sizeof(double*)\t" << sizeof( Arr ) << endl;
-
-	int X = 1;
-	std::cout << X << endl;
-	X <<= 1;
-	std::cout << X << endl;
-	X <<= 1;
-	std::cout << X << endl;
-	X <<= 1;
-	std::cout << X << endl;
-	X <<= 1;
-	std::cout << X << endl;
-	X <<= 1;
-	std::cout << X << endl;
-	X <<= 1;
-	std::cout << X << endl;
-
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-	X >>= 1;
-	std::cout << X << endl;
-
-	X <<= 1;
-	std::cout << X << endl;
-	X <<= 1;
-	std::cout << X << endl;
-	X <<= 1;
-	std::cout << X << endl;
-	int Y = 0b00000001;
-	X = 0b00000011;
-	int C = X | Y;
-	std::cout.binary;
-	std::cout << C << endl;
-
-	X = Y = 1;
-	C = ++X; // C = X + 1; X = X + 1;
-	std::cout << "C = ++X : " << C << endl;
-
-	C = Y++; // C = Y; Y = Y + 1;
-	std::cout << "C = Y++ : " << C << endl;
-
-	//scanf_s("%d", &C);
-	//printf("%d", C);
-
-	char    ch = 'h',
-		string[] = "computer";
-
-	int     count = -1234;
-	double  fp = 123.456;
-
-	printf( "%c\n", ch );
-	printf( "%s\n", string );
-	printf( "%d\n", count );
-	printf( "%f\n", fp );
-#endif
-		}
-
-
+}
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
 

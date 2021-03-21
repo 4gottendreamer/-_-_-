@@ -15,9 +15,81 @@
 *	7.	void swap( size_t _From, size_t _To );
 */
 
+template <typename vector>
+class vector_iterator
+{
+public:
+	using ValueType = typename vector::ValueType;
+	using PointerType = ValueType*;
+	using ReferenceType = ValueType&;
+
+public:
+	vector_iterator( PointerType _Ptr )
+		: m_Ptr( _Ptr )
+	{}
+
+	vector_iterator& operator++() // Prefix increment
+	{
+		m_Ptr++;
+		return *this;
+	}
+
+	vector_iterator operator++( int ) // Postfix increment
+	{
+		vector_iterator curIter = *this;
+		++( *this );
+		return curIter;
+	}
+
+	vector_iterator& operator--() // Prefix decrement
+	{
+		m_Ptr--;
+		return *this;
+	}
+
+	vector_iterator operator--( int ) // Postfix decrement
+	{
+		vector_iterator curIter = *this;
+		--( *this );
+		return curIter;
+	}
+
+	ReferenceType operator[]( size_t _Index )
+	{
+		return *( m_Ptr + _Index );
+	}
+
+	PointerType operator->()
+	{
+		return m_Ptr;
+	}
+
+	ReferenceType operator*()
+	{
+		return *m_Ptr;
+	}
+
+	bool operator==( const vector_iterator& _Rhs ) const
+	{
+		return m_Ptr == _Rhs.m_Ptr;
+	}
+
+	bool operator!=( const vector_iterator& _Rhs ) const
+	{
+		return !( *this == _Rhs );
+	}
+
+private:
+	PointerType m_Ptr;
+};
+
 template <typename T>
 class vector
 {
+public:
+	using ValueType = T;
+	using iterator = vector_iterator<vector<T>>;
+
 public:
 	vector<T>();
 	//vector<T>( const vector& _Arr );
@@ -33,7 +105,7 @@ public:
 	void push_head( const T& _Elem );
 	void pop_back();
 	T& pop_head(); // Deletes and nullifies element m_Arr[0]; returns ref. to new m_Arr[0]
-	
+
 	void swap( size_t _From, size_t _To ); // Swaps element m_Arr[_From] with element m_Arr[_To]
 
 	void clear(); // Destroys evey element of vector
@@ -44,6 +116,16 @@ public:
 
 	size_t size();
 	size_t capacity();
+
+	iterator begin()
+	{
+		return iterator( m_Arr );
+	}
+
+	iterator end()
+	{
+		return iterator( m_Arr + m_Size );
+	}
 
 private:
 	T* m_Arr = nullptr;
@@ -103,7 +185,7 @@ template <typename T>
 void vector<T>::push_back( const T& _Elem )
 {
 #if _ALLOCATION_
-	if ( m_Size >= m_Capacity ) {
+	if( m_Size >= m_Capacity ) {
 		realloc( m_Capacity + m_Capacity / 2 );
 	}
 	m_Arr[m_Size++] = _Elem;
@@ -125,7 +207,7 @@ template <typename T>
 void vector<T>::push_back( T&& _Elem )
 {
 #if _ALLOCATION_
-	if ( m_Size >= m_Capacity ) {
+	if( m_Size >= m_Capacity ) {
 		realloc( m_Capacity + m_Capacity / 2 );
 	}
 	m_Arr[m_Size++] = std::move( _Elem );
@@ -139,7 +221,7 @@ template <typename T>
 template<typename ...Targs>
 T& vector<T>::emplace_back( Targs&& ..._Args )
 {
-	if ( m_Size >= m_Capacity ) {
+	if( m_Size >= m_Capacity ) {
 		realloc( m_Capacity + m_Capacity / 2 );
 	}
 	//m_Arr[m_Size] = T( std::forward<Targs>( _Args )... );
@@ -151,7 +233,7 @@ template <typename T>
 void vector<T>::push_head( const T& _Elem )
 {
 	T* tmp = new T[this->m_Size + 1];
-	for ( size_t i = 1; i < this->m_Size + 1; i++ ) {
+	for( size_t i = 1; i < this->m_Size + 1; i++ ) {
 		tmp[i] = this->m_Arr[i - 1];
 	}
 	tmp[0] = _Elem;
@@ -164,7 +246,7 @@ template <typename T>
 void vector<T>::pop_back()
 {
 
-	if ( m_Size > 0 ) {
+	if( m_Size > 0 ) {
 		m_Arr[--m_Size].~T();
 	}
 
@@ -188,7 +270,7 @@ inline void vector<T>::swap( size_t _From, size_t _To )
 template <typename T>
 void vector<T>::clear()
 {
-	for ( size_t i = 0; i < m_Size; i++ ) {
+	for( size_t i = 0; i < m_Size; i++ ) {
 		m_Arr[i].~T();
 	}
 	m_Size = 0;
@@ -233,7 +315,6 @@ size_t vector<T>::capacity()
 *///////////////////////////////////////////
 
 // Gets vector m_Capacity grown or shrinked to _newCapacity size
-
 #if _ALLOCATION_
 template <typename T>
 void vector<T>::realloc( size_t _newCapacity )
@@ -241,11 +322,11 @@ void vector<T>::realloc( size_t _newCapacity )
 	T* newArr = new T[_newCapacity];
 	//T* newArr = ( T* )::operator new( _newCapacity * sizeof( T ) );
 
-	if ( _newCapacity < m_Size ) { // Downsizing capacity case
+	if( _newCapacity < m_Size ) { // Downsizing capacity case
 		m_Size = _newCapacity;
 	} // TODO(*): Check for memory re-allocations in shrinking case
 
-	for ( size_t i = 0; i < m_Size; i++ ) {
+	for( size_t i = 0; i < m_Size; i++ ) {
 		//newArr[i] = m_Arr[i];
 		newArr[i] = std::move( m_Arr[i] );
 	}
@@ -269,13 +350,13 @@ template <typename T>
 void vector<T>::realloc( size_t _newCapacity )
 {
 	//T* newArr = new T[_newCapacity];
-	T* newArr = (T*)( ::operator new( _newCapacity * sizeof( T ) ) );
+	T* newArr = (T*) ( ::operator new( _newCapacity * sizeof( T ) ) );
 
-	if ( _newCapacity < m_Size ) { // Downsizing capacity case
+	if( _newCapacity < m_Size ) { // Downsizing capacity case
 		m_Size = _newCapacity;
 	} // TODO(*): Check for memory re-allocations in shrinking case
 
-	for ( size_t i = 0; i < m_Size; i++ ) {
+	for( size_t i = 0; i < m_Size; i++ ) {
 		//newArr[i] = m_Arr[i];
 		//newArr[i] = std::move( m_Arr[i] );
 		//new( &newArr[i] ) T( std::forward<T>( m_Arr[i] ) );
@@ -286,10 +367,10 @@ void vector<T>::realloc( size_t _newCapacity )
 
 	// TODO(*): Use initial m_Size in case of shrinking
 	// TODO(*): Использовать изначальный m_Size в случае сокращения ёмкости
-	for ( size_t i = 0; i < m_Size; i++ ) {
+	for( size_t i = 0; i < m_Size; i++ ) {
 		m_Arr[i].~T();
 	}
-	
+
 	::operator delete( m_Arr, m_Capacity * sizeof( T ) );
 
 	m_Arr = newArr;
