@@ -53,7 +53,7 @@ inline std::ifstream& operator>>( std::ifstream& _inStream, ID& _Id )
 
 inline std::ostream& operator<<( std::ostream& _outStream, ID& _Id )
 {
-	_outStream << ' ' << _Id.LastName << ' ' << _Id.Patronym << ' ' <<
+	_outStream << _Id.LastName << ' ' << _Id.Patronym << ' ' <<
 		_Id.Name << ' ' << _Id.Sex << ' ' << _Id.BirthYear;
 	return _outStream;
 }

@@ -48,10 +48,10 @@ int main()
 	 //Буферные структуры 
 	stud1 so1, so2;
 	stud2 sx1, sx2;
-	char fnamet1[30] = "c:\\user\\oc.txt",
-		fnamet2[30] = "c:\\user\\xarakt.txt",
-		fnamed1[30] = "c:\\user\\oc.dat",
-		fnamed2[30] = "c:\\user\\xarakt.dat";
+	char fnamet1[30] = "oc.txt",
+		fnamet2[30] = "xarakt.txt",
+		fnamed1[30] = "oc.dat",
+		fnamed2[30] = "xarakt.dat";
 
 	//Открытие текстовых файлов для чтения 
 	if( ( ft1 = fopen( fnamet1, "r" ) ) == NULL ) {

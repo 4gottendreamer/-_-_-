@@ -147,6 +147,7 @@
   <ItemGroup>
     <Text Include="db_years.txt" />
     <Text Include="db_score.txt" />
+    <Text Include="output.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\string\string.h" />
