@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include "algorithms.h"
 
+using namespace alg;
+
 float Q_rsqrt( float _Number )
 {
 	float x2 = _Number * .5F;
@@ -15,6 +17,7 @@ float Q_rsqrt( float _Number )
 	return y;
 }
 
+// TODO: ДОПИЛИТЬ
 double dQ_rsqrt( double _Number )
 {
 	double x2 = _Number * .5F;

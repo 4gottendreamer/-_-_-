@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\algorithms\algorithms.cpp" />
     <ClCompile Include="..\string\string.cpp" />
     <ClCompile Include="lab_12_v6.cpp" />
   </ItemGroup>
@@ -148,8 +149,11 @@
     <Text Include="db_years.txt" />
     <Text Include="db_score.txt" />
     <Text Include="output.txt" />
+    <Text Include="out_Score.txt" />
+    <Text Include="out_Years.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\algorithms\algorithms.h" />
     <ClInclude Include="..\string\string.h" />
     <ClInclude Include="..\vector\vector.h" />
     <ClInclude Include="lab_12_v6_struct.h" />

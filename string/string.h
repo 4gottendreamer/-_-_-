@@ -15,14 +15,14 @@ namespace str
 		string( string&& _String ) noexcept; // Конструктор переноса по ссылке
 		~string(); // Деструктор
 
-		string& operator =( const string& _String ); // Присваивание rvalue str::string
-		string& operator=( string&& _String ) noexcept; // Перемещение-переназначение
-		string& operator=( const char _Ch ); // Присваивание rvalue const char
-		string& operator=( const char* _ChArr ); // Присваивание rvalue const char[]
+		string& operator=( const string& _String ); // Присваивание str::string
+		string& operator=( string&& _String ) noexcept; // Перемещение
+		string& operator=( const char _Ch ); // Присваивание const char
+		string& operator=( const char* _ChArr ); // Присваивание const char[]
 
-		string operator+( const string& _String ); // Конкатенация строк rvalue str::string
-		string operator+( const char _Ch ); // Конкатенация строк rvalue const char
-		string operator+( const char* ); // Конкатенация строк rvalue const char[]
+		string operator+( const string& _String ); // Конкатенация rvalue str::string
+		string operator+( const char _Ch ); // Конкатенация строк const char
+		string operator+( const char* ); // Конкатенация строк const char[]
 
 		void operator+=( const string& _String ); // Конкатенация с присваиванием
 		void operator+=( const char _Ch ); // Конкатенация с присваиванием

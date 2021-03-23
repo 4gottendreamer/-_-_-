@@ -21,6 +21,9 @@
     <ClCompile Include="..\string\string.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\algorithms\algorithms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="db_score.txt">
@@ -32,6 +35,12 @@
     <Text Include="output.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="out_Score.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="out_Years.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\string\string.h">
@@ -41,6 +50,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lab_12_v6_struct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\algorithms\algorithms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

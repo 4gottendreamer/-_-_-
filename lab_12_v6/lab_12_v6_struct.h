@@ -10,10 +10,10 @@ struct ID_score
 	str::string LastName;
 	str::string Patronym;
 	str::string Name;
-	short Course;
-	short Phys;
-	short Math;
-	short Prog;
+	short Course = 0;
+	short Phys = 0;
+	short Math = 0;
+	short Prog = 0;
 
 	friend std::ifstream& operator>>( std::ifstream& _inStream, ID_score& _Id );
 	friend std::ostream& operator<<( std::ostream& _inStream, ID_score& _Id );
