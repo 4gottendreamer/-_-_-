@@ -92,8 +92,8 @@ public:
 
 public:
 	vector<T>();
-	//vector<T>( const vector& _Arr );
-	//vector<T>( vector&& _Arr ) noexcept;
+	//vector<T>( const vector& _Vec );
+	//vector<T>( vector&& _Vec ) noexcept;
 	~vector();
 
 	void push_back( const T& _Elem );
@@ -350,7 +350,7 @@ template <typename T>
 void vector<T>::realloc( size_t _newCapacity )
 {
 	//T* newArr = new T[_newCapacity];
-	T* newArr = (T*) ( ::operator new( _newCapacity * sizeof( T ) ) );
+	T* newArr = (T*)( ::operator new( _newCapacity * sizeof( T ) ) );
 
 	if( _newCapacity < m_Size ) { // Downsizing capacity case
 		m_Size = _newCapacity;
