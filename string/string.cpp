@@ -124,7 +124,7 @@ string& string::operator=( const char* _ChArr )
 	for( int i = 0; i < thisLength; i++ ) {
 		this->m_Str[i] = _ChArr[i];
 	}
-	this->m_Length = (int) thisLength;
+	this->m_Length = (int)thisLength;
 	this->m_Str[thisLength] = '\0';
 	return *this;
 }
@@ -407,7 +407,7 @@ void string::cin()
 	*/
 }
 
-void string::getline()
+void string::cingetline()
 {
 #if 1
 	if( this->m_Str != nullptr ) {
@@ -664,6 +664,11 @@ bool str::string::empty()
 	return size() == 0;
 }
 
+const char* str::string::c_str()
+{
+	return m_Str;
+}
+
 size_t string::begin()
 {
 	return 0;
@@ -812,8 +817,8 @@ int string::strcmp2( const char* str1, const char* str2 )
 		}
 
 		return
-			( (unsigned char) *str1 > (unsigned char) *str2 ) -
-			( (unsigned char) *str1 < (unsigned char) *str2 );
+			( (unsigned char)*str1 > (unsigned char)*str2 ) -
+			( (unsigned char)*str1 < (unsigned char)*str2 );
 	}
 }
 
@@ -854,7 +859,7 @@ int string::strcmp5( const char* str1, const char* str2 )
 		str1++;
 		str2++;
 	}
-	return *(const unsigned char*) str1 - *(const unsigned char*) str2;
+	return *(const unsigned char*)str1 - *(const unsigned char*)str2;
 }
 
 //////////////////////////////////////////////////
