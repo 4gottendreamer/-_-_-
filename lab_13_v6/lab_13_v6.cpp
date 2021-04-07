@@ -66,18 +66,18 @@ int main()
 
 	// Сравнения
 	// operator==()
-	std::cout << "(JohnDoe1 == JohnDoe2) == " << ( JohnDoe1 == JohnDoe2 ) << std::endl;
-	std::cout << "(JohnDoe1 == \"Doe\") == " << ( JohnDoe1 == "Doe" ) << std::endl;
+	std::cout << "(JohnDoe1 == JohnDoe2) == " << (JohnDoe1 == JohnDoe2) << std::endl;
+	std::cout << "(JohnDoe1 == \"Doe\") == " << (JohnDoe1 == "Doe") << std::endl;
 	str::string strD( "Doe" );
-	std::cout << "(JohnDoe1 == str::string Doe(\"Doe\")) == " << ( JohnDoe1 == strD ) << std::endl;
+	std::cout << "(JohnDoe1 == str::string Doe(\"Doe\")) == " << (JohnDoe1 == strD) << std::endl;
 
 	// Сравнения
 	// operator==()
 	JohnDoe2.setlname( "Daw" );
-	std::cout << "(JohnDoe1 == JohnDoe2) == " << ( JohnDoe1 == JohnDoe2 ) << std::endl;
-	std::cout << "(JohnDoe1 == \"Daw\") == " << ( JohnDoe1 == "Daw" ) << std::endl;
+	std::cout << "(JohnDoe1 == JohnDoe2) == " << (JohnDoe1 == JohnDoe2) << std::endl;
+	std::cout << "(JohnDoe1 == \"Daw\") == " << (JohnDoe1 == "Daw") << std::endl;
 	strD = "Daw";
-	std::cout << "(JohnDoe1 == str::string Daw(\"Daw\")) == " << ( JohnDoe1 == strD ) << std::endl;
+	std::cout << "(JohnDoe1 == str::string Daw(\"Daw\")) == " << (JohnDoe1 == strD) << std::endl;
 
 	manyMen.push_back( PKorchagin );
 	manyMen.push_back( JohnDoe1 );
@@ -108,7 +108,7 @@ int main()
 	std::cout << std::endl << std::endl;
 
 	// Вывод списка
-	for( auto& oneof : manyMen ) {
+	for(auto& oneof : manyMen) {
 		std::cout << std::endl;
 		oneof.printf();						// Форматированный вывод
 		std::cout << std::endl << std::endl;
@@ -120,16 +120,19 @@ int main()
 	std::cin >> strD;
 	bool match = false;
 	std::cout << "Совпадения:" << std::endl;
-	for( auto& oneof : manyMen ) {
-		if( oneof == strD ) {
+	for(auto& oneof : manyMen) {
+		if(oneof == strD) {
 			std::cout << std::endl;
 			oneof.printf();
 			match = true;
 		}
 	}
-	if( !match ) {
+	if(!match) {
 		std::cout << "Не найдены." << std::endl;
 	}
-
+	int intArray[10] { 0 };
+	for(auto _Val : intArray) {
+		std::cout << _Val << std::endl;
+	}
 	return 0;
 }

@@ -1,19 +1,21 @@
 ﻿// test.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
-//#pragma warning ( disable : 4996 )
+//#define _CRT_SECURE_NO_WARNINGS 1
+
+#pragma warning ( disable : 4996 )
 //#pragma warning ( disable : 6368 )
 
 #include <iostream>
+#include <fstream>
 #include <ctime>
 #include <memory>
 #include <string>
+#include <vector>
 
-#include<stdlib.h>
-#include<conio.h>
-
-#include<stdio.h>
-#include<string.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <stdio.h>
 
 //Шаблон структуры для хранения записей из первого файла 
 struct stud1
@@ -32,7 +34,85 @@ struct stud2
 	int god;
 };
 
-int main()
+std::string File1( "File1.txt" );
+std::string File2( "File2.txt" );
+
+// C
+#include <stdio.h>
+#include <io.h>
+main0()
+{
+	std::ifstream inFile( "data.dat" );
+
+	inFile.seekg( std::ios_base::beg );
+	inFile.seekg( std::ios_base::cur );
+	inFile.seekg( std::ios_base::end );
+
+	FILE* fp;
+	fp = fopen( "file.dat", "r+" );
+	fseek( fp, 0L, SEEK_END );		/* Перейти в конец файла */
+	fseek( fp, 0L, SEEK_SET );		/* Перейти в начало файла */
+	fseek( fp, 20L, SEEK_SET );		/* Перейти на смещение 200 */
+}
+
+#include <iostream>
+#include <string>
+#include <sstream>
+
+// C++
+std::ios_base::seekdir;
+
+class ios_base
+{
+public:
+	typedef /*implementation-defined-enumerated-type*/ seekdir;
+	static const seekdir beg;	// Начало потока
+	static const seekdir cur;	// Конце потока
+	static const seekdir end;	// Текущая поизция курсора
+	// ...
+};
+
+int main1()
+{
+	std::ifstream inFile( "data.dat" );
+	std::ofstream outFile( "dataOut.dat" );
+	outFile.seekp( 0, std::ios_base::beg );
+	std::ostream& std::ostream::seekp( std::streamoff _Off, std::ios_base::seekdir _Way );
+	std::streamoff _Off // Смещение относительно _Way
+	std::string word1, word2, word3, word4, word5;
+
+	inFile >> word1;
+	inFile.seekg( 0, std::ios_base::beg ); // Каретка в начало
+	inFile >> word2;
+	inFile.seekg( 1, std::ios_base::cur ); // -> seek from cur pos toward the end
+	inFile >> word3;
+	inFile.seekg( -6, std::ios_base::cur ); // <- seek from cur pos (end) toward begin
+	inFile >> word4;
+	inFile.seekg( -6, std::ios_base::end ); // <- seek from end toward begin
+	inFile >> word5;
+	/*...*/
+	std::cout << "word1 = " << word1 << '\n'
+		<< "word2 = " << word2 << '\n'
+		<< "word3 = " << word3 << '\n'
+		<< "word4 = " << word4 << '\n'
+		<< "word5 = " << word5 << '\n';
+}
+
+int ternary( int argc, char* argv[] )
+{
+	setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
+	std::vector<std::string> argList;
+
+	std::cout << "argc == " << argc << std::endl;
+	for (size_t i = 0; i < argc; i++) {
+		std::cout << "[" << i << "] : " << argv[i] << std::endl;
+		argList.push_back( std::string( argv[i] ) );
+	}
+
+	return 0;
+}
+
+int secondary()
 {
 	int i,
 		fl,         //Флаг для сортировки 
@@ -54,13 +134,13 @@ int main()
 		fnamed2[30] = "xarakt.dat";
 
 	//Открытие текстовых файлов для чтения 
-	if( ( ft1 = fopen( fnamet1, "r" ) ) == NULL ) {
+	if ((ft1 = fopen( fnamet1, "r" )) == NULL) {
 		printf( "file %s ne syshestvyet", fnamet1 );
 		getch();
 		exit( -1 );
 
 	}
-	if( ( ft2 = fopen( fnamet2, "r" ) ) == NULL ) {
+	if ((ft2 = fopen( fnamet2, "r" )) == NULL) {
 		printf( "file %s ne syshestvyet", fnamet1 );
 		getch();
 		exit( -1 );
@@ -70,13 +150,13 @@ int main()
 	fd2 = fopen( fnamed2, "w+b" );
 	//Цикл считывания информации из текстовых файлов в буферные структуры 
   //и записи этих структур в двоичные файлы  
-	while( fgets( so1.fam, 16, ft1 ) == NULL )    //Считывается фамилия из 1<го текст. файла     
+	while (fgets( so1.fam, 16, ft1 ) == NULL)    //Считывается фамилия из 1<го текст. файла     
 	{
 		fgets( so1.name, 13, ft1 );                 //Считывается имя из 1<го текст. файла 
 
 		fscanf( ft1, "%d", &so1.kurs );          //Считывается номер курса 
 	 //Цикл чтения оценок 
-		for( i = 0; i < 3; i++ ) {
+		for (i = 0; i < 3; i++) {
 			fscanf( ft1, "%d", &so1.oc[i] );
 		}
 		fscanf( ft1, "\n" );                                    //Переход на новую стоку в 1<м файле 
@@ -97,9 +177,9 @@ int main()
 	printf( "\nИнформация о студентах до сортировки\n" );
 	fread( &so1, sizeof( so1 ), 1, fd1 );          //Чтение структуры из 1<го двоичн. файла 
 	fread( &sx1, sizeof( sx1 ), 1, fd2 );          //Чтение структуры из 2<го двоичн. файла 
-	while( feof( fd1 ) ) {
+	while (feof( fd1 )) {
 		printf( "\n%s %s %d ", so1.fam, so1.name, so1.kurs );
-		for( i = 0; i < 3; i++ )
+		for (i = 0; i < 3; i++)
 			printf( "%d ", so1.oc[i] );
 		printf( "%c %d", sx1.pol, sx1.god );
 		fread( &so1, sizeof( so1 ), 1, fd1 );
@@ -116,13 +196,13 @@ int main()
 		fread( &sx1, sizeof( sx1 ), 1, fd2 );
 		//Цикл однократного прохода по файлам 
 	  //Попарно сравниваем и, при необходимости, обмениваем местами структуры           
-		while( feof( fd1 ) ) {
+		while (feof( fd1 )) {
 			//Читаем еще по одной структуре из каждого файла 
 			fread( &so2, sizeof( so2 ), 1, fd1 );
-			if( feof( fd1 ) ) break;
+			if (feof( fd1 )) break;
 			fread( &sx2, sizeof( sx2 ), 1, fd2 );
 			//Сравниваем фамилии  
-			if( strcmp( so1.fam, so2.fam ) > 0 ) {
+			if (strcmp( so1.fam, so2.fam ) > 0) {
 				//Обмен местами двух структур в 1<м файле 
 				ft = ftell( fd1 ) - 2 * sizeof( so1 );
 				fseek( fd1, ft, SEEK_SET );
@@ -150,7 +230,7 @@ int main()
 			fread( &sx1, sizeof( sx1 ), 1, fd2 );
 		}
 	}
-	while( fl > 0 );
+	while (fl > 0);
 	//Цикл вывода информации о студентах из обоих двоичных файлов 
   //Выход на начало каждого файла 
 	rewind( fd1 );
@@ -159,9 +239,9 @@ int main()
 	//Читаем по одной структуре из 1<го и 2<го двоичных файлов 
 	fread( &so1, sizeof( so1 ), 1, fd1 );
 	fread( &sx1, sizeof( sx1 ), 1, fd2 );
-	while( feof( fd1 ) ) {
+	while (feof( fd1 )) {
 		printf( "\n%s %s %d ", so1.fam, so1.name, so1.kurs );
-		for( i = 0; i < 3; i++ )
+		for (i = 0; i < 3; i++)
 			printf( "%d ", so1.oc[i] );
 		printf( "%c %d", sx1.pol, sx1.god );
 		fread( &so1, sizeof( so1 ), 1, fd1 );
@@ -178,23 +258,23 @@ int main()
 	fread( &so1, sizeof( so1 ), 1, fd1 );
 	fread( &sx1, sizeof( sx1 ), 1, fd2 );
 
-	while( feof( fd1 ) && feof( fd2 ) ) {
-		if( sx1.pol == 'м' ) {
+	while (feof( fd1 ) && feof( fd2 )) {
+		if (sx1.pol == 'м') {
 			kolm++;
 			srm += so1.oc[1];
 		}
-		if( sx1.pol == 'ж' ) {
+		if (sx1.pol == 'ж') {
 			kolw++;
 			srw += so1.oc[1];
 		}
 		fread( &so1, sizeof( so1 ), 1, fd1 );
 		fread( &sx1, sizeof( sx1 ), 1, fd2 );
 	}
-	if( kolm ) srm /= kolm;
-	if( kolw ) srw /= kolw;
-	if( srm > srw )
+	if (kolm) srm /= kolm;
+	if (kolw) srw /= kolw;
+	if (srm > srw)
 		printf( "\n\nМатематику лучше сдали юноши" );
-	else if( srm < srw )
+	else if (srm < srw)
 		printf( "\n\nМатематику лучше сдали девушки" );
 	else printf( "\n\nУ девушек и юношей одинаковый результат по математике" );
 
@@ -221,11 +301,11 @@ int AddMe( int a, int b )
 template <typename Tarr, typename Tsize, typename Tsize_add>
 void push_back( Tarr*& _Arr, Tsize _size, Tarr*& const _Arr_add, const Tsize_add _size_add )
 {
-	Tarr* newArray = new Tarr[( _size + (size_t) _size_add )];
-	for( int i = 0; i < _size; i++ ) {
+	Tarr* newArray = new Tarr[(_size + (size_t)_size_add)];
+	for (int i = 0; i < _size; i++) {
 		newArray[i] = _Arr[i];
 	}
-	for( int i = _size; i < _size + _size_add; i++ ) {
+	for (int i = _size; i < _size + _size_add; i++) {
 		newArray[i] = _Arr_add[i - _size];
 	}
 	delete[] _Arr;
@@ -236,11 +316,11 @@ void push_back( Tarr*& _Arr, Tsize _size, Tarr*& const _Arr_add, const Tsize_add
 template <typename Tarr, typename Tsize, typename Tsize_add>
 void push_back( Tarr*& _Arr, Tsize _size, const Tarr* _Arr_add, const Tsize_add _size_add )
 {
-	Tarr* newArray = new Tarr[( _size + (size_t) _size_add )];
-	for( int i = 0; i < _size; i++ ) {
+	Tarr* newArray = new Tarr[(_size + (size_t)_size_add)];
+	for (int i = 0; i < _size; i++) {
 		newArray[i] = _Arr[i];
 	}
-	for( int i = _size; i < _size + _size_add; i++ ) {
+	for (int i = _size; i < _size + _size_add; i++) {
 		newArray[i] = _Arr_add[i - _size];
 	}
 	delete[] _Arr;
@@ -255,10 +335,10 @@ void push_back( char*& _Arr, char* const& _Arr_add )
 	size_t size = strlen( _Arr );
 	size_t size_add = strlen( _Arr_add );
 	char* newArray = new char[size + size_add + 1];
-	for( int i = 0; i < size; i++ ) {
+	for (int i = 0; i < size; i++) {
 		newArray[i] = _Arr[i];
 	}
-	for( int i = size; i < size + size_add; i++ ) {
+	for (int i = size; i < size + size_add; i++) {
 		newArray[i] = _Arr_add[i - size];
 	}
 	newArray[size + size_add] = '\0';
@@ -272,10 +352,10 @@ void push_back( char*& _Arr, const char*& _Arr_add )
 	size_t size = strlen( _Arr );
 	size_t size_add = strlen( _Arr_add );
 	char* newArray = new char[size + size_add + 1];
-	for( int i = 0; i < size; i++ ) {
+	for (int i = 0; i < size; i++) {
 		newArray[i] = _Arr[i];
 	}
-	for( int i = size; i < size + size_add; i++ ) {
+	for (int i = size; i < size + size_add; i++) {
 		newArray[i] = _Arr_add[i - size];
 	}
 	newArray[size + size_add] = '\0';
@@ -287,11 +367,11 @@ void push_back( char*& _Arr, const char*& _Arr_add )
 // заглавной или строчной буквой английского или русского алфавита
 bool IsSymbol( const char& _symbol )
 {
-	if( ( _symbol >= 65 and _symbol <= 90 ) or	// English CAPITALS
-		( _symbol >= 97 and _symbol <= 122 ) ) { // English lowercases
+	if ((_symbol >= 65 and _symbol <= 90) or	// English CAPITALS
+		(_symbol >= 97 and _symbol <= 122)) { // English lowercases
 		return true;
 	}
-	if( _symbol >= -128 and _symbol <= -15 ) { // Русские буквы
+	if (_symbol >= -128 and _symbol <= -15) { // Русские буквы
 		return true;
 	}
 	return false;
@@ -303,13 +383,13 @@ bool IsSymbol( const char& _symbol )
 char* GetWord( char* _Line, int& _StartPos )
 {
 	// Если текущий символ не буква, сдвигаем каретку до первой буквы
-	while( IsSymbol( _Line[_StartPos] ) ) {
+	while (IsSymbol( _Line[_StartPos] )) {
 		_StartPos++;
 	}
 	int CurPos = _StartPos; // Текущее начало слова == текущему концу слова
 
 	// Подсчёт количества непрерывной цепочки букв
-	while( IsSymbol( _Line[CurPos] ) and _Line[CurPos] = '\0' and _Line[CurPos] = '\n' ) {
+	while (IsSymbol( _Line[CurPos] ) and _Line[CurPos] = '\0' and _Line[CurPos] = '\n') {
 		CurPos++;
 	}
 
@@ -329,7 +409,7 @@ char* GetWord( char* _Line, int& _StartPos )
 template <typename T>
 int signum( T& _X )
 {
-	return ( _X > 0 ) ? 1 : ( ( _X < 0 ) ? -1 : 0 );
+	return (_X > 0) ? 1 : ((_X < 0) ? -1 : 0);
 }
 
 // Меняет знак _X на противоположный
@@ -363,7 +443,7 @@ void swap( T* _from, T* _to )
 // 1 при _X > 0
 int fsignum( double _X )
 {
-	return ( _X > 0 ) ? 1 : ( ( _X < 0 ) ? -1 : 0 );
+	return (_X > 0) ? 1 : ((_X < 0) ? -1 : 0);
 }
 
 #if 0
@@ -374,7 +454,7 @@ int fsignum( double _X )
 template <typename T>
 int signum( T _X )
 {
-	return ( T( 0 ) < _X ) - ( _X < T( 0 ) );
+	return (T( 0 ) < _X) - (_X < T( 0 ));
 }
 
 template <typename T> inline constexpr
@@ -386,7 +466,7 @@ int signum( T x, std::false_type is_signed )
 template <typename T> inline constexpr
 int signum( T x, std::true_type is_signed )
 {
-	return ( T( 0 ) < x ) - ( x < T( 0 ) );
+	return (T( 0 ) < x) - (x < T( 0 ));
 }
 #endif // 0
 
@@ -475,7 +555,7 @@ int main0()
 	int* const volatile ptr42 = &FortyTwo;
 
 	// Также в С возможны сложные декларации указателей на указатели
-	char* ( *( *var )( ) )[10];
+	char* (*(*var)())[10];
 	//^ ^  ^ ^ ^  ^   ^
 	//7 6  4 2 1  3   5
 /*  1 Идентификатор var объявлен как
@@ -504,7 +584,7 @@ int main0()
 
 	// динамически в C
 	int* C = NULL;
-	C = (int*) malloc( M * sizeof( int ) );
+	C = (int*)malloc( M * sizeof( int ) );
 	/*...*/
 	free( C );
 
@@ -527,23 +607,23 @@ int main0()
 	int M, N;
 	std::cin >> M >> N;
 	int** B = new int* [M];
-	for( int i = 0; i < M; i++ ) {
+	for (int i = 0; i < M; i++) {
 		B[i] = new int[N];
 	}
 	/*...*/
-	for( int i = 0; i < M; i++ ) {
+	for (int i = 0; i < M; i++) {
 		delete B[i];
 	}
 	delete[]B;
 
 	// динамически в C
 	int** C = NULL;
-	C = (int**) malloc( M * sizeof( int ) );
-	for( int i = 0; i < N; i++ ) {
-		C[i] = (int*) malloc( N * sizeof( int ) );
+	C = (int**)malloc( M * sizeof( int ) );
+	for (int i = 0; i < N; i++) {
+		C[i] = (int*)malloc( N * sizeof( int ) );
 	}
 	/*...*/
-	for( int i = 0; i < M; i++ ) {
+	for (int i = 0; i < M; i++) {
 		free( C[i] );
 	}
 	free( C );
@@ -564,14 +644,14 @@ int main0()
 	int negatives[N]; // Массив с постолбовыми произведениями
 	std::fill_n( negatives, N, 1 ); // Заполнение массива единицами
 
-	for( int i = 0; i < N; i++ ) {
+	for (int i = 0; i < N; i++) {
 		std::cout << negatives[i] << '\t';
 	}
 	std::cout << "\n\n";
 	// Пример вывода массива в виде квадратной матрицы
 	// Заполнение массива
-	for( int i = 0; i < M; i++ ) {
-		for( int j = 0; j < N; j++ ) {
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
 			A[i][j] = rand() % 10 - 5; // Примерно половина отрицательных
 			std::cout << A[i][j] << '\t';
 		}
@@ -580,18 +660,18 @@ int main0()
 	std::cout << std::endl;
 
 	// Проверка условия с выводом на экран
-	for( int j = 0; j < N; j++ ) { // Внешний цикл делает обход по строкам
+	for (int j = 0; j < N; j++) { // Внешний цикл делает обход по строкам
 		int product = 1;
 		bool ThereIsNegative = false;
-		for( int i = 0; i < M; i++ ) { // Внутренний цикл делает обход по столбцам
-			if( A[i][j] < 0 ) {
+		for (int i = 0; i < M; i++) { // Внутренний цикл делает обход по столбцам
+			if (A[i][j] < 0) {
 				product *= A[i][j];
 				negatives[j] *= A[i][j]; // Если данные понадобятся в дальнейшем
 				ThereIsNegative = true;
 			}
 		}
 		// Если нет отрицательных, выводится прочерк
-		if( ThereIsNegative ) {
+		if (ThereIsNegative) {
 			std::cout << "-\t";
 			negatives[j] = 0; // Заполнение элемента массива нулём,
 							   // если не было отрицательных
@@ -604,8 +684,8 @@ int main0()
 	std::cout << std::endl;
 
 	// Вывод результатов
-	for( int i = 0; i < N; i++ ) {
-		if( negatives[i] = 0 ) {
+	for (int i = 0; i < N; i++) {
+		if (negatives[i] = 0) {
 			std::cout << negatives[i] << '\t';
 		}
 		else
@@ -623,19 +703,19 @@ int main0()
 	std::fill_n( positives, M, NULL );
 
 	// Ввод элементов массива
-	for( int i = 0; i < M; i++ ) {
+	for (int i = 0; i < M; i++) {
 		int sum = 0;
 		bool ThereIsPositive = false;
-		for( int j = 0; j < N; j++ ) {
+		for (int j = 0; j < N; j++) {
 			A[i][j] = rand() % 10 - 5;
-			if( A[i][j] > 0 ) {
+			if (A[i][j] > 0) {
 				sum += A[i][j];
 				positives[i] += A[i][j];
 				ThereIsPositive = true;
 			}
 		}
 		// Вывод результата
-		if( ThereIsPositive ) {
+		if (ThereIsPositive) {
 			std::cout << sum << '\t';
 		}
 		// Если в строке не было положительных чисел, выводится прочерк
@@ -646,8 +726,8 @@ int main0()
 
 	// Вывод результатов
 	// Если в строке не было положительных чисел, выводится прочерк
-	for( int i = 0; i < M; i++ ) {
-		if( positives[i] = NULL ) {
+	for (int i = 0; i < M; i++) {
+		if (positives[i] = NULL) {
 			std::cout << positives[i] << '\t';
 		}
 		else
@@ -656,8 +736,8 @@ int main0()
 	std::cout << std::endl;
 
 	// Вывод массива
-	for( int i = 0; i < M; i++ ) {
-		for( int j = 0; j < N; j++ ) {
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
 			std::cout << A[i][j] << '\t';
 		}
 		std::cout << std::endl;
@@ -675,16 +755,16 @@ int main0()
 	// соответствуют индексам по M (количеству строк),
 	// а единичных разрядов соответствуют индексам по N (количеству столбцов),
 	// при M < 10; N < 10 (для удобства отладки)
-	for( int i = 0; i < M; i++ ) {
-		for( int j = 0; j < N; j++ ) {
-			A[i][j] = 10 * ( i + 1 ) + ( j + 1 );
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			A[i][j] = 10 * (i + 1) + (j + 1);
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
 	}
 #if 1   // 1. На главной диагонали
 	std::cout << "Главная диагональ\n";
-	for( int i = 0; i < M and i < N; i++ ) {
+	for (int i = 0; i < M and i < N; i++) {
 		std::cout << A[i][i] << "  ";
 	}
 	std::cout << std::endl;
@@ -693,7 +773,7 @@ int main0()
 
 #if 1   // 2. На побочной диагонали //
 	std::cout << "Побочная диагональ\n";
-	for( int i = 0; i < M and i < N; i++ ) {
+	for (int i = 0; i < M and i < N; i++) {
 		std::cout << A[i][N - i - 1] << "  ";
 	}
 #endif
@@ -701,8 +781,8 @@ int main0()
 
 #if 0   // 3. Выше главной диагонали //
 	std::cout << "Выше главной диагонали\n";
-	for( int i = 0; i < M; i++ ) {
-		for( int j = i + 1; j > i and j < N; j++ ) {
+	for (int i = 0; i < M; i++) {
+		for (int j = i + 1; j > i and j < N; j++) {
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
@@ -712,8 +792,8 @@ int main0()
 
 #if 0   // 4. Ниже главной диагонали //
 	std::cout << "Ниже главной диагонали\n";
-	for( int i = 0; i < M; i++ ) {
-		for( int j = 0; j < i and j < N; j++ ) {
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < i and j < N; j++) {
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
@@ -723,8 +803,8 @@ int main0()
 
 #if 1   // 5. Выше побочной диагонали //
 	std::cout << "Выше побочной диагонали\n";
-	for( int i = 0; i < M; i++ ) {
-		for( int j = 0; j < N - i - 1; j++ ) {
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N - i - 1; j++) {
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
@@ -735,8 +815,8 @@ int main0()
 #if 1   // 6. Ниже побочной диагонали //
 	// Элементы индексируются от начала к концу
 	std::cout << "Ниже побочной диагонали\n";
-	for( int i = 0; i < M; i++ ) {
-		for( int j = ( M > N ? M : N ) - i; j < N; j++ ) {
+	for (int i = 0; i < M; i++) {
+		for (int j = (M > N ? M : N) - i; j < N; j++) {
 			std::cout << A[i][j] << "  ";
 		}
 		std::cout << std::endl;
@@ -757,7 +837,7 @@ int main0()
 #if 0
 
 
-	for( int i = 0; i < N; i++ ) {
+	for (int i = 0; i < N; i++) {
 		A[i] = rand() % 10;
 		std::cout << A[i] << "  ";
 	}
@@ -771,16 +851,16 @@ int main0()
 	std::cout << "sizeof(A) = " << sizeof( A ) << endl;
 	std::cout << "sizeof(*A) = " << sizeof( *A ) << endl;
 	std::cout << "A = " << A << endl;
-	std::cout << "*(A + 3) = " << *( A + 3 ) << endl;
+	std::cout << "*(A + 3) = " << *(A + 3) << endl;
 
-	for( int i = 0; i < N; i++ ) {
-		std::cout << *( A + i ) << "  ";
+	for (int i = 0; i < N; i++) {
+		std::cout << *(A + i) << "  ";
 	}
 	// Подсчет нулевых элементов в заданном одномерном массиве
 	int zeroes = 0;
 	bool bThereIsZero = false;
-	for( int i = 0; i < N; i++ ) {
-		if( A[i] == 0 ) {
+	for (int i = 0; i < N; i++) {
+		if (A[i] == 0) {
 			zeroes++;
 			bThereIsZero = true; // Есть ли вообще нули?
 		}
@@ -789,8 +869,8 @@ int main0()
 	// Вычисление суммы положительных элементов
 	// в заданном одномерном массиве
 	int sum = 0;
-	for( int i = 0; i < N; i++ ) {
-		if( A[i] > 0 ) {
+	for (int i = 0; i < N; i++) {
+		if (A[i] > 0) {
 			sum += A[i];
 		}
 	}
@@ -799,8 +879,8 @@ int main0()
 	// и его индекса в заданном одномерном массиве
 	int FirstMaxElement = *A,
 		FirstMaxIndex;
-	for( int i = 0; i < N; i++ ) {
-		if( FirstMaxElement < A[i] ) {
+	for (int i = 0; i < N; i++) {
+		if (FirstMaxElement < A[i]) {
 			FirstMaxElement = A[i];
 			FirstMaxIndex = i;
 		}
@@ -810,8 +890,8 @@ int main0()
 	// и его индекса в заданном одномерном массиве
 	int LastMinElement = *A,
 		LastMinIndex;
-	for( int i = 0; i < N; i++ ) {
-		if( LastMinElement >= A[i] ) {
+	for (int i = 0; i < N; i++) {
+		if (LastMinElement >= A[i]) {
 			LastMinElement = A[i];
 			LastMinIndex = i;
 		}
@@ -827,8 +907,8 @@ int main0()
 	bool FLAG;
 	do {
 		FLAG = 0;
-		for( int i = 0; i < j; i++ ) {
-			if( a[i] > a[i + 1] ) {
+		for (int i = 0; i < j; i++) {
+			if (a[i] > a[i + 1]) {
 				// перестановка элементов массива
 				int temp = a[i];
 				a[i] = a[i + 1];
@@ -838,9 +918,10 @@ int main0()
 		}
 		j = j - 1;
 	}
-	while( FLAG ); // сортировка заканчивается, если на предыдушем шаге
+	while (FLAG); // сортировка заканчивается, если на предыдушем шаге
 				 // не было выполнено ни одной перестановки в массиве
 #endif
+	return 0;
 }
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"

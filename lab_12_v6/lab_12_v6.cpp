@@ -25,24 +25,12 @@
 
 #include <iostream>
 #include <fstream>
-#include "..\string\string.h"
+//#include "..\string\string.h"
 #include "..\vector\vector.h"
 #include "..\algorithms\algorithms.h"
 #include "lab_12_v6_struct.h"
 
-template <typename T>
-inline void Array2d_cout( T** _Arr, const size_t _i, const size_t _j )
-{
-	for( size_t i = 0; i < _i; i++ ) {
-		for( size_t j = 0; j < _j; j++ ) {
-			if( _Arr[i][j] < 10 ) std::cout << ' ';
-			std::cout << _Arr[i][j] << ' ';
-		}
-		std::cout << std::endl;
-	}
-};
-
-int main()
+int main( int argc, char* argv[] )
 {
 	/*
 	* 1.+	Ввод файла 1 (оценки) в вектор
@@ -55,52 +43,58 @@ int main()
 	*/
 
 	setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
+
 	std::ifstream inFile;
 
 	vector<ID_score> db_Score;	// Контейнер для данных студентов, курсов и оценок
 	vector<ID> db_Years;		// Контейнер для данных студентов и годов рождения
 
+	std::cout << "Program begin" << std::endl;
 	// Открытие файла оценок
-	inFile.open( "db_score.txt" );
+	//inFile.open( "db_score.txt" );
+	std::cout << argv[1] << std::endl;
+	inFile.open( argv[1] );
 
 	// Ввод данных из файла оценок
-	while( !inFile.eof() ) {
+	while (!inFile.eof()) {
 		ID_score tmp_Score;
-		if( inFile >> tmp_Score ) {
+		if (inFile >> tmp_Score) {
 			db_Score.push_back( tmp_Score );
 		}
 	}
 	inFile.close();
-
+	
 	// Открытие файла годов рождения
-	inFile.open( "db_years.txt" );
+	//inFile.open( "db_years.txt" );
+	std::cout << argv[2] << std::endl;
+	inFile.open( argv[2] );
 
 	// Ввод данных из файла годов рождения
-	while( !inFile.eof() ) {
+	while (!inFile.eof()) {
 		ID tmp_Years;
-		if( inFile >> tmp_Years ) {
+		if (inFile >> tmp_Years) {
 			db_Years.push_back( tmp_Years );
 		}
 	}
 
 	// Вывод списков в консоль
 	std::cout << "Студенты, курс, оценки:\n" << std::endl;
-	for( auto& elem : db_Score ) {
+	for (auto& elem : db_Score) {
 		std::cout << elem << std::endl;
 	}
 	std::cout << std::endl << "Студенты, пол, год рождения:\n" << std::endl;
-	for( auto& elem : db_Years ) {
+	for (auto& elem : db_Years) {
 		std::cout << elem << std::endl;
 	}
-	std::cout << "Количество студендов: " << db_Years.size() << std::endl;
+	std::cout << "\nКоличество студендов: " << db_Years.size() << std::endl;
 
 	// Создание характеристического шаблона
 	int** Trace;
 	Trace = new int* [2];
 	Trace[0] = new int[db_Score.size()];
 	Trace[1] = new int[db_Score.size()];
-	for( size_t i = 0; i < db_Score.size(); i++ ) {
-		// Лямбда-функция вставлена для проверки функционала ISO C++11
+	for (size_t i = 0; i < db_Score.size(); i++) {
+		// Лямбда-функция вставлена для проверки функционала C++11
 		auto Fives = [&db_Score]( int _i )->int {
 			int fiveCount = 0;
 			db_Score[_i].Math == 5 ? fiveCount++ : 0;
@@ -120,12 +114,12 @@ int main()
 	std::ofstream out_Score( "out_Score.txt" );
 
 	// Вывод результатов в файлы
-	for( size_t j = 0; j < db_Score.size(); j++ ) {
+	for (size_t j = 0; j < db_Score.size(); j++) {
 		//std::cout << db_Years[Trace[1][j]] << std::endl;
 		out_Years << db_Years[Trace[1][j]] << std::endl;
 	}
 	std::cout << "----------------" << std::endl;
-	for( size_t j = 0; j < db_Score.size(); j++ ) {
+	for (size_t j = 0; j < db_Score.size(); j++) {
 		//std::cout << db_Score[Trace[1][j]] << std::endl;
 		out_Score << db_Score[Trace[1][j]] << std::endl;
 	}
@@ -134,11 +128,11 @@ int main()
 	std::cout << std::endl << "Введите порог количества оценок '5': ";
 	int threshold;
 	std::cin >> threshold;
-	for( size_t j = 0; j < db_Score.size(); j++ ) {
+	for (size_t j = 0; j < db_Score.size(); j++) {
 		// Проверка прохождения порога фильтрации среди первокурсников
-		if( db_Score[Trace[1][j]].Course == 1 and Trace[0][j] > threshold ) {
+		if (db_Score[Trace[1][j]].Course == 1 and Trace[0][j] > threshold) {
 			std::cout << db_Score[Trace[1][j]].LastName << std::endl; // Вывод в консоль фамилии
-			//outFile << db_Score[Trace[1][j]] << std::endl; // Вывод в файл
+			outFile << db_Score[Trace[1][j]] << std::endl; // Вывод в файл
 		}
 	}
 
