@@ -23,7 +23,7 @@ int main()
 	vector<str::string> InputText;
 	for ( size_t i = 0; i < MAX_LINES; i++ ) {
 		str::string Tmp;
-		Tmp.getline();
+		Tmp.cingetline();
 		InputText.push_back( Tmp );
 	}
 	std::cout << "\n=============================\n";
