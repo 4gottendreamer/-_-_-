@@ -83,7 +83,7 @@ public:
 	void clear(); // Обнуляет строку
 	void erase( size_t _Index, size_t _Amount ); // Удаляет количество символов _Amount, начиная с позиции _Index
 	bool empty(); // 1, если строка пустая (size() == 0), иначе 1
-	
+
 	const char* c_str(); // Возвращает указатель на строку в стиле C
 
 	size_t begin();

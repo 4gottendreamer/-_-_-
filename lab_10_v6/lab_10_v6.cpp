@@ -10,31 +10,35 @@
 #include <fstream>
 #include "..\string\string.h"
 #include "..\vector\vector.h"
+#include <vector>
 
-const int MAX_LINES = 3; // Максимальное количество строк
+const int MAX_LINES = 10; // Максимальное количество строк
 
 int main()
 {
 	setlocale( LC_ALL, "ru" ); // Установка корректного вывода кириллицы
 
-	//std::ofstream fileOutput( "file.txt" );
-	//std::ifstream fileInput( "file.txt" );
-
 	vector<str::string> InputText;
-	for ( size_t i = 0; i < MAX_LINES; i++ ) {
+	for( size_t i = 0; i < MAX_LINES; i++ ) {
 		str::string Tmp;
 		Tmp.cingetline();
-		InputText.push_back( Tmp );
+		if( Tmp.size() ) {				// Если очередное слово не "нулевое",
+			InputText.push_back( Tmp );	// толкаем его в конец вектора;
+		}
+		else {							// иначе (если нажат Enter)
+			break;						// прерываем ввод
+		}
 	}
 	std::cout << "\n=============================\n";
-	for ( size_t i = 0; i < InputText.size(); i++ ) {
-		std::cout << "[" << i << "] " << InputText[i].size() << '\t' << InputText[i] << std::endl;
+	for( size_t i = 0; i < InputText.size(); i++ ) {
+		//std::cout << "[" << i << "] " << InputText[i].size() << '\t' << InputText[i] << std::endl;
+		std::cout << InputText[i] << std::endl;
 	}
 	std::cout << "\n=============================\n";
 
 	vector<str::string> OutputText;
 #if 1
-	for ( size_t i = 0; i < InputText.size(); i++ ) { // Построчный перебор текста
+	for( size_t i = 0; i < InputText.size(); i++ ) { // Построчный перебор текста
 
 		size_t j = 0;
 
@@ -43,19 +47,18 @@ int main()
 																 // (j смещает каретку)
 
 		str::string EvenWord( InputText[i].pull_word_iter( j ) );
-		if ( EvenWord.size() ) {				// Если слово не нулевой длины,
+		if( EvenWord.size() ) {				// Если слово не нулевой длины,
 			OutputText.push_back( EvenWord );	// толкаем его новым элементом в вектор
 			OutputText[i].push_back( ' ' );		// и после добавляем пробел
 		}
 
 		OutputText[i].push_back( OddWord ); // Дописываем к новому элементу вектора (к строке) нечётное слово
 
-		for ( ; j < InputText[i].size(); j++ ) {
+		for( ; j < InputText[i].size(); j++ ) {
 			str::string OddWord( InputText[i].pull_word_iter( j ) ); // Вытягиваем следующее нечётное слово
 			str::string EvenWord( InputText[i].pull_word_iter( j ) );
-			if ( OddWord.size() ) {
-				if ( EvenWord.size() ) {
-					//std::cout << "\n\n" << EvenWord << "\n\n";
+			if( OddWord.size() ) {
+				if( EvenWord.size() ) {
 					OutputText[i].push_back( ' ' );
 					OutputText[i].push_back( EvenWord );
 				}
@@ -64,10 +67,48 @@ int main()
 			}
 		}
 
-		std::cout << "[" << i << "] " << OutputText[i].size() << '\t' << OutputText[i] << std::endl;
+		//std::cout << "[" << i << "] " << OutputText[i].size() << '\t' << OutputText[i] << std::endl;
+		std::cout << OutputText[i] << std::endl;
+	}
+
+	std::cout << std::endl;
+	std::cout << "\nПроверка обратной перестановкой слов\n" << std::endl;
+	vector<str::string> OutputTextCheck;
+
+	for( size_t i = 0; i < OutputText.size(); i++ ) { // Построчный перебор текста
+
+		size_t j = 0;
+
+		str::string OddWord( OutputText[i].pull_word_iter( j ) ); // Вытягиваем первое (нечётное) слово
+																  // из строки i исходного текста
+																  // (j смещает каретку)
+
+		str::string EvenWord( OutputText[i].pull_word_iter( j ) );
+		if( EvenWord.size() ) {				// Если слово не нулевой длины,
+			OutputTextCheck.push_back( EvenWord );	// толкаем его новым элементом в вектор
+			OutputTextCheck[i].push_back( ' ' );		// и после добавляем пробел
+		}
+
+		OutputTextCheck[i].push_back( OddWord ); // Дописываем к новому элементу вектора (к строке) нечётное слово
+
+		for( ; j < OutputText[i].size(); j++ ) {
+			str::string OddWord( OutputText[i].pull_word_iter( j ) ); // Вытягиваем следующее нечётное слово
+			str::string EvenWord( OutputText[i].pull_word_iter( j ) );
+			if( OddWord.size() ) {
+				if( EvenWord.size() ) {
+					OutputTextCheck[i].push_back( ' ' );
+					OutputTextCheck[i].push_back( EvenWord );
+				}
+				OutputTextCheck[i].push_back( ' ' );
+				OutputTextCheck[i].push_back( OddWord );
+			}
+		}
+
+		//std::cout << "[" << i << "] " << OutputTextCheck[i].size() << '\t' << OutputTextCheck[i] << std::endl;
+		std::cout << OutputTextCheck[i] << std::endl;
 }
 #else
-	for ( size_t i = 0; i < InputText.size(); i++ ) { // Построчный перебор текста
+	for( size_t i = 0; i < InputText.size(); i++ ) { // Построчный перебор текста
 
 		size_t j = 0;
 
@@ -76,18 +117,18 @@ int main()
 																 // (j смещает каретку)
 
 		str::string EvenWord( InputText[i].pull_word_iter( j ) );
-		if ( EvenWord.size() ) {				// Если слово не нулевой длины,
+		if( EvenWord.size() ) {				// Если слово не нулевой длины,
 			OutputText.push_back( EvenWord );	// толкаем его новым элементом в вектор
 			OutputText[i].push_back( ' ' );		// и после добавляем пробел
 		}
 
 		OutputText[i].push_back( OddWord ); // Дописываем к новому элементу вектора (к строке) нечётное слово
 
-		for ( ; j < InputText[i].size(); j++ ) {
+		for( ; j < InputText[i].size(); j++ ) {
 			str::string OddWord( InputText[i].pull_word_iter( j ) ); // Вытягиваем следующее нечётное слово
 			str::string EvenWord( InputText[i].pull_word_iter( j ) );
-			if ( OddWord.size() ) {
-				if ( EvenWord.size() ) {
+			if( OddWord.size() ) {
+				if( EvenWord.size() ) {
 					//std::cout << "\n\n" << EvenWord << "\n\n";
 					OutputText[i].push_back( ' ' );
 					OutputText[i].push_back( EvenWord );
@@ -168,7 +209,7 @@ int main()
 		std::cout << lineLenght << std::endl;
 	} */
 
-	while ( std::cin.getline( cLine, 80 ) and ( LinesNumber < MAX_LINES ) ) {
+	while( std::cin.getline( cLine, 80 ) and ( LinesNumber < MAX_LINES ) ) {
 		size_t lineLenght = strlen( cLine );
 		cText[LinesNumber] = new char[lineLenght + 1];
 		push_back( cText[LinesNumber], cLine );
@@ -179,9 +220,9 @@ int main()
 	}
 	std::wcout << "step1" << std::endl;
 
-	for ( int i = 0; i < LinesNumber; i++ ) {
+	for( int i = 0; i < LinesNumber; i++ ) {
 		std::wcout << "line\t" << i << '\t' << cText[i];
-		for ( int j = 0; j < strlen( cText_fixed[i] ); j++ ) {
+		for( int j = 0; j < strlen( cText_fixed[i] ); j++ ) {
 			char* Word_odd = GetWord( cLine, j );
 			char* Word_even = GetWord( cLine, j );
 			push_back( cText_fixed[j], Word_even );
@@ -211,7 +252,7 @@ int main()
 	i = 0;
 	setlocale( 0, "" );
 	// Цикл ввода строк символов, пока не конец потока ввода (CTRL+Z) и кол-во строк не > 10
-	while ( ( gets_s( wstr ) != NULL ) && ( i < 10 ) ) //считываем очередную стоку в рабочую строку
+	while( ( gets_s( wstr ) != NULL ) && ( i < 10 ) ) //считываем очередную стоку в рабочую строку
 	{
 		//выделяем динамически память для хранения введенной строки
 		//адрес выделенной памяти сохраняем в массиве указателей на строки
@@ -223,21 +264,21 @@ int main()
 		i++;
 	}
 	kol_str = i;
-	for ( i = 0; i < kol_str; i++ ) // перебираем все введенные строки
+	for( i = 0; i < kol_str; i++ ) // перебираем все введенные строки
 	{
 		dl_str = strlen( s[i] ); // определяем длину текущей строки
-		for ( j = 0; j <= dl_str; j++ ) // движемся по строке
-			if ( *( s[i] + j ) == ' ' || *( s[i] + j ) == '\0' || *( s[i] + j ) == ',' )
+		for( j = 0; j <= dl_str; j++ ) // движемся по строке
+			if( *( s[i] + j ) == ' ' || *( s[i] + j ) == '\0' || *( s[i] + j ) == ',' )
 				// если встретили символ-разделитель
 			{
-				if ( inword == 1 ) // и этот символ первый после слова
+				if( inword == 1 ) // и этот символ первый после слова
 				{
 					dl_word = j - beg; // определяем длину текущего слова
-					if ( dl_word % 2 ) // если длина нечетная, то
+					if( dl_word % 2 ) // если длина нечетная, то
 					// удаляем из слова средний символ, для чего сдвигаем все символы строки на одну позицию влево
 					// после середины слова и до конца строки (включая '\0')
 					{
-						for ( j1 = beg + dl_word / 2; j1 < dl_str; j1++ )
+						for( j1 = beg + dl_word / 2; j1 < dl_str; j1++ )
 							*( s[i] + j1 ) = *( s[i] + j1 + 1 );
 						dl_str = dl_str - 1; // уменьшаем длину строки и
 						j = j - 1; // индекс текущего символа в строке
@@ -246,7 +287,7 @@ int main()
 				}
 			}
 			else // если не разделитель
-				if ( inword == 0 ) // и находимся вне слова,
+				if( inword == 0 ) // и находимся вне слова,
 				{
 					inword = 1; // то встретили новое слово
 					beg = j; // запоминаем индекс первого символа в слове
@@ -254,7 +295,7 @@ int main()
 	}
 	// Выводим на экран преобразованный текст
 	printf( "\nРезультат\n" );
-	for ( i = 0; i < kol_str; i++ )
+	for( i = 0; i < kol_str; i++ )
 		puts( s[i] );
 	std::cin.get();
 #endif // 0

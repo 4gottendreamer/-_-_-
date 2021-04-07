@@ -7,9 +7,9 @@
 class Man
 {
 public:
-	Man();						// Default
-	Man( const char* _ChArr );
-	Man( const char* _LastName,
+	Man();							// Конструктор без параметров
+	Man( const char* _ChArr );		// Конструктор с парамтерами
+	Man( const char* _LastName,		// Конструктов с параметрами
 		 const char* _Name,
 		 const char* _Patronymic,
 		 short _Age,
@@ -17,26 +17,26 @@ public:
 		 const char* _Street,
 		 short _Bld,
 		 short _Apt);
-	Man( const Man& _Man );		// Copy
-	Man( Man&& _Man ) noexcept;	// Move
+	Man( const Man& _Man );			// Конструктор копирования
+	Man( Man&& _Man ) noexcept;		// Конструктор перемещения
 	~Man();
 
 public:
-	str::string getname();
-	str::string getltname();
-	str::string getpatr();
+	str::string getname();			// Возращает имя
+	str::string getltname();		// Возращает фамилию
+	str::string getpatr();			// Возращает отчество
 
-	const char* getname_cstr();
-	const char* getltname_cstr();
-	const char* getpatr_cstr();
+	const char* getname_cstr();		// Возращает имя в виде C-строки
+	const char* getltname_cstr();	// Возращает фамилию в виде C-строки
+	const char* getpatr_cstr();		// Возращает отчество в виде C-строки
 
-	void setname(const char* _ChName);
-	void setlname( const char* _ChLName );
-	void setpatr( const char* _ChPatr );
+	void setname(const char* _ChName);		// Присваивает имя
+	void setlname( const char* _ChLName );	// Присваивает фамилию
+	void setpatr( const char* _ChPatr );	// Присваивает отчество
 
 public:
-	bool is_voter(); // Проверка на 
-	bool match_lastname( const char* _LastName ); // Сравнение фамилий
+	bool is_voter();	// Проверка избирательных прав
+	bool match_lastname( const char* _LastName );	// Сравнение фамилий
 
 	// Input/Output
 	Man& inputf();	// Форматированный ввод

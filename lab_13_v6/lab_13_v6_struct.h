@@ -17,15 +17,6 @@ struct location
 		return *this;
 	}
 
-	//location& operator=( location&& _Loc ) noexcept
-	//{
-	//	apartment = _Loc.apartment;
-	//	building = _Loc.building;
-	//	street.operator=( (str::string&&)_Loc.street );
-	//	city.operator=( (str::string&&)_Loc.city );
-	//	return *this;
-	//}
-
 	void inputf()
 	{
 		std::cout << "Город: "; city.cingetline();
@@ -55,33 +46,3 @@ inline std::istream& operator>>( std::istream& _inStream, location& _Loc )
 	_inStream >> _Loc.apartment;
 	return _inStream;
 }
-
-//struct date
-//{
-//	short day = 1;
-//	short month = 1;
-//	short year = 1900;
-//
-//	date& operator=( const date& _Date )
-//	{
-//		day = _Date.day;
-//		month = _Date.month;
-//		year = _Date.year;
-//		return *this;
-//	};
-//
-//	friend std::ostream& operator<<( std::ostream& _outStream, const date& _Date );
-//};
-
-//inline std::ostream& operator<<( std::ostream& _outStream, const date& _Date )
-//{
-//	if( _Date.day < 10 ) {
-//		std::cout << '0';
-//	}
-//	std::cout << _Date.day << '.';
-//	if( _Date.month < 10 ) {
-//		std::cout << '0';
-//	}
-//	std::cout << _Date.month << '.' << _Date.year;
-//	return _outStream;
-//}
