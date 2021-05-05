@@ -21,6 +21,148 @@
 
 std::string File1("File1.txt");
 std::string File2("File2.txt");
+class MyClass
+{
+public:
+	MyClass() {};		// Конструктор по умолчанию
+	MyClass(int _x) :	// и конструктор с параметрами
+		x(_x)			// определены
+	{};					// внутри класса
+	~MyClass();
+public:
+	int getX()			// Метод
+	{					// определён
+		return x;		// внутри
+	}					// класса
+	void setX(int _x);	// Прототип public-метода класса
+private:
+	int x;
+};
+
+// Внешнее определение метода класса
+void MyClass::setX(int _x)
+{
+	this->x = _x;		// this указывает на текущий объект класса,
+}						// для которого вызывается метод setX(int);
+
+class Point
+{
+public:
+	Point(int, int); // Конструктов с параметрами
+	Point();         // Конструктор по умолчанию
+
+public:
+	int& x(int);         // Поле с доступом public
+	int& y(int);         // Поле с доступом public
+	double rvec_length() // Public-метод
+	{
+		return (_x * _x + _y * _y);
+	};
+private:
+	int _x;          // Поле с доступом private
+	int _y;          // Поле с доступом private
+
+protected:
+	Point ToWindowCoords(); // Объявление метода с доступом protected
+				   // для наследных классов
+};
+
+class MyDynamicClass
+{
+public:
+	MyDynamicClass(int _size);
+	~MyDynamicClass();
+
+private:
+	size_t size;
+	int* A;
+};
+
+// Динамическое выделение памяти в куче
+MyDynamicClass::MyDynamicClass(int _size)
+{
+	size = _size;
+	A = new int[size];
+}
+
+// Деструктор освобождает динамически выделенную в куче память
+MyDynamicClass::~MyDynamicClass()
+{
+	delete A;
+}
+
+class StaticFieldClass
+{
+public:
+	StaticFieldClass();
+	~StaticFieldClass();
+public:
+	static int getCount() { return instanceCount; }
+private:
+	static int instanceCount;
+};
+
+// Инициализация статического поля
+int StaticFieldClass::instanceCount = 0;
+
+StaticFieldClass::StaticFieldClass() // При вызове конструктора (объявлении объекта)
+{									 // значение статического поля
+	instanceCount++;				 // увличивается на 1
+}
+
+StaticFieldClass::~StaticFieldClass() // При вызове деструктора (уничтожении объекта)
+{									  // значение статического поля
+	instanceCount--;				  // уменьшается на 1
+}
+
+class StaticPublicity
+{
+public:
+	StaticPublicity();
+	~StaticPublicity();
+	static int static_field;
+private:
+	/*...*/
+};
+int StaticPublicity::static_field = 7;
+
+StaticPublicity::StaticPublicity()
+{}
+
+StaticPublicity::~StaticPublicity()
+{}
+
+
+int main2()
+{
+	// Объявление объктов класса StaticFieldClass
+	// При вызове конструктора для каждого из трёх объектов
+	// поле int StaticFieldClass::instanceCount увеличивается на 1
+	StaticFieldClass A, B, C;
+
+	// Присваивание значения статического поля
+	// путём вызова статического public-метода
+	// через оператор разрешения пространства имён
+	// ( scope resolution operator::() )
+	int amountOfInstances = StaticFieldClass::getCount();
+	std::cout << amountOfInstances << std::endl; // Вывод в консоль: 3
+
+	// Присваивание значения статического поля
+	// через обращение к статическому методу
+	// через объект класса
+	amountOfInstances = A.getCount();
+	std::cout << amountOfInstances << std::endl; // Вывод в консоль: 3
+
+	// Явный вызов деструктора через объект класса
+	C.~StaticFieldClass();
+	std::cout << StaticFieldClass::getCount() << std::endl;
+	/*...*/
+	StaticPublicity::static_field = 11;
+	StaticPublicity S;
+	S.static_field = 2;
+	S.StaticPublicity::static_field = 5;
+	return 0;
+}
 
 struct StctBase
 {
