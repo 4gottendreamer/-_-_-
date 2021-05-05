@@ -63,7 +63,7 @@ int main( int argc, char* argv[] )
 		}
 	}
 	inFile.close();
-
+	
 	// Открытие файла годов рождения
 	//inFile.open( "db_years.txt" );
 	std::cout << argv[2] << std::endl;

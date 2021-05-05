@@ -148,6 +148,5 @@ int main()
 	if (!match) {
 		std::cout << "Не найдены." << std::endl;
 	}
-
 	return 0;
 }
