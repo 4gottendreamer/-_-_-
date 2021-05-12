@@ -9,48 +9,48 @@ template<typename T>
 class list
 {
 public:
-	class list_iterator;		// Предварительное объявление класса итератора
-								// для объявления методов begin(), end(), insert()
+	class list_iterator;		// РџСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕРµ РѕР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃР° РёС‚РµСЂР°С‚РѕСЂР°
+								// РґР»СЏ РѕР±СЉСЏРІР»РµРЅРёСЏ РјРµС‚РѕРґРѕРІ begin(), end(), insert()
 	using iterator = typename list<T>::list_iterator;
 
 public:
-	list();						// Конструктор по умолчанию
-	list(const list& _Rhslist);	// Конструктор копирования
-	~list();					// Деструктор
+	list();						// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+	list(const list& _Rhslist);	// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	~list();					// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 
 public:
-	void insert(list_iterator _Pos, const T& _Data); // Вставляет узел перед _Pos
-	void erase(const list_iterator& _Pos);			 // Удаляет узел _Pos
+	void insert(list_iterator _Pos, const T& _Data); // Р’СЃС‚Р°РІР»СЏРµС‚ СѓР·РµР» РїРµСЂРµРґ _Pos
+	void erase(const list_iterator& _Pos);			 // РЈРґР°Р»СЏРµС‚ СѓР·РµР» _Pos
 
 
 public:
-	void clear();					 // Удаляет все узлы списка
-	void push_back(const T& _Data);  // Добавляет узел в конец списка
-	void push_front(const T& _Date); // Добавляет узел в начало списка
-	void pop_back();				 // Удаляет конечный узел
-	void pop_front();				 // Удаляет начальный узел
-	void assign(size_t _Count, const T& _Data); // Создаёт _Count узлов со значением_Data
-	iterator find(const T& _Value);	 // Возвращает итератор первого вхождения узла со значением _Value
+	void clear();					 // РЈРґР°Р»СЏРµС‚ РІСЃРµ СѓР·Р»С‹ СЃРїРёСЃРєР°
+	void push_back(const T& _Data);  // Р”РѕР±Р°РІР»СЏРµС‚ СѓР·РµР» РІ РєРѕРЅРµС† СЃРїРёСЃРєР°
+	void push_front(const T& _Date); // Р”РѕР±Р°РІР»СЏРµС‚ СѓР·РµР» РІ РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР°
+	void pop_back();				 // РЈРґР°Р»СЏРµС‚ РєРѕРЅРµС‡РЅС‹Р№ СѓР·РµР»
+	void pop_front();				 // РЈРґР°Р»СЏРµС‚ РЅР°С‡Р°Р»СЊРЅС‹Р№ СѓР·РµР»
+	void assign(size_t _Count, const T& _Data); // РЎРѕР·РґР°С‘С‚ _Count СѓР·Р»РѕРІ СЃРѕ Р·РЅР°С‡РµРЅРёРµРј_Data
+	iterator find(const T& _Value);	 // Р’РѕР·РІСЂР°С‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РїРµСЂРІРѕРіРѕ РІС…РѕР¶РґРµРЅРёСЏ СѓР·Р»Р° СЃРѕ Р·РЅР°С‡РµРЅРёРµРј _Value
 
 public:
-	size_t size() { return m_size; }		 // Возвращает количество узлов списка
-	bool empty() { return !((bool)m_size); } // true, если список не пуст, иначе false
-	T& front(); // Возвращает ссылку на первый элемент
-	T& back();  // Возвращает ссылку на последний элемент
+	size_t size() { return m_size; }		 // Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ СѓР·Р»РѕРІ СЃРїРёСЃРєР°
+	bool empty() { return !((bool)m_size); } // true, РµСЃР»Рё СЃРїРёСЃРѕРє РЅРµ РїСѓСЃС‚, РёРЅР°С‡Рµ false
+	T& front(); // Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
+	T& back();  // Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
 
 public:
-	void swap(iterator& _itFrom, iterator& itTo); // Меняет узлы местами по итераторам
-	void swap(const iterator& _itFrom, const iterator& _itTo); // Меняет узлы местами по итераторам
-	void sort_az(); // Сортировка <=
-	void sort_za(); // Сортировка >=
+	void swap(iterator& _itFrom, iterator& itTo); // РњРµРЅСЏРµС‚ СѓР·Р»С‹ РјРµСЃС‚Р°РјРё РїРѕ РёС‚РµСЂР°С‚РѕСЂР°Рј
+	void swap(const iterator& _itFrom, const iterator& _itTo); // РњРµРЅСЏРµС‚ СѓР·Р»С‹ РјРµСЃС‚Р°РјРё РїРѕ РёС‚РµСЂР°С‚РѕСЂР°Рј
+	void sort_az(); // РЎРѕСЂС‚РёСЂРѕРІРєР° <=
+	void sort_za(); // РЎРѕСЂС‚РёСЂРѕРІРєР° >=
 
 public:
 	void getInfo();
-	void print(char _Delim);	// Выводит элементы списка в консоль, разделяя символом _Delim
+	void print(char _Delim);	// Р’С‹РІРѕРґРёС‚ СЌР»РµРјРµРЅС‚С‹ СЃРїРёСЃРєР° РІ РєРѕРЅСЃРѕР»СЊ, СЂР°Р·РґРµР»СЏСЏ СЃРёРјРІРѕР»РѕРј _Delim
 
 public:
-	iterator begin() { return iterator(m_head); }	  // Возвращает итератор первого узла
-	iterator end() { return iterator(m_tail->next); } // Возвращает итератор последнего узла
+	iterator begin() { return iterator(m_head); }	  // Р’РѕР·РІСЂР°С‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РїРµСЂРІРѕРіРѕ СѓР·Р»Р°
+	iterator end() { return iterator(m_tail->next); } // Р’РѕР·РІСЂР°С‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РїРѕСЃР»РµРґРЅРµРіРѕ СѓР·Р»Р°
 
 public:
 	T& operator[](size_t _Idx);
@@ -63,9 +63,9 @@ private:
 	class node
 	{
 	public:
-		node(T _data = T(), // T() присваивает значение по умолчанию для типа T
-			 node<T>* _prev = nullptr,		// Указатель на предыдущий узел
-			 node<T>* _next = nullptr) :	// Указатель на следующий узел
+		node(T _data = T(), // T() РїСЂРёСЃРІР°РёРІР°РµС‚ Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ С‚РёРїР° T
+			 node<T>* _prev = nullptr,		// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РїСЂРµРґС‹РґСѓС‰РёР№ СѓР·РµР»
+			 node<T>* _next = nullptr) :	// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ СѓР·РµР»
 			prev(_prev),
 			next(_next),
 			data(_data)
@@ -153,9 +153,9 @@ private:
 		node<T>* m_curr;
 	};
 
-	node<T>* m_head; // Указатель на начало
-	node<T>* m_tail; // Указатель на конец
-	size_t m_size;	 // Количество элементов
+	node<T>* m_head; // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°С‡Р°Р»Рѕ
+	node<T>* m_tail; // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РєРѕРЅРµС†
+	size_t m_size;	 // РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ
 };
 
 //////////////////
@@ -194,7 +194,7 @@ inline list<T>::~list()
 
 template<typename T>
 inline void list<T>::clear()
-{	// Если есть узлы в списке, то удалить все, начиная с последнего
+{	// Р•СЃР»Рё РµСЃС‚СЊ СѓР·Р»С‹ РІ СЃРїРёСЃРєРµ, С‚Рѕ СѓРґР°Р»РёС‚СЊ РІСЃРµ, РЅР°С‡РёРЅР°СЏ СЃ РїРѕСЃР»РµРґРЅРµРіРѕ
 	if (m_size) {
 		node<T>* curr = m_tail;
 		while (m_size > 0) {
@@ -203,17 +203,17 @@ inline void list<T>::clear()
 	}
 }
 
-// Вставляет узел перед _Pos
+// Р’СЃС‚Р°РІР»СЏРµС‚ СѓР·РµР» РїРµСЂРµРґ _Pos
 // Inserts new node before _Pos
 template<typename T>
 inline void list<T>::insert(list_iterator _Pos, const T& _Data)
 {
-	if (_Pos.operator->() == m_head) { // Если итератор указывает на начало,
-		push_front(_Data);			   // вызываем соответствующий метод
+	if (_Pos.operator->() == m_head) { // Р•СЃР»Рё РёС‚РµСЂР°С‚РѕСЂ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РЅР°С‡Р°Р»Рѕ,
+		push_front(_Data);			   // РІС‹Р·С‹РІР°РµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РјРµС‚РѕРґ
 		return;
 	}
-	if (_Pos.operator->() == m_tail) { // Если итератор указывает на конец,
-		push_back(_Data);			   // вызываем соответствующий метод
+	if (_Pos.operator->() == m_tail) { // Р•СЃР»Рё РёС‚РµСЂР°С‚РѕСЂ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РєРѕРЅРµС†,
+		push_back(_Data);			   // РІС‹Р·С‹РІР°РµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РјРµС‚РѕРґ
 		return;
 	}
 	list<T>::list_iterator iter = begin();
@@ -232,21 +232,21 @@ inline void list<T>::insert(list_iterator _Pos, const T& _Data)
 template<typename T>
 inline void list<T>::erase(const list_iterator& _Pos)
 {
-	if (_Pos.operator->() == m_head) { // Если итератор указывает на начало,
-		pop_front();				   // вызываем соответствующий метод
+	if (_Pos.operator->() == m_head) { // Р•СЃР»Рё РёС‚РµСЂР°С‚РѕСЂ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РЅР°С‡Р°Р»Рѕ,
+		pop_front();				   // РІС‹Р·С‹РІР°РµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РјРµС‚РѕРґ
 		return;
 	}
-	if (_Pos.operator->() == m_tail) { // Если итератор указывает на конец,
-		pop_back();					   // вызываем соответствующий метод
+	if (_Pos.operator->() == m_tail) { // Р•СЃР»Рё РёС‚РµСЂР°С‚РѕСЂ СѓРєР°Р·С‹РІР°РµС‚ РЅР° РєРѕРЅРµС†,
+		pop_back();					   // РІС‹Р·С‹РІР°РµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РјРµС‚РѕРґ
 		return;
 	}
 
 	list<T>::list_iterator iter = begin();
-	while (iter != nullptr) { // В общем случае пробегаем итератором по списку,
-		if (iter == _Pos) {				   // находим искомый узел,
-			iter->prev->next = iter->next; // переназначаем связи
-			iter->next->prev = iter->prev; // в нужном порядке
-			delete (_Pos.operator->());	   // и удаляем искомый узел
+	while (iter != nullptr) { // Р’ РѕР±С‰РµРј СЃР»СѓС‡Р°Рµ РїСЂРѕР±РµРіР°РµРј РёС‚РµСЂР°С‚РѕСЂРѕРј РїРѕ СЃРїРёСЃРєСѓ,
+		if (iter == _Pos) {				   // РЅР°С…РѕРґРёРј РёСЃРєРѕРјС‹Р№ СѓР·РµР»,
+			iter->prev->next = iter->next; // РїРµСЂРµРЅР°Р·РЅР°С‡Р°РµРј СЃРІСЏР·Рё
+			iter->next->prev = iter->prev; // РІ РЅСѓР¶РЅРѕРј РїРѕСЂСЏРґРєРµ
+			delete (_Pos.operator->());	   // Рё СѓРґР°Р»СЏРµРј РёСЃРєРѕРјС‹Р№ СѓР·РµР»
 			--m_size;
 			return;
 		}
@@ -254,7 +254,7 @@ inline void list<T>::erase(const list_iterator& _Pos)
 	}
 }
 
-// Смещает итератор на _Shift узлов вперёд по списку
+// РЎРјРµС‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РЅР° _Shift СѓР·Р»РѕРІ РІРїРµСЂС‘Рґ РїРѕ СЃРїРёСЃРєСѓ
 template<typename T>
 void advance(typename list<T>::iterator& _Iter, const int _Shift)
 {
@@ -279,29 +279,29 @@ void advance(typename list<T>::iterator& _Iter, const int _Shift)
 template<typename T>
 inline void list<T>::push_back(const T& _Data)
 {
-	if (m_size == 0) {					// Если список пуст,
-		m_head = new node<T>(_Data);	// создать первый узел
+	if (m_size == 0) {					// Р•СЃР»Рё СЃРїРёСЃРѕРє РїСѓСЃС‚,
+		m_head = new node<T>(_Data);	// СЃРѕР·РґР°С‚СЊ РїРµСЂРІС‹Р№ СѓР·РµР»
 		m_tail = m_head;
 	}
-	else {											// Иначе добавить узел
-		m_tail->next = new node<T>(_Data, m_tail);	// в конец списка
-		m_tail = m_tail->next;						// и сдвинуть указатель конца
+	else {											// РРЅР°С‡Рµ РґРѕР±Р°РІРёС‚СЊ СѓР·РµР»
+		m_tail->next = new node<T>(_Data, m_tail);	// РІ РєРѕРЅРµС† СЃРїРёСЃРєР°
+		m_tail = m_tail->next;						// Рё СЃРґРІРёРЅСѓС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РєРѕРЅС†Р°
 	}
-	m_size++; // Увеличиваем размер списка
+	m_size++; // РЈРІРµР»РёС‡РёРІР°РµРј СЂР°Р·РјРµСЂ СЃРїРёСЃРєР°
 }
 
 template<typename T>
 inline void list<T>::push_front(const T& _Data)
 {
-	if (m_size == 0) {				 // Если список пуст,
-		m_head = new node<T>(_Data); // создать первый узел
+	if (m_size == 0) {				 // Р•СЃР»Рё СЃРїРёСЃРѕРє РїСѓСЃС‚,
+		m_head = new node<T>(_Data); // СЃРѕР·РґР°С‚СЊ РїРµСЂРІС‹Р№ СѓР·РµР»
 		m_tail = m_head;
 	}
-	else {													// Иначе добавить узел
-		m_head->prev = new node<T>(_Data, nullptr, m_head);	// перед началом списка
-		m_head = m_head->prev;								// и свдинуть указатель начала
+	else {													// РРЅР°С‡Рµ РґРѕР±Р°РІРёС‚СЊ СѓР·РµР»
+		m_head->prev = new node<T>(_Data, nullptr, m_head);	// РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј СЃРїРёСЃРєР°
+		m_head = m_head->prev;								// Рё СЃРІРґРёРЅСѓС‚СЊ СѓРєР°Р·Р°С‚РµР»СЊ РЅР°С‡Р°Р»Р°
 	}
-	m_size++; // Увеличиваем размер списка
+	m_size++; // РЈРІРµР»РёС‡РёРІР°РµРј СЂР°Р·РјРµСЂ СЃРїРёСЃРєР°
 }
 
 template<typename T>
@@ -313,7 +313,7 @@ inline void list<T>::pop_back()
 	if (m_tail != nullptr) {
 		node<T>* tmp = m_tail;
 		m_tail = m_tail->prev;
-		if (m_tail != nullptr) {	// Если
+		if (m_tail != nullptr) {	// Р•СЃР»Рё
 			m_tail->next = nullptr;
 		}
 		delete tmp;
@@ -357,7 +357,7 @@ inline void list<T>::assign(size_t _Count, const T& _Data)
 	}
 }
 
-// Возвращает итератор первого вхождения узла со значением _Value
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РїРµСЂРІРѕРіРѕ РІС…РѕР¶РґРµРЅРёСЏ СѓР·Р»Р° СЃРѕ Р·РЅР°С‡РµРЅРёРµРј _Value
 template<typename T>
 inline typename list<T>::list_iterator list<T>::find(const T& _Value)
 {
@@ -480,7 +480,7 @@ inline void list<T>::getInfo()
 #endif // DEBUG
 }
 
-// Выводит элементы списка в консоль, разделяя символом _Delim
+// Р’С‹РІРѕРґРёС‚ СЌР»РµРјРµРЅС‚С‹ СЃРїРёСЃРєР° РІ РєРѕРЅСЃРѕР»СЊ, СЂР°Р·РґРµР»СЏСЏ СЃРёРјРІРѕР»РѕРј _Delim
 template<typename T>
 inline void list<T>::print(char _Delim)
 {
@@ -489,7 +489,7 @@ inline void list<T>::print(char _Delim)
 	}
 }
 
-// Возвращает значение узла с индексом _Idx
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ СѓР·Р»Р° СЃ РёРЅРґРµРєСЃРѕРј _Idx
 template<typename T>
 inline T& list<T>::operator[](size_t _Idx)
 {
@@ -505,7 +505,7 @@ inline T& list<T>::operator[](size_t _Idx)
 	//return nullptr;
 }
 
-// Возвращает значение узла с индексом _Idx
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ СѓР·Р»Р° СЃ РёРЅРґРµРєСЃРѕРј _Idx
 template<typename T>
 inline const T& list<T>::operator[](size_t _Idx) const
 {

@@ -1,4 +1,4 @@
-﻿// lab_14_v6.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// lab_14_v6.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 // Вариант 6
 /*
@@ -55,13 +55,13 @@ int main()
 	setlocale(LC_ALL, "ru"); // Установка корректного вывода кириллицы
 	my::list<TYPE> List;	// Объявление списка
 
-	List.push_back((rand() % 100) / 3.f);
+	/* List.push_back((rand() % 100) / 3.f);
 	List.push_back((rand() % 100) / 5.f);
 	List.push_back((rand() % 100) / 7.f);
 	List.push_back((rand() % 100) / 11.f);
 	List.push_back((rand() % 100) / 13.f);
 	List.push_back((rand() % 100) / 17.f);
-	List.push_back((rand() % 100) / 19.f);
+	List.push_back((rand() % 100) / 19.f); */
 
 	std::vector<std::string> menuLines0 = {
 		"1 Добавить узел в список",

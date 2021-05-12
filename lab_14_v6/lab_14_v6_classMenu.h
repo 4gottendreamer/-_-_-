@@ -10,14 +10,6 @@ public:
 
 	~Menu() {}
 
-	//void PrintCls()
-	//{
-	//	system("cls");
-	//	for (auto& line : m_Lines) {
-	//		std::cout << line << std::endl;
-	//	}
-	//}
-
 	void Print()
 	{
 		for (auto& line : m_Lines) {
