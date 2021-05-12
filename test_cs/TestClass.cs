@@ -19,13 +19,11 @@ namespace test_cs
 		{
 			Console.Write(m_Str + ' ' + m_Int);
 		}
-		public int Integer
-		{
+		public int Integer {
 			get { return m_Int; }
 			set { m_Int = value; }
 		}
-		public string String
-		{
+		public string String {
 			get { return m_Str; }
 			set { m_Str = value; }
 		}

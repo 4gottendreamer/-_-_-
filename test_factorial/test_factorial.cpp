@@ -6,35 +6,47 @@
 
 using namespace std;
 
-string mult( string n, int x )
+string mult(string n, int x)
 {
 	int add = 0, num;
 	string str = "";
-	for ( int i = n.size() - 1; i >= 0; i-- ) {
-		num = ( (int)n[i] - 48 ) * x + add;
-		str = char( num % 10 + 48 ) + str;
+	for (int i = n.size() - 1; i >= 0; i--) {
+		num = ((int)n[i] - 48) * x + add;
+		str = char(num % 10 + 48) + str;
 		add = num / 10;
 	}
 	string tostr = "";
 	int d = 1;
-	while ( add >= d ) {
-		tostr = char( ( add % ( d * 10 ) ) / d + 48 ) + tostr;
+	while (add >= d) {
+		tostr = char((add % (d * 10)) / d + 48) + tostr;
 		d *= 10;
 	}
 	return tostr + str;
 }
 
+#include <list>
 int main()
 {
-	freopen( "input.txt", "r", stdin );
-	freopen( "output.txt", "w", stdout );
+	std::list<int> iL{ 1,2,3,4,5 };
+	auto iter = iL.begin();
+	iL.insert(iter, -7);
+	std::advance(iter, 1);
+	iL.insert(iter, -2);
+	for (auto it : iL) {
+		std::cout << it << std::endl;
+	}
+
+	return 0;
+
+	/*freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
 	int n;
 	cin >> n;
 	string str = "1";
-	for ( int i = 1; i <= n; i++ )
-		str = mult( str, i );
+	for (int i = 1; i <= n; i++)
+		str = mult(str, i);
 	cout << str;
-	return 0;
+	return 0;*/
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

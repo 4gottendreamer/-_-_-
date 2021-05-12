@@ -45,7 +45,6 @@ y = fabs(pow(x, 3) - 10) * (atan(z + 0.2) + exp(-(x / 2 + 3)));
 
 using System;
 using System.Globalization;
-using System.Linq;
 
 namespace test_cs
 {
