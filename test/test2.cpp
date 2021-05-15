@@ -181,19 +181,19 @@
 //	return 0;
 //}
 
-#include <list>
-int main()
-{
-	std::list<int> L{ 1,2,3,4 };
-
-	// Forward iteration
-	for (auto it = L.begin(); it != L.end(); ++it) 		{
-		std::cout << *it << '\t';
-	}
-	std::cout << std::endl;
-
-	// Backward iteration
-	for (auto it = L.end(); it != L.begin();) {
-		std::cout << *--it << '\t';
-	}
-}
+//#include <list>
+//int main()
+//{
+//	std::list<int> L{ 1,2,3,4 };
+//
+//	// Forward iteration
+//	for (auto it = L.begin(); it != L.end(); ++it) 		{
+//		std::cout << *it << '\t';
+//	}
+//	std::cout << std::endl;
+//
+//	// Backward iteration
+//	for (auto it = L.end(); it != L.begin();) {
+//		std::cout << *--it << '\t';
+//	}
+//}

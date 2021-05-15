@@ -3,7 +3,7 @@
 class Menu
 {
 public:
-	Menu(std::vector<std::string> _Lines)
+	Menu(std::vector<std::wstring> _Lines)
 	{
 		m_Lines = _Lines;
 	}
@@ -13,10 +13,10 @@ public:
 	void Print()
 	{
 		for (auto& line : m_Lines) {
-			std::cout << line << std::endl;
+			std::wcout << line << std::endl;
 		}
 	}
 
 private:
-	std::vector<std::string> m_Lines;
+	std::vector<std::wstring> m_Lines;
 };

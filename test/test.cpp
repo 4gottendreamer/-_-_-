@@ -1372,3 +1372,31 @@
 //#endif
 //	return 0;
 //}
+
+
+#include <iostream>
+#include <vector>
+#include <list>
+#include "..\list\list.h"
+#include "..\lab_14_v6\lab_14_v6_classMenu.h"
+
+using TYPE = typename double;
+void lab_14_v6();
+
+int main()
+{
+	std::list<int> Lst{ 1,2,3,4 };
+	auto iter = Lst.end();
+	//--iter; // Смещение итератора на последний узел списка
+	for (; iter != Lst.begin();) {
+		std::cout << *(--iter) << std::endl;
+	}
+	std::cin.get();
+	std::cin.get();
+	return 0;
+	srand(time(NULL));		 // Установка генератора псевдослучайной последовательности чисел
+	setlocale(LC_ALL, "ru"); // Установка корректного вывода кириллицы
+	my::list<TYPE> List;	// Объявление списка
+
+
+}

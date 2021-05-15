@@ -1,4 +1,4 @@
-// lab_14_v6.cpp : This file contains the 'main' function. Program execution begins and ends there.
+﻿// lab_14_v6.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 // Вариант 6
 /*
@@ -55,7 +55,8 @@ int main()
 	setlocale(LC_ALL, "ru"); // Установка корректного вывода кириллицы
 	my::list<TYPE> List;	// Объявление списка
 
-	/* List.push_back((rand() % 100) / 3.f);
+/*
+	List.push_back((rand() % 100) / 3.f);
 	List.push_back((rand() % 100) / 5.f);
 	List.push_back((rand() % 100) / 7.f);
 	List.push_back((rand() % 100) / 11.f);
@@ -63,44 +64,44 @@ int main()
 	List.push_back((rand() % 100) / 17.f);
 	List.push_back((rand() % 100) / 19.f); */
 
-	std::vector<std::string> menuLines0 = {
-		"1 Добавить узел в список",
-		"2 Удалить узел из списка",
-		"3 Поиск узла в списке",
-		"4 Вывести список на экран",
-		"5 Задача варианта №6",
-		"0 Выход"
+	std::vector<std::wstring> menuLines0 = {
+		L"1 Добавить узел в список",
+		L"2 Удалить узел из списка",
+		L"3 Поиск узла в списке",
+		L"4 Вывести список на экран",
+		L"5 Задача варианта №6",
+		L"0 Выход"
 	};
 
 	// "1 Добавить узел в список"
-	std::vector<std::string> menuLines0_1 = {
-		"1 Добавить узел в список",
-		"  1 Добавить узел в конец списка",
-		"  2 Добавить узел в начало списка",
-		"  3 Добавить узел в указанную позицию списка",
-		"  4 Вывести список на экран",
-		"  5 Заполнить список автоматически",
-		"  0 Назад"
+	std::vector<std::wstring> menuLines0_1 = {
+		L"1 Добавить узел в список",
+		L"  1 Добавить узел в конец списка",
+		L"  2 Добавить узел в начало списка",
+		L"  3 Добавить узел в указанную позицию списка",
+		L"  4 Вывести список на экран",
+		L"  5 Заполнить список автоматически",
+		L"  0 Назад"
 	};
 
 	// "2 Удалить узел из списка"
-	std::vector<std::string> menuLines0_2 = {
-		"2 Удалить узел из списка",
-		"  1 Удалить конечный узел списка",
-		"  2 Удалить начальный узел списка",
-		"  3 Удалить указанный узел списка",
-		"  4 Вывести список на экран",
-		"  5 Удалить все элементы списка",
-		"  0 Назад"
+	std::vector<std::wstring> menuLines0_2 = {
+		L"2 Удалить узел из списка",
+		L"  1 Удалить конечный узел списка",
+		L"  2 Удалить начальный узел списка",
+		L"  3 Удалить указанный узел списка",
+		L"  4 Вывести список на экран",
+		L"  5 Удалить все элементы списка",
+		L"  0 Назад"
 	};
 
 	// "3 Поиск узла в списке"
-	std::vector<std::string> menuLines0_3 = {
-		"3 Поиск узла в списке",
-		"  1 Поиск по значению",
-		"  2 Поиск по номеру",
-		"  3 Вывести список на экран",
-		"  0 Назад"
+	std::vector<std::wstring> menuLines0_3 = {
+		L"3 Поиск узла в списке",
+		L"  1 Поиск по значению",
+		L"  2 Поиск по номеру",
+		L"  3 Вывести список на экран",
+		L"  0 Назад"
 	};
 
 	Menu Menu0(menuLines0);
@@ -121,6 +122,7 @@ int main()
 			do {
 				system("cls");
 				Menu0_1.Print();
+
 				std::cout << "Выберите пункт:> ";
 				std::cin >> choice1;
 				switch (choice1) {
@@ -203,9 +205,15 @@ int main()
 					srand(time(NULL));
 					std::cout << "Заполнение списка..." << std::endl;
 					for (size_t i = 0; i < size; ++i) {
+						auto R = []()->double {
+							int r = rand() % 10;
+							if (r) {
+								return (double)r;
+							}
+							else { return 3.f; }
+						};
 						List.push_back(
-							((rand() % 253) - (rand() % 119)) /
-							(double)(rand() % 3)
+							((double)(rand() % 200) - (rand() % 100)) / R()
 						);
 					}
 					std::cout << "Полученный список:" << std::endl;
@@ -275,7 +283,7 @@ int main()
 					}
 					else {
 						auto iter = List.begin();
-						my::advance<TYPE>(iter, count);
+						my::advance<TYPE>(iter, --count);
 						List.erase(iter);
 						std::cout
 							<< "Указанный узел списка удалён" << std::endl
@@ -518,7 +526,17 @@ void lab_14_v6()
 			int size;
 			std::cin >> size;
 			for (size_t i = 0; i < size; ++i) {
-				List.push_back((rand() % 123) / 7.f);
+				auto R = []()->double {
+					int r = rand() % 10;
+					if (r) {
+						return (double)r;
+					}
+					else { return 3.f; }
+				};
+				List.push_back(
+					((double)(rand() % 200) - (rand() % 100)) / R()
+					//(double)(rand() % 3)
+				);
 			}
 			std::cout << "Полученный список:" << std::endl;
 			List.print('\n');

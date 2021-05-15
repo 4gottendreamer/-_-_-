@@ -41,23 +41,35 @@ namespace test_cs
 {
 	class Program
 	{
+		static void PrintMatrix(int[,] _Arr)
+		{
+			for (int i = 0; i < _Arr.GetLength(0); i++) {
+				for (int j = 0; j < _Arr.GetLength(1); j++) {
+					Console.Write(_Arr[i, j] + "  ");
+				}
+				Console.WriteLine();
+			}
+		}
 
 		static void Main()
 		{
-			Lab06();
+			int[,] A = new int[,] {
+				{ 1, 2, 3, 3, 0 },
+				{ 1, 2, 3, 1, 1 },
+				{ 1, 0, 3, 0, 2 },
+				{ 0, 5, 6, 4, 4 },
+				{ 7, 0, 0, 2, 5 },
+				{ 5, 8, 3, 3, 7 },
+				{ 3, 0, 0, 2, 8 },
+				{ 7, 8, 2, 2, 0 }
+			};
+
+			Console.WriteLine($"Номер столбца с максимальным количеством нулей: {Lab07(A) + 1}");
 			//int N = Convert.ToInt32(Console.ReadLine());
+			Console.WriteLine("Нажмите Enter");
 			Console.ReadLine();
-			/*int[] myArray = new int[N];
-			for (int i = 0; i < myArray.Length; i++) {
-				myArray[i] = Convert.ToInt32(Console.ReadLine());
-			}
 
-			Random numberGenerator = new Random();
-			for (int i = 0; i < myArray.Length; i++) {
-				myArray[i] = Convert.ToInt32(numberGenerator.Next());
-			}
-
-			myArray.Where(i => i % 2 == 0).Min();
+			/*myArray.Where(i => i % 2 == 0).Min();
 			int[] restult = myArray.Distinct().ToArray();*/
 		}
 		static void Lab03(string[] args)
@@ -231,7 +243,7 @@ namespace test_cs
 		// Переставляет элемены этого столбца в обратном порядке
 		// Returns index of a row with the greatest number of zeroes
 		// Inverses the order of this row
-		static int Lab07(Array _Arr)
+		static int Lab07(int[,] _Arr)
 		{
 			/*
 			 * Лаб 7
@@ -239,56 +251,65 @@ namespace test_cs
 			в котором находится максимальное количество нулей.
 			Переставить элементы данного столбца в обратном порядке.
 			 */
-			
-			int idxMax = 0;
-			int a = _Arr[^1];
-			return idxMax;
-			/*			int MaxElementIndexFirst(int[] _Array, int _M)
-						{
-							int MaxIndex = 0;
-							for (int i = 0; i < _M; i++) {
-								if (_Array[MaxIndex] < _Array[i]) {
-									MaxIndex = i;
-								}
-							}
-							return MaxIndex;
-						}*/
 
-			// Поиск индекса последнего максимального элемента в массиве _Array[_M]
-			/*int MaxElementIndexLast(const int* _Array2, const int _M)
-{
-				int MaxIndex = 0;
-				for (int i = 0; i < _M; i++) {
-					if (_Array[MaxIndex] <= _Array[i]) {
-						MaxIndex = i;
+			for (int i = 0; i < _Arr.GetLength(0); i++) {
+				for (int j = 0; j < _Arr.GetLength(1); j++) {
+					//Console.Write(_Arr[i, j] + "  ");
+				}
+				//Console.WriteLine();
+			}
+			//Console.WriteLine("=====================");
+
+			/*
+			 * Поиски нулей по столбцам
+			 */
+			int idxRowMaxZeros = -1;
+			int  zeroCountPrev = 0;
+			for (int j = 0, i = 0; j < _Arr.GetLength(1); j++) {
+				bool thereIs0 = false;
+				int zeroCountCurr = 0;
+				for (i = 0; i < _Arr.GetLength(0); i++) {
+					//Console.Write(_Arr[i, j] + "  ");
+					if (_Arr[i, j] == 0) { // Поиск и подсчёт элементов,
+						zeroCountCurr++;   // удовлетворяющих условию
+						thereIs0 = true;
 					}
 				}
-				return MaxIndex;
-			}*/
-
-			// Переставляет в обратном порядке элементы столбца с индексом _SwapColumn
-			// в массиве _Array[_M][_N]
-			/*void BackwardsSwapColumn(int** _Array, int _M, int _N, int _SwapColumn)
-			{
-				int tmp;
-				for (int i = 0; i < _M / 2; i++) {
-					tmp = _Array[i][_SwapColumn];
-					_Array[i][_SwapColumn] = _Array[_M - 1 - i][_SwapColumn];
-					_Array[_M - 1 - i][_SwapColumn] = tmp;
+				if (zeroCountCurr > zeroCountPrev && thereIs0) {
+					idxRowMaxZeros = j;
+					zeroCountPrev = zeroCountCurr;
 				}
-			}*/
+			}
 
-			// Выводит массив в виде прямоугольной матрицы из _M строк, _N столбцов
-			/*void PrintMatrix(int** _Array, int _M, int _N)
+			/*
+			 * Перестановка элементов нужного столбца в обратном порядке
+			 */
+			void swapTwo(ref int _a, ref int _b)
 			{
-				for (int i = 0; i < _M; i++) {
-					for (int j = 0; j < _N; j++) {
-						std::cout << _Array[i][j] << "    ";
-					}
-					std::cout << std::endl << std::endl;
+				int tmp = _a;
+				_a = _b;
+				_b = tmp;
+			}
+			if (idxRowMaxZeros > -1) {
+				int height = _Arr.GetLength(0);
+				//Console.WriteLine($"height : {height}");
+				for (int j = 0; j < height / 2; j++) {
+					swapTwo(
+						ref _Arr[j, idxRowMaxZeros],
+						ref _Arr[height - j - 1, idxRowMaxZeros]
+						);
 				}
-			}*/
+			}
 
+			for (int i = 0; i < _Arr.GetLength(0); i++) {
+				for (int j = 0; j < _Arr.GetLength(1); j++) {
+					//Console.Write(_Arr[i, j] + "  ");
+				}
+				//Console.WriteLine();
+			}
+
+			//Console.WriteLine();
+			return idxRowMaxZeros;
 		}
 	}
 }
