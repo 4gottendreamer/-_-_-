@@ -1373,30 +1373,20 @@
 //	return 0;
 //}
 
-
 #include <iostream>
-#include <vector>
-#include <list>
-#include "..\list\list.h"
-#include "..\lab_14_v6\lab_14_v6_classMenu.h"
-
-using TYPE = typename double;
-void lab_14_v6();
 
 int main()
 {
-	std::list<int> Lst{ 1,2,3,4 };
-	auto iter = Lst.end();
-	//--iter; // Смещение итератора на последний узел списка
-	for (; iter != Lst.begin();) {
-		std::cout << *(--iter) << std::endl;
-	}
-	std::cin.get();
-	std::cin.get();
-	return 0;
-	srand(time(NULL));		 // Установка генератора псевдослучайной последовательности чисел
-	setlocale(LC_ALL, "ru"); // Установка корректного вывода кириллицы
-	my::list<TYPE> List;	// Объявление списка
+	for (; std::getchar();) {
+		int** a = new int*[4];
+		a[0] = new int[3];
+		a[1] = new int[5];
+		a[2] = new int[2];
+		a[3] = new int[6];
+		std::cout << a;
 
+		/*long A = *(long*)&a;
+		std::cout << A << std::endl;*/
+	}
 
 }

@@ -37,7 +37,7 @@ y = fabs(pow(x, 3) - 10) * (atan(z + 0.2) + exp(-(x / 2 + 3)));
 using System;
 using System.Globalization;
 
-namespace test_cs
+namespace test_dotNET_Core
 {
 	class Program
 	{
@@ -50,8 +50,103 @@ namespace test_cs
 				Console.WriteLine();
 			}
 		}
-
 		static void Main()
+		{
+			Lab10();
+		}
+
+		static void Lab10()
+		{
+			Console.WriteLine("Hello, World!");
+			/*bool showMenu = true;
+			while (showMenu) {
+				showMenu = MainMenu();
+			}*/
+			char[] delimiterChars =
+			{
+				'!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+				',', '+', '-', '=', ';', '{', '}', '[', ']', '.',
+				'<', '>', ',', '/', '\\', '|', '?', '"', '`', '~',
+				'\t', ' '
+			};
+
+			char whiteSpace = ' ';
+			string S = Console.ReadLine();
+			S = S.Trim();
+			string[] words = S.Split(whiteSpace);
+			S[^1].Equals(delimiterChars);
+			for (int i = 1; i < words.Length; i += 2) {
+				/*
+				 * 1. Если оба слова оканчиваются не-буквой, то swap
+				 * 2. Если только в одном слове последний символ -- не-буква, то Concat
+				 */
+				if (IsDelimChar(words[i - 1][^1])) { // Если первое слоло оканчивается не-буквой
+					if (IsDelimChar(words[i][^1])) { // Если второе слово оканчивается не-буквой
+													 // меняем последние символы местами
+						SwapLastChars(ref words[i - 1], ref words[i]);
+					}
+					else { // первое не-буква, второе буква
+						char tmpChar = words[i - 1][^1]; // Берем из первого не-букву
+
+						words[i - 1] = // сокращаем первое слово на один (последний) символ
+							words[i - 1][0..^1];
+						// и переносим во второе слово не-букву последним символом
+						words[i] += tmpChar;
+					}
+				}
+				else if(IsDelimChar(words[i][^1])) { // Первое буква, второе не-буква
+					char tmpChar = words[i][^1];
+					words[i] = words[i][0..^1];
+					words[i - 1] += tmpChar;
+				}
+
+				SwapWords(ref words[i - 1], ref words[i]);
+			}
+
+			foreach (var item in words) {
+				Console.Write(item + ' ');
+			}
+
+			static void SwapLastChars(ref string str1, ref string str2)
+			{
+				char c1 = str1[^1];
+				char c2 = str2[^1];
+				str1 = str1[0..^1];
+				str1 += c2;
+				str2 = str2[0..^1];
+				str2 += c1;
+			}
+
+			static void SwapWords(ref string str1, ref string str2)
+			{
+				string tmp = str1;
+				str1 = str2;
+				str2 = tmp;
+			}
+
+			static bool IsDelimChar(char c)
+			{
+				char[] delimChars =
+			{
+				'!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+				',', '+', '-', '=', ';', '{', '}', '[', ']', '.',
+				'<', '>', ',', '/', '|', '?', '"', '`', '~', ':',
+				'\t', '\\', ' '
+			};
+
+				for (int i = 0; i < delimChars.Length; i++) {
+					if (c == delimChars[i]) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			Console.ReadLine();
+		}
+
+
+		static void Main0()
 		{
 			int[,] A = new int[,] {
 				{ 1, 2, 3, 3, 0 },

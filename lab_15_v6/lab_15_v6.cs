@@ -42,6 +42,13 @@ namespace lab_15_v6
 {
 	class lab_15_v6
 	{
+		static void Main()
+		{
+			bool showMenu = true;
+			while (showMenu) {
+				showMenu = MainMenu();
+			}
+		}
 		static void PrintMatrix(int[,] _Arr, char _Ch)
 		{
 			for (int i = 0; i < _Arr.GetLength(0); i++) {
@@ -52,31 +59,36 @@ namespace lab_15_v6
 			}
 		}
 
-		static void Main()
+		static bool MainMenu()
 		{
-			int dimensionXForIntArray = 5;
-			int dimensionXForDoubleArray = 5;
-			int dimensionYForDoubleArray = 4;
+			int dimensionXForIntArray = 10;
+			int dimensionYForIntArray = 10;
+
+			int dimensionXForDoubleArray = 10;
+			int randomizerMultiplier = 20;
 
 			double[] doubleArr1 = new double[dimensionXForDoubleArray];
 			Random random = new Random();
 			for (int i = 0; i < doubleArr1.GetLength(0); i++) {
-				doubleArr1[i] = random.NextDouble();
+				doubleArr1[i] = randomizerMultiplier *
+					random.NextDouble();
+				//(random.NextDouble() - random.NextDouble());
 				Console.Write($"{doubleArr1[i]}\t");
 			}
 
-			double[,] doubleArr2 = new double[dimensionXForDoubleArray, dimensionYForDoubleArray];
-			for (int i = 0; i < doubleArr2.GetLength(0); i++) {
-				for (int j = 0; j < doubleArr2.GetLength(1); j++) {
-					doubleArr2[i, j] = random.NextDouble();
-					Console.Write($"{doubleArr2[i, j]}\t");
+			double[,] intArr2 =
+				new double[dimensionXForIntArray, dimensionYForIntArray];
+			for (int i = 0; i < intArr2.GetLength(0); i++) {
+				for (int j = 0; j < intArr2.GetLength(1); j++) {
+					intArr2[i, j] = random.NextDouble();
+					Console.Write($"{intArr2[i, j]}\t");
 				}
 				Console.WriteLine();
 			}
 
 			int[] intArr1 = new int[dimensionXForIntArray];
 			for (int i = 0; i < intArr1.GetLength(0); i++) {
-				intArr1[i] = random.Next();
+				intArr1[i] = random.Next(100000);
 			}
 
 			int[,] intArr2Test = new int[,] {
@@ -89,112 +101,176 @@ namespace lab_15_v6
 				{ 3, 0, 0, 2, 8 },
 				{ 7, 8, 2, 2, 0 }
 			};
-			int choice;
-			do {
 
-				// TODO: Вывести менюшку
+			// Вывести менюшку
+			Console.Clear();
+			Console.WriteLine("1. Лабораторная №03. ");
+			Console.WriteLine("2. Лабораторная №05. ");
+			Console.WriteLine("3. Лабораторная №06. ");
+			Console.WriteLine("4. Лабораторная №07. ");
+			Console.WriteLine("5. Лабораторная №10. ");
+			Console.WriteLine("0. Выход");
+			Console.Write("Выберите пункт:> ");
 
-				choice = Convert.ToInt32(Console.Read());
-				Console.WriteLine("Выберите пункт");
-				switch (choice) {
-				case 1: // lab 03
+			switch (Console.ReadLine()) {
+			case "1": // lab 03
+			{
+				/*
+				 * Лаба 3
+				Вычислить значение переменной y по заданной расчётной формуле
+				и набору исходных данных.
+				Значения исходных данных вводить с клавиатуры.
+				На печать вывести значения вводимых исходных данных и результат вычислений,
+				сопровождая вывод наименованием выводимых переменных.
+				y = fabs(pow(x, 3) - 10) * (atan(z + 0.2) + exp(-(x / 2 + 3)));
+				*/
+				Console.WriteLine("Лабораторная №03");
+				Console.WriteLine("Вычислить значение переменной y по заданной расчётной формуле");
+				Console.WriteLine("и набору исходных данных.");
+				Console.WriteLine("Значения исходных данных вводить с клавиатуры.");
+				Console.WriteLine("На печать вывести значения вводимых исходных данных и результат вычислений,");
+				Console.WriteLine("сопровождая вывод наименованием выводимых переменных.");
+				Console.WriteLine("y(x; z; t) = | x^3 - 10 | * (arctg(z + 0.2) + e^(-(x / 2 + 3)))");
+				Console.WriteLine();
+				Console.WriteLine("Введите x, z, t:");
+				NumberFormatInfo numberFormatInfo = new NumberFormatInfo()
 				{
-					//////////////////////////////
-					/// LAB 03
-					//////////////////////////////
-					Console.WriteLine("Лаба 03");
-					Console.WriteLine("y(x; z; t) = | x^3 - 10 | * (arctg(z + 0.2) + e^(-(x / 2 + 3)))");
-					Console.WriteLine("Введите x, z, t:");
-					NumberFormatInfo numberFormatInfo = new NumberFormatInfo()
-					{
-						NumberDecimalSeparator = ".",
-					};
-					Console.Write("x = ");
-					double x = Convert.ToDouble(Console.ReadLine());
-					Console.Write("z = ");
-					double z = Convert.ToDouble(Console.ReadLine());
-					Console.Write("t = ");
-					double t = Convert.ToDouble(Console.ReadLine(), numberFormatInfo);
-					Console.WriteLine($"Вы ввели:\nx = {x}\nz = {z}\nt = {t}");
-					Console.WriteLine("y(x; z; t) = | x^3 - 10 | * (arctg(z + 0.2) + e^(-(x / 2 + 3)))");
-					Console.WriteLine($"y({x};{z}; {t}) = {Lab03(x, z)}");
-					Console.WriteLine();
-					Console.WriteLine("Конец Лабы 06");
-					Console.WriteLine("Нажмите Enter");
-					Console.ReadLine();
-					break;
-				}
-				case 2: // lab 05
-				{
-
-					Console.WriteLine("Лаба 05");
-					double reciprocal = 1;
-					Console.WriteLine("Введите количество элементов массива.\n" +
-						"Внимание! При значениях больше 20 вычисление факториала вызывает " +
-						"переполнение типа unsigned __int64.");
-					Console.WriteLine("\nПроверка условия\ni + 1\t<\ta_i\t\t<\t\ti!");
-					if (Lab05(doubleArr1, ref reciprocal)) {
-						Console.WriteLine($"Обратное значение произведений элементов, " +
-							"удовлетворяющих условию:\n{reciprocal}");
-					}
-					else {
-						Console.WriteLine("Нет чисел, удовлетворяющих условию");
-						Console.ReadLine();
-					}
-					break;
-				}
-				case 3: // lab 06
-				{
-
-					Console.WriteLine("Лаба 06");
-					Console.WriteLine("Последовательность псевдослучаных чисел:");
-					foreach (var item in intArr1) {
-						Console.WriteLine(item);
-					}
-					int lab06Result = Lab06(intArr1);
-					Console.WriteLine(
-						$"Максимальный индекс числа массива с наибольшим количеством цифр: {lab06Result}");
-					Console.WriteLine($"Элемент массива a[{lab06Result}] = {intArr1[lab06Result]}");
-
-					Console.WriteLine();
-					Console.WriteLine("Конец Лабы 06");
-					Console.WriteLine("Нажмите Enter");
-					Console.ReadLine();
-					break;
-				}
-				case 4: // lab 07
-				{
-					Console.WriteLine("Лаба 07");
-					for (int i = 0; i < intArr2Test.GetLength(0); i++) {
-						for (int j = 0; j < intArr2Test.GetLength(1); j++) {
-							Console.Write(intArr2Test[i, j] + "  ");
-						}
-						Console.WriteLine();
-					}
-					Console.WriteLine();
-					Console.WriteLine(
-						$"Номер столбца с максимальным количеством нулей: {Lab07(intArr2Test) + 1}");
-					Console.WriteLine("Нажмите Enter");
-					Console.ReadLine();
-					break;
-				}
-				case 5: // lab 10
-				{
-					Console.WriteLine("Лаба 07");
-					break;
-				}
-				case 0: // Выход
-				{
-					break;
-				}
-				default: {
-					Console.WriteLine("Неверный выбор");
-					Console.Read();
-					break;
-				}
-				}
+					NumberDecimalSeparator = ".",
+				};
+				Console.Write("x = ");
+				double x = Convert.ToDouble(Console.ReadLine(), numberFormatInfo);
+				Console.Write("z = ");
+				double z = Convert.ToDouble(Console.ReadLine(), numberFormatInfo);
+				Console.Write("t = ");
+				double t = Convert.ToDouble(Console.ReadLine(), numberFormatInfo);
+				Console.WriteLine($"Вы ввели:\nx = {x}\nz = {z}\nt = {t}");
+				Console.WriteLine("y(x; z; t) = | x^3 - 10 | * (arctg(z + 0.2) + e^(-(x / 2 + 3)))");
+				Console.WriteLine($"y({x};{z}; {t}) = {Lab03(x, z)}");
+				Console.WriteLine();
+				Console.WriteLine("Конец Лабораторной №03");
+				Console.WriteLine("Нажмите Enter");
+				Console.ReadLine();
+				return true;
 			}
-			while (choice != 0);
+			case "2": // lab 05
+			{
+				/*
+				 * Лаб 5
+				Даны натуральное число n, действительные числа а1,..., an.
+				Вычислить обратную величину произведения тех членов последовательности a1,..., an,
+				для которых выполняется условие i + 1 < a_i < i!
+				 */
+				Console.WriteLine("Лабораторная №05");
+				Console.WriteLine("Даны натуральное число n, действительные числа а1,..., an.");
+				Console.WriteLine("Вычислить обратную величину произведения тех членов последовательности");
+				Console.WriteLine("для которых выполняется условие i + 1 < a_i < i!");
+				Console.WriteLine();
+				double reciprocal = 1;
+				Console.WriteLine("Введите количество элементов массива.\n" +
+					"Внимание! При значениях больше 20 вычисление факториала вызывает " +
+					"переполнение типа unsigned __int64.");
+				Console.WriteLine("\nПроверка условия\ni + 1\t<\ta_i\t\t<\t\ti!");
+				ulong Factorial(int _arg) // Подсчёт факториала итерационным методом
+				{
+					ulong fact = 1;
+					for (int i = 1; i <= _arg; i++) {
+						fact *= (ulong)i;
+					}
+					return fact;
+				}
+				// Вывод массива и условий
+				for (int i = 0; i < doubleArr1.Length; i++) {
+					Console.WriteLine($"{i + 2}\t{doubleArr1[i]}\t{Factorial(i + 1)}");
+				}
+
+				if (Lab05(doubleArr1, ref reciprocal)) {
+					Console.WriteLine($"Обратное значение произведений элементов, " +
+						$"удовлетворяющих условию:\n{reciprocal}");
+				}
+				else {
+					Console.WriteLine("Нет чисел, удовлетворяющих условию");
+				}
+				Console.WriteLine("Конец Лабораторной №05");
+				Console.WriteLine("Нажмите Enter");
+				Console.ReadLine();
+				return true;
+			}
+			case "3": // lab 06
+			{
+				/*
+				 * Лаб 6
+				Дан целочисленный массив А[N]. Определить индекс последнего элемента,
+				числовое значение которого состоит из наибольшего количества цифр.
+				 */
+				Console.WriteLine("Лабораторная №06");
+				Console.WriteLine("Последовательность псевдослучаных чисел:");
+				foreach (var item in intArr1) {
+					Console.WriteLine(item);
+				}
+				int lab06Result = Lab06(intArr1);
+				Console.WriteLine(
+					$"Максимальный индекс числа массива с наибольшим количеством цифр: {lab06Result}");
+				Console.WriteLine($"Элемент массива a[{lab06Result}] = {intArr1[lab06Result]}");
+
+				Console.WriteLine();
+				Console.WriteLine("Конец Лабораторной №06");
+				Console.WriteLine("Нажмите Enter");
+				Console.ReadLine();
+				return true;
+			}
+			case "4": // lab 07
+			{
+				/*
+				 * Лаб 7
+				Дан целочисленный массив А[N][М].Определить индекс столбца,
+				в котором находится максимальное количество нулей.
+				Переставить элементы данного столбца в обратном порядке.
+				 */
+				Console.WriteLine("Лабораторная №07");
+				Console.WriteLine("Дан целочисленный массив А[N][М].Определить индекс столбца,");
+				Console.WriteLine("в котором находится максимальное количество нулей.");
+				Console.WriteLine("Переставить элементы данного столбца в обратном порядке.");
+				for (int i = 0; i < intArr2Test.GetLength(0); i++) {
+					for (int j = 0; j < intArr2Test.GetLength(1); j++) {
+						Console.Write(intArr2Test[i, j] + "  ");
+					}
+					Console.WriteLine();
+				}
+				Console.WriteLine();
+				Console.WriteLine(
+					$"Номер столбца с максимальным количеством нулей: {Lab07(intArr2Test) + 1}");
+				Console.WriteLine("Конец Лабораторной №07");
+				Console.WriteLine("Нажмите Enter");
+				Console.ReadLine();
+				return true;
+			}
+			case "5": // lab 10
+			{
+				/*
+				 * Лаб 10
+				В произвольном тексте, содержащем не более 10 строк, в каждой строке не более
+				80 символов, попарно переставить местами слова, стоящие на нечётных и чётных
+				местах в строке. Вывести полученный текст на экран.
+				 */
+				Console.WriteLine("Лабораторная №10");
+
+
+
+				Console.WriteLine("Конец Лабораторной №10");
+				Console.ReadLine();
+				return true;
+			}
+			case "0": // Выход
+			{
+				Console.WriteLine("Выход");
+				return false;
+			}
+			default: {
+				Console.WriteLine("Неверный выбор");
+				Console.ReadLine();
+				return true;
+			}
+			}
 		}
 
 		static double Lab03(double _x, double _z)
@@ -208,42 +284,8 @@ namespace lab_15_v6
 			y = fabs(pow(x, 3) - 10) * (atan(z + 0.2) + exp(-(x / 2 + 3)));
 			*/
 
-			/*double Y_xz(double _x, double _z)
-			{
-				return Math.Abs(Math.Pow(_x, 3) - 10) *
-					(Math.Atan(_z + 0.2) + Math.Exp(-(_x / 2 + 3)));
-			}
-
-			uint key = Convert.ToUInt32(Console.ReadLine());
-			for (int i = 0; i < key; i++) {
-				Console.WriteLine(key - i);
-				Console.Write($"{key - 1} and {key}");
-				Console.Beep();
-				System.Threading.Thread.Sleep(5);
-			}
-
-			Console.WriteLine("Lab #03");
-			Console.Write("Введите исходные значения.\nx = ");
-			double x = Convert.ToDouble(Console.ReadLine());
-
-			Console.Write("z = ");
-			double z = Convert.ToDouble(Console.ReadLine());
-
-			NumberFormatInfo numberFormatInfo = new NumberFormatInfo()
-			{
-				NumberDecimalSeparator = ".",
-			};
-			Console.Write("t = ");
-			double t = Convert.ToDouble(Console.ReadLine(), numberFormatInfo);
-
-			Console.WriteLine($"Вы ввели:\nx = {x}\nz = {z}\nt = {t}");
-
-			Console.WriteLine("y(x; z; t) = | x^3 - 10 | * (arctg(z + 0.2) + e^(-(x / 2 + 3)))");
-			Console.WriteLine($"y({x};{z}; {t}) = {Y_xz(x, z)}");
-
-			Console.ReadLine();*/
 			return
-				Math.Abs(Math.Pow(_x, 3) - 10) *
+				Math.Abs(Math.Pow(_x, 3) - 10d) *
 				(Math.Atan(_z + 0.2) + Math.Exp(-(_x / 2 + 3)));
 		}
 
@@ -268,15 +310,6 @@ namespace lab_15_v6
 					Console.WriteLine($"{i + 2}\t< {_Arr[i]}\t< {F}\n");
 					_reciprocal /= _Arr[i];
 				}
-				// Если условие не выполнилось ни разу, сообщить об этом
-				/*if (bDoesAnyFit) {
-					Console.WriteLine($"Обратное значение произведений элементов, удовлетворяющих условию:\n{_reciprocal}");
-				}
-				else {
-					Console.WriteLine("Нет чисел, удовлетворяющих условию");
-					Console.ReadLine();
-				}*/
-
 			}
 			ulong factorial(long _N)
 			{
@@ -299,7 +332,6 @@ namespace lab_15_v6
 			числовое значение которого состоит из наибольшего количества цифр.
 			*/
 
-			const int DIVISOR = 10000000;
 			// Возвращает количество цифр числа _Number
 			int DigitsNumber(long _Number)
 			{
@@ -312,34 +344,9 @@ namespace lab_15_v6
 				}
 				return count;
 			}
-			// Вынести наружу
-			/*Console.WriteLine("Введите количество элементов массива: ");
-			int N = Convert.ToInt32( Console.ReadLine());
-			long[] a = new long[N];*/
-			// Вынести наружу
-
-			//Console.WriteLine("Последовательность псевдослучаных чисел:");
 
 			int MaxDigitsIndex = 0;  // Индекс элемента массива с наибольшим количеством цифр
 			int MaxDigitsNumber = 0; // Максимальное число цифр элемента массива
-
-			//Random random = new Random();
-			// Заполнение массива псевдослучайной последовательностью чисел
-			// и вывод значений элементов в консоль
-			/*for (int i = 0; i < N; i++) {
-				int RandomizeMe = random.Next();
-				//Console.WriteLine(RandomizeMe);
-				//Console.WriteLine(RandomizeMe % DIVISOR);
-				//Console.WriteLine(Math.Sin(RandomizeMe));
-				a[i] = (long)(RandomizeMe % DIVISOR * Math.Sin(RandomizeMe));
-				Console.WriteLine($"a[{i}] = {a[i]}\tЦифр: {DigitsNumber(a[i])}");
-				if (MaxDigitsNumber <= DigitsNumber(a[i])) { // Если текущее максимальное число цифр
-																// меньше числа цифр
-																// текущего элемента массива,
-					MaxDigitsNumber = DigitsNumber(a[i]);    // то присваиваем переменным
-					MaxDigitsIndex = i;                      // текущие значения
-				}
-			}*/
 
 			for (int i = 0; i < _Arr.GetLength(0); i++) {
 				// Если текущее максимальное число цифр
@@ -350,11 +357,6 @@ namespace lab_15_v6
 				}
 			}
 
-			//Console.WriteLine($"Максимальный индекс {MaxDigitsIndex}");
-			//Console.WriteLine($"Элемент массива a[{MaxDigitsIndex}] = {a[MaxDigitsIndex]}");
-
-			/*Console.WriteLine("Нажмите Enter");
-			Console.ReadLine();*/
 			return MaxDigitsIndex;
 		}
 
@@ -388,7 +390,6 @@ namespace lab_15_v6
 				bool thereIs0 = false;
 				int zeroCountCurr = 0;
 				for (i = 0; i < _Arr.GetLength(0); i++) {
-					//Console.Write(_Arr[i, j] + "  ");
 					if (_Arr[i, j] == 0) { // Поиск и подсчёт элементов,
 						zeroCountCurr++;   // удовлетворяющих условию
 						thereIs0 = true;
@@ -400,18 +401,16 @@ namespace lab_15_v6
 				}
 			}
 
-			/*
-			 * Перестановка элементов нужного столбца в обратном порядке
-			 */
 			void swapTwo(ref int _a, ref int _b)
 			{
 				int tmp = _a;
 				_a = _b;
 				_b = tmp;
 			}
+
+			// Перестановка элементов нужного столбца в обратном порядке
 			if (idxRowMaxZeros > -1) {
 				int height = _Arr.GetLength(0);
-				//Console.WriteLine($"height : {height}");
 				for (int j = 0; j < height / 2; j++) {
 					swapTwo(
 						ref _Arr[j, idxRowMaxZeros],
@@ -422,17 +421,17 @@ namespace lab_15_v6
 
 			for (int i = 0; i < _Arr.GetLength(0); i++) {
 				for (int j = 0; j < _Arr.GetLength(1); j++) {
-					//Console.Write(_Arr[i, j] + "  ");
 				}
-				//Console.WriteLine();
 			}
 
-			//Console.WriteLine();
 			return idxRowMaxZeros;
 		}
 
-		static int Lab10()
+		static void Lab10()
 		{
+			// TODO: Передавать в параметры массив строк (текст)
+			// Возвращать массив строк изменённого текста
+
 			/*
 			 * Лаб 10
 			В произвольном тексте, содержащем не более 10 строк, в каждой строке не более
@@ -440,11 +439,90 @@ namespace lab_15_v6
 			местах в строке. Вывести полученный текст на экран.
 			 */
 
-			string Text;
-			IntPtr intPtr;
-			int[] A = new int[5];
+			Console.WriteLine("Hello, World!");
+			
+			char[] delimiterChars =
+			{
+				'!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+				',', '+', '-', '=', ';', '{', '}', '[', ']', '.',
+				'<', '>', ',', '/', '\\', '|', '?', '"', '`', '~',
+				'\t', ' '
+			};
+			char whiteSpace = ' ';
 
-			return 0;
+			string S = Console.ReadLine();
+			S = S.Trim();
+			string[] words = S.Split(whiteSpace);
+			S[^1].Equals(delimiterChars);
+			for (int i = 1; i < words.Length; i += 2) {
+				/*
+				 * 1. Если оба слова оканчиваются не-буквой, то swap
+				 * 2. Если только в одном слове последний символ -- не-буква, то Concat
+				 */
+				if (IsDelimChar(words[i - 1][^1])) { // Если первое слоло оканчивается не-буквой
+					if (IsDelimChar(words[i][^1])) { // Если второе слово оканчивается не-буквой
+													 // меняем последние символы местами
+						SwapLastChars(ref words[i - 1], ref words[i]);
+					}
+					else { // первое не-буква, второе буква
+						char tmpChar = words[i - 1][^1]; // Берем из первого не-букву
+
+						words[i - 1] = // сокращаем первое слово на один (последний) символ
+							words[i - 1][0..^1];
+						// и переносим во второе слово не-букву последним символом
+						words[i] += tmpChar;
+					}
+				}
+				else if (IsDelimChar(words[i][^1])) { // Первое буква, второе не-буква
+					char tmpChar = words[i][^1];
+					words[i] = words[i][0..^1];
+					words[i - 1] += tmpChar;
+				}
+
+				SwapWords(ref words[i - 1], ref words[i]);
+			}
+
+			foreach (var item in words) {
+				Console.Write(item + ' ');
+			}
+
+			static void SwapLastChars(ref string str1, ref string str2)
+			{
+				char c1 = str1[^1];
+				char c2 = str2[^1];
+				str1 = str1[0..^1];
+				str1 += c2;
+				str2 = str2[0..^1];
+				str2 += c1;
+			}
+
+			static void SwapWords(ref string str1, ref string str2)
+			{
+				string tmp = str1;
+				str1 = str2;
+				str2 = tmp;
+			}
+
+			static bool IsDelimChar(char c)
+			{
+				char[] delimChars =
+			{
+				'!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+				',', '+', '-', '=', ';', '{', '}', '[', ']', '.',
+				'<', '>', ',', '/', '|', '?', '"', '`', '~', ':',
+				'\t', '\\', ' '
+			};
+
+				for (int i = 0; i < delimChars.Length; i++) {
+					if (c == delimChars[i]) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			Console.ReadLine();
 		}
+
 	}
 }
