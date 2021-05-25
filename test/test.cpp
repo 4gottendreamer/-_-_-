@@ -1377,6 +1377,9 @@
 
 int main()
 {
+	bool B = 7;
+	B = 0;
+
 	for (; std::getchar();) {
 		int** a = new int*[4];
 		a[0] = new int[3];
