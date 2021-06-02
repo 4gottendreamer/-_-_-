@@ -1375,21 +1375,147 @@
 
 #include <iostream>
 
+class Parent
+{
+public:
+	Parent();
+	~Parent();
+
+public:
+	virtual void virtualMethod() {}
+
+protected:
+	int prt_Data;
+
+private:
+};
+
+Parent::Parent() : prt_Data(0)
+{}
+
+Parent::~Parent()
+{}
+
+class Son : public Parent
+{
+public:
+	Son();
+	~Son();
+
+public:
+	void F() {}
+	int GetData() { return prt_Data; }
+
+private:
+
+};
+
+Son::Son()
+{}
+
+Son::~Son()
+{}
+
+class B
+{
+public:
+	B();
+	~B();
+public:
+	/*virtual*/ void method() { std::cout << "class B::method();" << std::endl; }
+
+private:
+
+};
+
+B::B()
+{}
+
+B::~B()
+{}
+
+
+class A : public B
+{
+public:
+	A();
+	~A();
+public:
+	void method() /*override*/ { std::cout << "class A::method();" << std::endl; }
+
+private:
+
+};
+
+A::A()
+{}
+
+A::~A()
+{}
+
+class Base
+{
+public:
+	void Method(int i) { std::cout << "baseMethod: " << i << std::endl; }
+
+public:
+	Base();
+	~Base();
+
+private:
+
+};
+
+Base::Base()
+{}
+
+Base::~Base()
+{}
+
+class Derive
+{
+public:
+	void Method(int i) { std::cout << "derivedMethod: " << i << std::endl; }
+
+public:
+	Derive();
+	~Derive();
+
+private:
+
+};
+
+Derive::Derive()
+{}
+
+Derive::~Derive()
+{}
+
+class MyClass
+{
+public:
+	MyClass();
+	MyClass(const int);
+	~MyClass();
+
+private:
+	int a;
+};
+
+MyClass::MyClass() : a(0)
+{}
+
+MyClass::MyClass(const int _a) : a(_a)
+{}
+
+MyClass::~MyClass()
+{}
+
 int main()
 {
-	bool B = 7;
-	B = 0;
+	MyClass* arrayHeap = new MyClass[10];
+	MyClass arrayStack[10];
 
-	for (; std::getchar();) {
-		int** a = new int*[4];
-		a[0] = new int[3];
-		a[1] = new int[5];
-		a[2] = new int[2];
-		a[3] = new int[6];
-		std::cout << a;
-
-		/*long A = *(long*)&a;
-		std::cout << A << std::endl;*/
-	}
-
+	delete[] arrayHeap;
+	std::cout << arrayHeap << std::endl;
 }

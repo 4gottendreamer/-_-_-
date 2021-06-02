@@ -226,7 +226,7 @@ namespace WindowsForms_test
 
 		private void ButtonClose_MouseMove( object sender, MouseEventArgs e )
 		{
-			//ButtonClose_RandomMove();
+			ButtonClose_RandomMove();
 			/*if (moveCount < maxMoveCount) {
 				moveCount++;
 			}

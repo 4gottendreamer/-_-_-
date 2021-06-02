@@ -47,7 +47,7 @@ namespace lab_16_v6
 			this.textBoxLab05Result = new System.Windows.Forms.TextBox();
 			this.buttonLab05Execute = new System.Windows.Forms.Button();
 			this.labelLab05Result = new System.Windows.Forms.Label();
-			this.checkBoxLab05HighlightRows = new System.Windows.Forms.CheckBox();
+			this.checkBoxLab05RowsHighlight = new System.Windows.Forms.CheckBox();
 			this.labelLab05RowsManual = new System.Windows.Forms.Label();
 			this.labelLab05RowsAuto = new System.Windows.Forms.Label();
 			this.numericUpDownLab05RowsManual = new System.Windows.Forms.NumericUpDown();
@@ -61,9 +61,37 @@ namespace lab_16_v6
 			this.a_i = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.i_factorial = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabPage3_Lab06 = new System.Windows.Forms.TabPage();
+			this.groupBoxLab06 = new System.Windows.Forms.GroupBox();
+			this.labelLab06RowsManual = new System.Windows.Forms.Label();
+			this.buttonLab06Execute = new System.Windows.Forms.Button();
+			this.labelLab06RowsAuto = new System.Windows.Forms.Label();
+			this.numericUpDownLab06RowsManual = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDownLab06RowsAuto = new System.Windows.Forms.NumericUpDown();
+			this.radioButtonLab06ManualFill = new System.Windows.Forms.RadioButton();
+			this.buttonLab06FillArray = new System.Windows.Forms.Button();
+			this.radioButtonLab06AutoFill = new System.Windows.Forms.RadioButton();
+			this.dataGridViewLab06 = new System.Windows.Forms.DataGridView();
+			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.label4 = new System.Windows.Forms.Label();
 			this.tabPage4_Lab07 = new System.Windows.Forms.TabPage();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.labelLab07Answer = new System.Windows.Forms.Label();
+			this.labelLab07ManualColumnsCount = new System.Windows.Forms.Label();
+			this.numericUpDownLab07ManualColumns = new System.Windows.Forms.NumericUpDown();
+			this.labelLab07AutoColumnsCount = new System.Windows.Forms.Label();
+			this.numericUpDownLab07AutoColumns = new System.Windows.Forms.NumericUpDown();
+			this.labelLab07ManualRowsCount = new System.Windows.Forms.Label();
+			this.buttonLab07Execute = new System.Windows.Forms.Button();
+			this.labelLab07AutoRowsCount = new System.Windows.Forms.Label();
+			this.numericUpDownLab07ManualRows = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDownLab07AutoRows = new System.Windows.Forms.NumericUpDown();
+			this.radioButtonLab07Manual = new System.Windows.Forms.RadioButton();
+			this.buttonLab07AutoFill = new System.Windows.Forms.Button();
+			this.radioButtonLab07Auto = new System.Windows.Forms.RadioButton();
 			this.label5 = new System.Windows.Forms.Label();
+			this.dataGridViewLab07 = new System.Windows.Forms.DataGridView();
 			this.tabPage5_Lab10 = new System.Windows.Forms.TabPage();
 			this.richTextBoxLab10Out = new System.Windows.Forms.RichTextBox();
 			this.buttonLab10Execute = new System.Windows.Forms.Button();
@@ -79,7 +107,17 @@ namespace lab_16_v6
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab05RowsAuto)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab05)).BeginInit();
 			this.tabPage3_Lab06.SuspendLayout();
+			this.groupBoxLab06.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab06RowsManual)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab06RowsAuto)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab06)).BeginInit();
 			this.tabPage4_Lab07.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab07ManualColumns)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab07AutoColumns)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab07ManualRows)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab07AutoRows)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab07)).BeginInit();
 			this.tabPage5_Lab10.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -240,7 +278,7 @@ namespace lab_16_v6
 			this.groupBoxLab05Result.Controls.Add(this.textBoxLab05Result);
 			this.groupBoxLab05Result.Controls.Add(this.buttonLab05Execute);
 			this.groupBoxLab05Result.Controls.Add(this.labelLab05Result);
-			this.groupBoxLab05Result.Controls.Add(this.checkBoxLab05HighlightRows);
+			this.groupBoxLab05Result.Controls.Add(this.checkBoxLab05RowsHighlight);
 			this.groupBoxLab05Result.Location = new System.Drawing.Point(6, 274);
 			this.groupBoxLab05Result.Name = "groupBoxLab05Result";
 			this.groupBoxLab05Result.Size = new System.Drawing.Size(222, 100);
@@ -274,16 +312,16 @@ namespace lab_16_v6
 			this.labelLab05Result.TabIndex = 6;
 			this.labelLab05Result.Text = "1/П(a_i) =";
 			// 
-			// checkBoxLab05HighlightRows
+			// checkBoxLab05RowsHighlight
 			// 
-			this.checkBoxLab05HighlightRows.AutoSize = true;
-			this.checkBoxLab05HighlightRows.Location = new System.Drawing.Point(6, 75);
-			this.checkBoxLab05HighlightRows.Name = "checkBoxLab05HighlightRows";
-			this.checkBoxLab05HighlightRows.Size = new System.Drawing.Size(120, 19);
-			this.checkBoxLab05HighlightRows.TabIndex = 5;
-			this.checkBoxLab05HighlightRows.Text = "Выделить строки";
-			this.checkBoxLab05HighlightRows.UseVisualStyleBackColor = true;
-			this.checkBoxLab05HighlightRows.CheckedChanged += new System.EventHandler(this.checkBoxLab05HighlightRows_CheckedChanged);
+			this.checkBoxLab05RowsHighlight.AutoSize = true;
+			this.checkBoxLab05RowsHighlight.Location = new System.Drawing.Point(6, 75);
+			this.checkBoxLab05RowsHighlight.Name = "checkBoxLab05RowsHighlight";
+			this.checkBoxLab05RowsHighlight.Size = new System.Drawing.Size(120, 19);
+			this.checkBoxLab05RowsHighlight.TabIndex = 5;
+			this.checkBoxLab05RowsHighlight.Text = "Выделить строки";
+			this.checkBoxLab05RowsHighlight.UseVisualStyleBackColor = true;
+			this.checkBoxLab05RowsHighlight.CheckedChanged += new System.EventHandler(this.checkBoxLab05RowsHighlight_CheckedChanged);
 			// 
 			// labelLab05RowsManual
 			// 
@@ -414,6 +452,8 @@ namespace lab_16_v6
 			this.dataGridViewLab05.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
 			this.dataGridViewLab05.Size = new System.Drawing.Size(520, 380);
 			this.dataGridViewLab05.TabIndex = 1;
+			this.dataGridViewLab05.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridViewLab05_RowsAdded);
+			this.dataGridViewLab05.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewLab05_UserAddedRow);
 			// 
 			// i
 			// 
@@ -444,6 +484,8 @@ namespace lab_16_v6
 			// 
 			// tabPage3_Lab06
 			// 
+			this.tabPage3_Lab06.Controls.Add(this.groupBoxLab06);
+			this.tabPage3_Lab06.Controls.Add(this.dataGridViewLab06);
 			this.tabPage3_Lab06.Controls.Add(this.label4);
 			this.tabPage3_Lab06.Location = new System.Drawing.Point(4, 24);
 			this.tabPage3_Lab06.Name = "tabPage3_Lab06";
@@ -452,6 +494,180 @@ namespace lab_16_v6
 			this.tabPage3_Lab06.TabIndex = 2;
 			this.tabPage3_Lab06.Text = "Лабораторная №06";
 			this.tabPage3_Lab06.UseVisualStyleBackColor = true;
+			// 
+			// groupBoxLab06
+			// 
+			this.groupBoxLab06.Controls.Add(this.labelLab06RowsManual);
+			this.groupBoxLab06.Controls.Add(this.buttonLab06Execute);
+			this.groupBoxLab06.Controls.Add(this.labelLab06RowsAuto);
+			this.groupBoxLab06.Controls.Add(this.numericUpDownLab06RowsManual);
+			this.groupBoxLab06.Controls.Add(this.numericUpDownLab06RowsAuto);
+			this.groupBoxLab06.Controls.Add(this.radioButtonLab06ManualFill);
+			this.groupBoxLab06.Controls.Add(this.buttonLab06FillArray);
+			this.groupBoxLab06.Controls.Add(this.radioButtonLab06AutoFill);
+			this.groupBoxLab06.Location = new System.Drawing.Point(534, 100);
+			this.groupBoxLab06.Name = "groupBoxLab06";
+			this.groupBoxLab06.Size = new System.Drawing.Size(234, 380);
+			this.groupBoxLab06.TabIndex = 10;
+			this.groupBoxLab06.TabStop = false;
+			this.groupBoxLab06.Text = "Управление";
+			this.groupBoxLab06.Enter += new System.EventHandler(this.groupBoxLab06_Enter);
+			// 
+			// labelLab06RowsManual
+			// 
+			this.labelLab06RowsManual.AutoSize = true;
+			this.labelLab06RowsManual.Enabled = false;
+			this.labelLab06RowsManual.Location = new System.Drawing.Point(19, 141);
+			this.labelLab06RowsManual.Name = "labelLab06RowsManual";
+			this.labelLab06RowsManual.Size = new System.Drawing.Size(134, 15);
+			this.labelLab06RowsManual.TabIndex = 14;
+			this.labelLab06RowsManual.Text = "Количество элементов";
+			// 
+			// buttonLab06Execute
+			// 
+			this.buttonLab06Execute.Location = new System.Drawing.Point(153, 351);
+			this.buttonLab06Execute.Name = "buttonLab06Execute";
+			this.buttonLab06Execute.Size = new System.Drawing.Size(75, 23);
+			this.buttonLab06Execute.TabIndex = 7;
+			this.buttonLab06Execute.Text = "Расситать";
+			this.buttonLab06Execute.UseVisualStyleBackColor = true;
+			this.buttonLab06Execute.Click += new System.EventHandler(this.buttonLab06Execute_Click);
+			// 
+			// labelLab06RowsAuto
+			// 
+			this.labelLab06RowsAuto.AutoSize = true;
+			this.labelLab06RowsAuto.Location = new System.Drawing.Point(19, 44);
+			this.labelLab06RowsAuto.Name = "labelLab06RowsAuto";
+			this.labelLab06RowsAuto.Size = new System.Drawing.Size(134, 15);
+			this.labelLab06RowsAuto.TabIndex = 13;
+			this.labelLab06RowsAuto.Text = "Количество элементов";
+			// 
+			// numericUpDownLab06RowsManual
+			// 
+			this.numericUpDownLab06RowsManual.Enabled = false;
+			this.numericUpDownLab06RowsManual.Location = new System.Drawing.Point(153, 139);
+			this.numericUpDownLab06RowsManual.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.numericUpDownLab06RowsManual.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab06RowsManual.Name = "numericUpDownLab06RowsManual";
+			this.numericUpDownLab06RowsManual.Size = new System.Drawing.Size(75, 23);
+			this.numericUpDownLab06RowsManual.TabIndex = 12;
+			this.numericUpDownLab06RowsManual.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab06RowsManual.ValueChanged += new System.EventHandler(this.numericUpDownLab06RowsManual_ValueChanged);
+			// 
+			// numericUpDownLab06RowsAuto
+			// 
+			this.numericUpDownLab06RowsAuto.Location = new System.Drawing.Point(153, 42);
+			this.numericUpDownLab06RowsAuto.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.numericUpDownLab06RowsAuto.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab06RowsAuto.Name = "numericUpDownLab06RowsAuto";
+			this.numericUpDownLab06RowsAuto.Size = new System.Drawing.Size(75, 23);
+			this.numericUpDownLab06RowsAuto.TabIndex = 11;
+			this.numericUpDownLab06RowsAuto.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab06RowsAuto.ValueChanged += new System.EventHandler(this.numericUpDownLab06RowsAuto_ValueChanged);
+			// 
+			// radioButtonLab06ManualFill
+			// 
+			this.radioButtonLab06ManualFill.AutoSize = true;
+			this.radioButtonLab06ManualFill.Location = new System.Drawing.Point(6, 117);
+			this.radioButtonLab06ManualFill.Name = "radioButtonLab06ManualFill";
+			this.radioButtonLab06ManualFill.Size = new System.Drawing.Size(133, 19);
+			this.radioButtonLab06ManualFill.TabIndex = 10;
+			this.radioButtonLab06ManualFill.TabStop = true;
+			this.radioButtonLab06ManualFill.Text = "Ручное заполнение";
+			this.radioButtonLab06ManualFill.UseVisualStyleBackColor = true;
+			this.radioButtonLab06ManualFill.CheckedChanged += new System.EventHandler(this.radioButtonLab06ManualFill_CheckedChanged);
+			// 
+			// buttonLab06FillArray
+			// 
+			this.buttonLab06FillArray.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.buttonLab06FillArray.Location = new System.Drawing.Point(153, 71);
+			this.buttonLab06FillArray.Name = "buttonLab06FillArray";
+			this.buttonLab06FillArray.Size = new System.Drawing.Size(75, 23);
+			this.buttonLab06FillArray.TabIndex = 9;
+			this.buttonLab06FillArray.Text = "Заполнить";
+			this.buttonLab06FillArray.UseVisualStyleBackColor = true;
+			this.buttonLab06FillArray.Click += new System.EventHandler(this.buttonLab06FillArray_Click);
+			// 
+			// radioButtonLab06AutoFill
+			// 
+			this.radioButtonLab06AutoFill.AutoSize = true;
+			this.radioButtonLab06AutoFill.Checked = true;
+			this.radioButtonLab06AutoFill.Location = new System.Drawing.Point(6, 22);
+			this.radioButtonLab06AutoFill.Name = "radioButtonLab06AutoFill";
+			this.radioButtonLab06AutoFill.Size = new System.Drawing.Size(116, 19);
+			this.radioButtonLab06AutoFill.TabIndex = 6;
+			this.radioButtonLab06AutoFill.TabStop = true;
+			this.radioButtonLab06AutoFill.Text = "Автозаполнение";
+			this.radioButtonLab06AutoFill.UseVisualStyleBackColor = true;
+			this.radioButtonLab06AutoFill.CheckedChanged += new System.EventHandler(this.radioButtonLab06AutoFill_CheckedChanged);
+			// 
+			// dataGridViewLab06
+			// 
+			this.dataGridViewLab06.AllowUserToAddRows = false;
+			this.dataGridViewLab06.AllowUserToDeleteRows = false;
+			this.dataGridViewLab06.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewLab06.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3});
+			this.dataGridViewLab06.Location = new System.Drawing.Point(8, 100);
+			this.dataGridViewLab06.Name = "dataGridViewLab06";
+			this.dataGridViewLab06.ReadOnly = true;
+			this.dataGridViewLab06.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+			this.dataGridViewLab06.Size = new System.Drawing.Size(520, 380);
+			this.dataGridViewLab06.TabIndex = 9;
+			this.dataGridViewLab06.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewLab06_UserAddedRow);
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this.dataGridViewTextBoxColumn1.Frozen = true;
+			this.dataGridViewTextBoxColumn1.HeaderText = "i";
+			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+			this.dataGridViewTextBoxColumn1.ReadOnly = true;
+			this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.dataGridViewTextBoxColumn1.Width = 20;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this.dataGridViewTextBoxColumn2.Frozen = true;
+			this.dataGridViewTextBoxColumn2.HeaderText = "a_i";
+			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+			this.dataGridViewTextBoxColumn2.ReadOnly = true;
+			this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.dataGridViewTextBoxColumn2.Width = 200;
+			// 
+			// dataGridViewTextBoxColumn3
+			// 
+			this.dataGridViewTextBoxColumn3.Frozen = true;
+			this.dataGridViewTextBoxColumn3.HeaderText = "Количество цифр";
+			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+			this.dataGridViewTextBoxColumn3.ReadOnly = true;
+			this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			this.dataGridViewTextBoxColumn3.Width = 200;
 			// 
 			// label4
 			// 
@@ -466,7 +682,9 @@ namespace lab_16_v6
 			// 
 			// tabPage4_Lab07
 			// 
+			this.tabPage4_Lab07.Controls.Add(this.groupBox1);
 			this.tabPage4_Lab07.Controls.Add(this.label5);
+			this.tabPage4_Lab07.Controls.Add(this.dataGridViewLab07);
 			this.tabPage4_Lab07.Location = new System.Drawing.Point(4, 24);
 			this.tabPage4_Lab07.Name = "tabPage4_Lab07";
 			this.tabPage4_Lab07.Padding = new System.Windows.Forms.Padding(3);
@@ -474,6 +692,215 @@ namespace lab_16_v6
 			this.tabPage4_Lab07.TabIndex = 3;
 			this.tabPage4_Lab07.Text = "Лабораторная №07";
 			this.tabPage4_Lab07.UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.labelLab07Answer);
+			this.groupBox1.Controls.Add(this.labelLab07ManualColumnsCount);
+			this.groupBox1.Controls.Add(this.numericUpDownLab07ManualColumns);
+			this.groupBox1.Controls.Add(this.labelLab07AutoColumnsCount);
+			this.groupBox1.Controls.Add(this.numericUpDownLab07AutoColumns);
+			this.groupBox1.Controls.Add(this.labelLab07ManualRowsCount);
+			this.groupBox1.Controls.Add(this.buttonLab07Execute);
+			this.groupBox1.Controls.Add(this.labelLab07AutoRowsCount);
+			this.groupBox1.Controls.Add(this.numericUpDownLab07ManualRows);
+			this.groupBox1.Controls.Add(this.numericUpDownLab07AutoRows);
+			this.groupBox1.Controls.Add(this.radioButtonLab07Manual);
+			this.groupBox1.Controls.Add(this.buttonLab07AutoFill);
+			this.groupBox1.Controls.Add(this.radioButtonLab07Auto);
+			this.groupBox1.Location = new System.Drawing.Point(534, 100);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(234, 380);
+			this.groupBox1.TabIndex = 11;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Управление";
+			// 
+			// labelLab07Answer
+			// 
+			this.labelLab07Answer.AutoEllipsis = true;
+			this.labelLab07Answer.AutoSize = true;
+			this.labelLab07Answer.Location = new System.Drawing.Point(6, 300);
+			this.labelLab07Answer.Name = "labelLab07Answer";
+			this.labelLab07Answer.Size = new System.Drawing.Size(0, 15);
+			this.labelLab07Answer.TabIndex = 19;
+			// 
+			// labelLab07ManualColumnsCount
+			// 
+			this.labelLab07ManualColumnsCount.AutoSize = true;
+			this.labelLab07ManualColumnsCount.Enabled = false;
+			this.labelLab07ManualColumnsCount.Location = new System.Drawing.Point(19, 181);
+			this.labelLab07ManualColumnsCount.Name = "labelLab07ManualColumnsCount";
+			this.labelLab07ManualColumnsCount.Size = new System.Drawing.Size(127, 15);
+			this.labelLab07ManualColumnsCount.TabIndex = 18;
+			this.labelLab07ManualColumnsCount.Text = "Количество столбцов";
+			// 
+			// numericUpDownLab07ManualColumns
+			// 
+			this.numericUpDownLab07ManualColumns.Enabled = false;
+			this.numericUpDownLab07ManualColumns.Location = new System.Drawing.Point(153, 179);
+			this.numericUpDownLab07ManualColumns.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07ManualColumns.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07ManualColumns.Name = "numericUpDownLab07ManualColumns";
+			this.numericUpDownLab07ManualColumns.Size = new System.Drawing.Size(75, 23);
+			this.numericUpDownLab07ManualColumns.TabIndex = 17;
+			this.numericUpDownLab07ManualColumns.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07ManualColumns.ValueChanged += new System.EventHandler(this.numericUpDownLab07ManualColumns_ValueChanged);
+			// 
+			// labelLab07AutoColumnsCount
+			// 
+			this.labelLab07AutoColumnsCount.AutoSize = true;
+			this.labelLab07AutoColumnsCount.Location = new System.Drawing.Point(19, 73);
+			this.labelLab07AutoColumnsCount.Name = "labelLab07AutoColumnsCount";
+			this.labelLab07AutoColumnsCount.Size = new System.Drawing.Size(127, 15);
+			this.labelLab07AutoColumnsCount.TabIndex = 16;
+			this.labelLab07AutoColumnsCount.Text = "Количество столбцов";
+			// 
+			// numericUpDownLab07AutoColumns
+			// 
+			this.numericUpDownLab07AutoColumns.Location = new System.Drawing.Point(153, 71);
+			this.numericUpDownLab07AutoColumns.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07AutoColumns.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07AutoColumns.Name = "numericUpDownLab07AutoColumns";
+			this.numericUpDownLab07AutoColumns.Size = new System.Drawing.Size(75, 23);
+			this.numericUpDownLab07AutoColumns.TabIndex = 15;
+			this.numericUpDownLab07AutoColumns.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07AutoColumns.ValueChanged += new System.EventHandler(this.numericUpDownLab07AutoColumns_ValueChanged);
+			// 
+			// labelLab07ManualRowsCount
+			// 
+			this.labelLab07ManualRowsCount.AutoSize = true;
+			this.labelLab07ManualRowsCount.Enabled = false;
+			this.labelLab07ManualRowsCount.Location = new System.Drawing.Point(19, 152);
+			this.labelLab07ManualRowsCount.Name = "labelLab07ManualRowsCount";
+			this.labelLab07ManualRowsCount.Size = new System.Drawing.Size(106, 15);
+			this.labelLab07ManualRowsCount.TabIndex = 14;
+			this.labelLab07ManualRowsCount.Text = "Количество строк";
+			// 
+			// buttonLab07Execute
+			// 
+			this.buttonLab07Execute.Location = new System.Drawing.Point(153, 351);
+			this.buttonLab07Execute.Name = "buttonLab07Execute";
+			this.buttonLab07Execute.Size = new System.Drawing.Size(75, 23);
+			this.buttonLab07Execute.TabIndex = 7;
+			this.buttonLab07Execute.Text = "Расситать";
+			this.buttonLab07Execute.UseVisualStyleBackColor = true;
+			this.buttonLab07Execute.Click += new System.EventHandler(this.buttonLab07Execute_Click);
+			// 
+			// labelLab07AutoRowsCount
+			// 
+			this.labelLab07AutoRowsCount.AutoSize = true;
+			this.labelLab07AutoRowsCount.Location = new System.Drawing.Point(19, 44);
+			this.labelLab07AutoRowsCount.Name = "labelLab07AutoRowsCount";
+			this.labelLab07AutoRowsCount.Size = new System.Drawing.Size(106, 15);
+			this.labelLab07AutoRowsCount.TabIndex = 13;
+			this.labelLab07AutoRowsCount.Text = "Количество строк";
+			// 
+			// numericUpDownLab07ManualRows
+			// 
+			this.numericUpDownLab07ManualRows.Enabled = false;
+			this.numericUpDownLab07ManualRows.Location = new System.Drawing.Point(153, 150);
+			this.numericUpDownLab07ManualRows.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07ManualRows.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07ManualRows.Name = "numericUpDownLab07ManualRows";
+			this.numericUpDownLab07ManualRows.Size = new System.Drawing.Size(75, 23);
+			this.numericUpDownLab07ManualRows.TabIndex = 12;
+			this.numericUpDownLab07ManualRows.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07ManualRows.ValueChanged += new System.EventHandler(this.numericUpDownLab07ManualRows_ValueChanged);
+			// 
+			// numericUpDownLab07AutoRows
+			// 
+			this.numericUpDownLab07AutoRows.Location = new System.Drawing.Point(153, 42);
+			this.numericUpDownLab07AutoRows.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07AutoRows.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07AutoRows.Name = "numericUpDownLab07AutoRows";
+			this.numericUpDownLab07AutoRows.Size = new System.Drawing.Size(75, 23);
+			this.numericUpDownLab07AutoRows.TabIndex = 11;
+			this.numericUpDownLab07AutoRows.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownLab07AutoRows.ValueChanged += new System.EventHandler(this.numericUpDownLab07AutoRows_ValueChanged);
+			// 
+			// radioButtonLab07Manual
+			// 
+			this.radioButtonLab07Manual.AutoSize = true;
+			this.radioButtonLab07Manual.Location = new System.Drawing.Point(6, 128);
+			this.radioButtonLab07Manual.Name = "radioButtonLab07Manual";
+			this.radioButtonLab07Manual.Size = new System.Drawing.Size(133, 19);
+			this.radioButtonLab07Manual.TabIndex = 10;
+			this.radioButtonLab07Manual.TabStop = true;
+			this.radioButtonLab07Manual.Text = "Ручное заполнение";
+			this.radioButtonLab07Manual.UseVisualStyleBackColor = true;
+			this.radioButtonLab07Manual.CheckedChanged += new System.EventHandler(this.radioButtonLab07Manual_CheckedChanged);
+			// 
+			// buttonLab07AutoFill
+			// 
+			this.buttonLab07AutoFill.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.buttonLab07AutoFill.Location = new System.Drawing.Point(153, 100);
+			this.buttonLab07AutoFill.Name = "buttonLab07AutoFill";
+			this.buttonLab07AutoFill.Size = new System.Drawing.Size(75, 23);
+			this.buttonLab07AutoFill.TabIndex = 9;
+			this.buttonLab07AutoFill.Text = "Заполнить";
+			this.buttonLab07AutoFill.UseVisualStyleBackColor = true;
+			this.buttonLab07AutoFill.Click += new System.EventHandler(this.buttonLab07AutoFill_Click);
+			// 
+			// radioButtonLab07Auto
+			// 
+			this.radioButtonLab07Auto.AutoSize = true;
+			this.radioButtonLab07Auto.Checked = true;
+			this.radioButtonLab07Auto.Location = new System.Drawing.Point(6, 22);
+			this.radioButtonLab07Auto.Name = "radioButtonLab07Auto";
+			this.radioButtonLab07Auto.Size = new System.Drawing.Size(116, 19);
+			this.radioButtonLab07Auto.TabIndex = 6;
+			this.radioButtonLab07Auto.TabStop = true;
+			this.radioButtonLab07Auto.Text = "Автозаполнение";
+			this.radioButtonLab07Auto.UseVisualStyleBackColor = true;
+			this.radioButtonLab07Auto.CheckedChanged += new System.EventHandler(this.radioButtonLab07Auto_CheckedChanged);
 			// 
 			// label5
 			// 
@@ -486,6 +913,21 @@ namespace lab_16_v6
 			this.label5.Text = "Дан целочисленный массив А[N][М].\r\nОпределить индекс столбца, в котором находится" +
     " максимальное количество нулей.\r\nПереставить элементы данного столбца в обратном" +
     " порядке.";
+			// 
+			// dataGridViewLab07
+			// 
+			this.dataGridViewLab07.AllowUserToAddRows = false;
+			this.dataGridViewLab07.AllowUserToDeleteRows = false;
+			this.dataGridViewLab07.AllowUserToResizeRows = false;
+			this.dataGridViewLab07.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewLab07.Location = new System.Drawing.Point(8, 100);
+			this.dataGridViewLab07.Name = "dataGridViewLab07";
+			this.dataGridViewLab07.ReadOnly = true;
+			this.dataGridViewLab07.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+			this.dataGridViewLab07.RowHeadersWidth = 43;
+			this.dataGridViewLab07.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+			this.dataGridViewLab07.Size = new System.Drawing.Size(520, 380);
+			this.dataGridViewLab07.TabIndex = 10;
 			// 
 			// tabPage5_Lab10
 			// 
@@ -578,8 +1020,20 @@ namespace lab_16_v6
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab05)).EndInit();
 			this.tabPage3_Lab06.ResumeLayout(false);
 			this.tabPage3_Lab06.PerformLayout();
+			this.groupBoxLab06.ResumeLayout(false);
+			this.groupBoxLab06.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab06RowsManual)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab06RowsAuto)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab06)).EndInit();
 			this.tabPage4_Lab07.ResumeLayout(false);
 			this.tabPage4_Lab07.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab07ManualColumns)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab07AutoColumns)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab07ManualRows)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLab07AutoRows)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewLab07)).EndInit();
 			this.tabPage5_Lab10.ResumeLayout(false);
 			this.tabPage5_Lab10.PerformLayout();
 			this.ResumeLayout(false);
@@ -605,7 +1059,7 @@ namespace lab_16_v6
 		private System.Windows.Forms.TextBox textBoxLab03z;
 		private System.Windows.Forms.Label labelLab03X;
 		private System.Windows.Forms.RadioButton radioButtonLab05AutoFill;
-		private System.Windows.Forms.CheckBox checkBoxLab05HighlightRows;
+		private System.Windows.Forms.CheckBox checkBoxLab05RowsHighlight;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
@@ -629,6 +1083,34 @@ namespace lab_16_v6
 		private System.Windows.Forms.Label labelLab05Result;
 		private System.Windows.Forms.TextBox textBoxLab05Result;
 		private System.Windows.Forms.Button buttonLab05Execute;
+		private System.Windows.Forms.GroupBox groupBoxLab06;
+		private System.Windows.Forms.Label labelLab06RowsManual;
+		private System.Windows.Forms.Button buttonLab06Execute;
+		private System.Windows.Forms.Label labelLab06RowsAuto;
+		private System.Windows.Forms.NumericUpDown numericUpDownLab06RowsManual;
+		private System.Windows.Forms.NumericUpDown numericUpDownLab06RowsAuto;
+		private System.Windows.Forms.RadioButton radioButtonLab06ManualFill;
+		private System.Windows.Forms.Button buttonLab06FillArray;
+		private System.Windows.Forms.RadioButton radioButtonLab06AutoFill;
+		private System.Windows.Forms.DataGridView dataGridViewLab06;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Label labelLab07ManualRowsCount;
+		private System.Windows.Forms.Button buttonLab07Execute;
+		private System.Windows.Forms.Label labelLab07AutoRowsCount;
+		private System.Windows.Forms.NumericUpDown numericUpDownLab07ManualRows;
+		private System.Windows.Forms.NumericUpDown numericUpDownLab07AutoRows;
+		private System.Windows.Forms.RadioButton radioButtonLab07Manual;
+		private System.Windows.Forms.Button buttonLab07AutoFill;
+		private System.Windows.Forms.RadioButton radioButtonLab07Auto;
+		private System.Windows.Forms.DataGridView dataGridViewLab07;
+		private System.Windows.Forms.Label labelLab07AutoColumnsCount;
+		private System.Windows.Forms.NumericUpDown numericUpDownLab07AutoColumns;
+		private System.Windows.Forms.Label labelLab07ManualColumnsCount;
+		private System.Windows.Forms.NumericUpDown numericUpDownLab07ManualColumns;
+		private System.Windows.Forms.Label labelLab07Answer;
 	}
 }
 

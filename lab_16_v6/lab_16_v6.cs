@@ -4,7 +4,7 @@
 		с помощью создания приложения Windows Forms в среде Visual Studio
 	2.	В графическом интерфейсе продемонстрировать использование следующих элементов управления:
 +			a. Button
-			b. RadioButton или CheckBox
++			b. RadioButton или CheckBox
 +			c. TextBox
 +			d. Label
 +			e. ComboBox

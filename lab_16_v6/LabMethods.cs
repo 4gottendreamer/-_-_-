@@ -6,13 +6,26 @@ namespace lab_16_v6
 {
 	public class LabMethods
 	{
-		public static ulong factorial(long _N)
+		public static ulong Factorial(long _N)
 		{
 			ulong fact = 1;
 			for (int i = 1; i <= _N; i++) {
 				fact *= (ulong)i;
 			}
 			return fact;
+		}
+
+		public static int DigitsCount(long _N)
+		{
+			int count = 0;
+			if (_N == 0) {
+				return 1;
+			}
+			while (_N != 0) {
+				_N /= 10;
+				count++;
+			}
+			return count;
 		}
 
 		public static double[] GetDoubleArray(int _dimension, int _randomizerMultiplier = 1)
@@ -26,6 +39,25 @@ namespace lab_16_v6
 				//Console.Write($"{doubleArr1[i]}\t");
 			}
 			return doubleArr1;
+		}
+
+		public static double[,] GetDoubleArray2(
+			int _rows,
+			int _columns,
+			int _randomizerMultiplier = 1
+			)
+		{
+			double[,] doubleArr2 = new double[_rows, _columns];
+			System.Random random = new Random();
+			for (int i = 0; i < _rows; i++) {
+				for (int j = 0; j < _columns; j++) {
+					doubleArr2[i,j] = _randomizerMultiplier *
+						random.NextDouble();
+					//(random.NextDouble() - random.NextDouble());
+					//Console.Write($"{doubleArr1[i]}\t");
+				}
+			}
+			return doubleArr2;
 		}
 
 		public static int[] GetIntArray(int _dimension, int _minValue = 0, int _maxValue = 2147483647)
@@ -106,10 +138,9 @@ namespace lab_16_v6
 
 		public static bool[] Lab05CheckedIndices = new bool[0];
 
-
 		// Возвращает индекс последнего элемента, числовое значение которого
 		// состоит из наибольшего количества цифр.
-		public static int Lab06(int[] _Arr) // Передавать заполненный массив
+		public static int Lab06(long[] _Arr) // Передавать заполненный массив
 		{
 			/*
 			 * Лаб 6
