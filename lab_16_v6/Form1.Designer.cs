@@ -299,7 +299,7 @@ namespace lab_16_v6
 			this.buttonLab05Execute.Name = "buttonLab05Execute";
 			this.buttonLab05Execute.Size = new System.Drawing.Size(75, 23);
 			this.buttonLab05Execute.TabIndex = 7;
-			this.buttonLab05Execute.Text = "Расситать";
+			this.buttonLab05Execute.Text = "Расчёт";
 			this.buttonLab05Execute.UseVisualStyleBackColor = true;
 			this.buttonLab05Execute.Click += new System.EventHandler(this.buttonLab05Execute_Click);
 			// 
@@ -511,7 +511,6 @@ namespace lab_16_v6
 			this.groupBoxLab06.TabIndex = 10;
 			this.groupBoxLab06.TabStop = false;
 			this.groupBoxLab06.Text = "Управление";
-			this.groupBoxLab06.Enter += new System.EventHandler(this.groupBoxLab06_Enter);
 			// 
 			// labelLab06RowsManual
 			// 
@@ -529,7 +528,7 @@ namespace lab_16_v6
 			this.buttonLab06Execute.Name = "buttonLab06Execute";
 			this.buttonLab06Execute.Size = new System.Drawing.Size(75, 23);
 			this.buttonLab06Execute.TabIndex = 7;
-			this.buttonLab06Execute.Text = "Расситать";
+			this.buttonLab06Execute.Text = "Расчёт";
 			this.buttonLab06Execute.UseVisualStyleBackColor = true;
 			this.buttonLab06Execute.Click += new System.EventHandler(this.buttonLab06Execute_Click);
 			// 
@@ -806,7 +805,7 @@ namespace lab_16_v6
 			this.buttonLab07Execute.Name = "buttonLab07Execute";
 			this.buttonLab07Execute.Size = new System.Drawing.Size(75, 23);
 			this.buttonLab07Execute.TabIndex = 7;
-			this.buttonLab07Execute.Text = "Расситать";
+			this.buttonLab07Execute.Text = "Расчёт";
 			this.buttonLab07Execute.UseVisualStyleBackColor = true;
 			this.buttonLab07Execute.Click += new System.EventHandler(this.buttonLab07Execute_Click);
 			// 
@@ -979,9 +978,10 @@ namespace lab_16_v6
 			this.label6.Location = new System.Drawing.Point(8, 8);
 			this.label6.Margin = new System.Windows.Forms.Padding(3);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(466, 45);
+			this.label6.Size = new System.Drawing.Size(346, 45);
 			this.label6.TabIndex = 10;
-			this.label6.Text = resources.GetString("label6.Text");
+			this.label6.Text = "В произвольном тексте попарно переставить местами слова,\r\nстоящие на нечётных и ч" +
+    "ётных местах в строке.\r\nВывести полученный текст на экран.";
 			// 
 			// button1
 			// 
@@ -996,12 +996,12 @@ namespace lab_16_v6
 			// 
 			// Form1
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.AutoSize = true;
 			this.ClientSize = new System.Drawing.Size(784, 561);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.tabControl1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MaximizeBox = false;
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

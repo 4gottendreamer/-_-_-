@@ -51,7 +51,7 @@ namespace lab_16_v6
 			System.Random random = new Random();
 			for (int i = 0; i < _rows; i++) {
 				for (int j = 0; j < _columns; j++) {
-					doubleArr2[i,j] = _randomizerMultiplier *
+					doubleArr2[i, j] = _randomizerMultiplier *
 						random.NextDouble();
 					//(random.NextDouble() - random.NextDouble());
 					//Console.Write($"{doubleArr1[i]}\t");
@@ -161,15 +161,18 @@ namespace lab_16_v6
 				return count;
 			}
 
-			int MaxDigitsIndex = 0;  // Индекс элемента массива с наибольшим количеством цифр
-			int MaxDigitsNumber = 0; // Максимальное число цифр элемента массива
+			int MaxDigitsIndex = 0;  // Индекс элемента массива
+									 // с наибольшим количеством цифр
+			int MaxDigitsNumber = 0; // Максимальное число цифр
+									 // элемента массива
 
 			for (int i = 0; i < _Arr.GetLength(0); i++) {
 				// Если текущее максимальное число цифр
 				// меньше числа цифр текущего элемента массива,
 				if (MaxDigitsNumber <= DigitsNumber(_Arr[i])) {
-					MaxDigitsNumber = DigitsNumber(_Arr[i]); // то присваиваем переменным
-					MaxDigitsIndex = i;                  // текущие значения
+					MaxDigitsNumber = DigitsNumber(_Arr[i]); // то присваиваем
+															 // переменным
+					MaxDigitsIndex = i;						 // текущие значения
 				}
 			}
 
@@ -230,13 +233,15 @@ namespace lab_16_v6
 			return idxRowMaxZeros;
 		}
 
+		public static int[,] array2d;
+
 		public static string[] Lab10(string[] _Text)
 		{
 			/*
 			 * Лаб 10
-			В произвольном тексте, содержащем не более 10 строк, в каждой строке не более
-			80 символов, попарно переставить местами слова, стоящие на нечётных и чётных
-			местах в строке. Вывести полученный текст на экран.
+			В произвольном тексте попарно переставить местами слова,
+			стоящие на нечётных и чётных местах в строке.
+			Вывести полученный текст на экран.
 			 */
 
 			string[] result = _Text;
@@ -252,29 +257,44 @@ namespace lab_16_v6
 
 			// Построчный перебор текста
 			for (int j = 0; j < result.Length; j++) {
-				string[] words = result[j].Split(whiteSpace); // Разбивание строки в массив слов
-															  // Переставление слов в заданном порядке
-				if (words.Length > 1) { // Если в строке больше одного слова, то переставлять
+				string[] words = result[j].Split(whiteSpace); // Разбивание строки
+															  // в массив слов
+															  // Переставление
+															  // слов в заданном
+															  // порядке
+				if (words.Length > 1) { // Если в строке больше одного слова,
+										// то переставлять
 										// (иначе ничего переставлять не нужно)
-					for (int i = 1; i < words.Length; i += 2) { // Итерирование по чётным словам
-						if (IsDelimChar(words[i - 1][^1])) { // Если первое слоло оканчивается не-буквой
-							if (IsDelimChar(words[i][^1])) { // Если второе слово оканчивается не-буквой
-															 // меняем последние символы местами
+					// Итерирование по чётным словам
+					for (int i = 1; i < words.Length; i += 2) {
+						// Если первое слоло оканчивается не-буквой
+						if (IsDelimChar(words[i - 1][^1])) {
+							// Если второе слово оканчивается не-буквой
+							if (IsDelimChar(words[i][^1])) {
+								// меняем последние символы местами
 								SwapLastChars(ref words[i - 1], ref words[i]);
 							}
-							else {                           // Первое не-буква, второе буква
-								char tmpChar = words[i - 1][^1]; // Берем из первого не-букву
-
-								words[i - 1] = // сокращаем первое слово на один (последний) символ
+							else { // Первое не-буква, второе буква
+								// Берем из первого не-букву
+								char tmpChar = words[i - 1][^1];
+								words[i - 1] = // сокращаем первое слово на один
+											   // (последний) символ
 									words[i - 1][0..^1];
-								// и переносим во второе слово не-букву последним символом
+								// и переносим во второе слово не-букву
+								// последним символом
 								words[i] += tmpChar;
 							}
 						}
-						else if (IsDelimChar(words[i][^1])) { // Первое буква, второе не-буква
-							char tmpChar = words[i][^1];      // Последний символ второго слова,
-							words[i] = words[i][0..^1];       // сокращая второе слово на этот символ,
-							words[i - 1] += tmpChar;          // дописываем в конец первого слова
+						else if (IsDelimChar(words[i][^1])) { // Первое буква,
+															  // второе не-буква
+							char tmpChar = words[i][^1];      // Последний символ
+															  // второго слова,
+							words[i] = words[i][0..^1];       // сокращая второе
+															  // слово
+															  // на этот символ,
+							words[i - 1] += tmpChar;          // дописываем
+															  // в конец первого
+															  // слова
 						}
 						SwapWords(ref words[i - 1], ref words[i]);
 						result[j] = words[0] + ' ';

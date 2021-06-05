@@ -16,15 +16,10 @@ namespace lab_16_v6
 			Close();
 		}
 
-		private void buttonLab10Execute_Click(object sender, System.EventArgs e)
-		{
-			richTextBoxLab10Out.Clear();
-			string[] lines = textBoxLab10In.Text.Split("\r\n");
-			lines = LabMethods.Lab10(lines);
-			foreach (var line in lines) {
-				richTextBoxLab10Out.AppendText(line + '\n');
-			}
-		}
+
+		//
+		// Lab03
+		//
 
 		private void buttonLab03Execute_Click(object sender, System.EventArgs e)
 		{
@@ -180,10 +175,9 @@ namespace lab_16_v6
 			}
 		}
 
-		private void groupBoxLab06_Enter(object sender, EventArgs e)
-		{
-
-		}
+		//
+		// Lab06
+		//
 
 		private void buttonLab06FillArray_Click(object sender, EventArgs e)
 		{
@@ -258,7 +252,6 @@ namespace lab_16_v6
 			dataGridViewLab06_Reindexate();
 			numericUpDownLab06RowsAuto.Value = dataGridViewLab06.RowCount;
 			numericUpDownLab06RowsManual.Value = dataGridViewLab06.RowCount;
-
 		}
 
 		private void dataGridViewLab06_Reindexate()
@@ -271,6 +264,10 @@ namespace lab_16_v6
 						).ToString();
 			}
 		}
+
+		//
+		// Lab07
+		//
 
 		private void numericUpDownLab07AutoRows_ValueChanged(object sender, EventArgs e)
 		{
@@ -291,12 +288,8 @@ namespace lab_16_v6
 		{
 			int rowsCount = Convert.ToInt32(numericUpDownLab07AutoRows.Value);
 			int columnsCount = Convert.ToInt32(numericUpDownLab07AutoColumns.Value);
-			int[,] array2d = LabMethods.GetIntArray2(rowsCount, columnsCount, -10, 10);
-			for (int i = 0; i < rowsCount; i++) {
-				for (int j = 0; j < columnsCount; j++) {
-					dataGridViewLab07.Rows[i].Cells[j].Value = array2d[i, j].ToString();
-				}
-			}
+			LabMethods.array2d = LabMethods.GetIntArray2(rowsCount, columnsCount, -10, 10);
+			Array2dToDataGridView(LabMethods.array2d, dataGridViewLab07);
 			dataGridViewLab07.AutoResizeColumns();
 			dataGridViewLab07.ClearSelection();
 		}
@@ -351,19 +344,16 @@ namespace lab_16_v6
 		{
 			dataGridViewLab07.ClearSelection();
 			int rowsCount = dataGridViewLab07.RowCount;
-			int columnsCount = dataGridViewLab07.ColumnCount;
-			int[,] array2d = new int[rowsCount, columnsCount];
-			for (int i = 0; i < rowsCount; i++) {
-				for (int j = 0; j < columnsCount; j++) {
-					array2d[i, j] = Convert.ToInt32(dataGridViewLab07.Rows[i].Cells[j].Value);
-				}
+			if (radioButtonLab07Manual.Checked) {
+				DataGridViewToArray2d(dataGridViewLab07, LabMethods.array2d);
 			}
-			int rowIndex = LabMethods.Lab07(array2d);
+			int rowIndex = LabMethods.Lab07(LabMethods.array2d);
 			if (rowIndex > -1) {
-				labelLab07Answer.Text = $"Номер столбца с максимальным\nколичеством нулей: {rowIndex}";
+				labelLab07Answer.Text = $"Номер столбца с максимальным\n" +
+					$"количеством нулей: {rowIndex + 1}";
 				for (int i = 0; i < rowsCount; i++) {
-						dataGridViewLab07.Rows[i].Cells[rowIndex].Value =
-						array2d[i, rowIndex].ToString();
+					dataGridViewLab07.Rows[i].Cells[rowIndex].Value =
+					LabMethods.array2d[i, rowIndex].ToString();
 				}
 				for (int i = 0; i < dataGridViewLab07.RowCount; i++) {
 					dataGridViewLab07.Rows[i].Cells[rowIndex].Selected = true;
@@ -373,5 +363,71 @@ namespace lab_16_v6
 				labelLab07Answer.Text = $"Нули в матрице отстутсвуют";
 			}
 		}
+		
+		// Заполняет DataGridView данными из массива
+		private void Array2dToDataGridView(int[,] array2d, DataGridView dataGridView)
+		{
+			int rowsCount = dataGridView.RowCount;
+			int columnsCount = dataGridView.ColumnCount;
+			for (int i = 0; i < rowsCount; i++) {
+				for (int j = 0; j < columnsCount; j++) {
+					dataGridView.Rows[i].Cells[j].Value = array2d[i, j].ToString();
+				}
+			}
+		}
+
+		// Считывает данные из DataGridView в массив
+		private void DataGridViewToArray2d(DataGridView dataGridView, int[,] array2d)
+		{
+			int rowsCount = dataGridView.RowCount;
+			int columnsCount = dataGridView.ColumnCount;
+			for (int i = 0; i < rowsCount; i++) {
+				for (int j = 0; j < columnsCount; j++) {
+					array2d[i, j] = Convert.ToInt32(dataGridView.Rows[i].Cells[j].Value);
+				}
+			}
+		}
+
+		private void HighlightZerosInDataGridView(DataGridView dataGridView)
+		{
+			int rowsCount = dataGridView.RowCount;
+			int columnsCount = dataGridView.ColumnCount;
+			for (int i = 0; i < rowsCount; i++) {
+				for (int j = 0; j < columnsCount; j++) {
+					if (Convert.ToInt32(dataGridView.Rows[i].Cells[j].Value) == 0) {
+						dataGridView.Rows[i].Cells[j].Selected = true;
+					}
+				}
+			}
+		}
+
+		private void DehighlightZerosInDataGridView(DataGridView dataGridView)
+		{
+			int rowsCount = dataGridView.RowCount;
+			int columnsCount = dataGridView.ColumnCount;
+			for (int i = 0; i < rowsCount; i++) {
+				for (int j = 0; j < columnsCount; j++) {
+					if (Convert.ToInt32(dataGridView.Rows[i].Cells[j].Value) == 0) {
+						dataGridView.Rows[i].Cells[j].Selected = false;
+					}
+				}
+			}
+		}
+
+
+		//
+		// Lab10
+		//
+
+		private void buttonLab10Execute_Click(object sender, System.EventArgs e)
+		{
+			richTextBoxLab10Out.Clear();
+			string[] lines = textBoxLab10In.Text.Split("\r\n");
+			lines = LabMethods.Lab10(lines);
+			foreach (var line in lines) {
+				richTextBoxLab10Out.AppendText(line + '\n');
+			}
+		}
+
 	}
 }

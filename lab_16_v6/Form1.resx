@@ -82,9 +82,4 @@ y = fabs(pow(x, 3) - 10) * (atan(z + 0.2) + exp(-(x / 2 + 3)));</value>
   <metadata name="dataGridViewTextBoxColumn3.UserAddedColumn" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
     <value>True</value>
   </metadata>
-  <data name="label6.Text" xml:space="preserve">
-    <value>В произвольном тексте, содержащем не более 10 строк, в каждой строке не более
-80 символов, попарно переставить местами слова, стоящие на нечётных и чётных
-местах в строке. Вывести полученный текст на экран.</value>
-  </data>
 </root>
