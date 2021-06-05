@@ -230,6 +230,8 @@ namespace lab_16_v6
 			return idxRowMaxZeros;
 		}
 
+		public static int[,] array2d;
+
 		public static string[] Lab10(string[] _Text)
 		{
 			/*
